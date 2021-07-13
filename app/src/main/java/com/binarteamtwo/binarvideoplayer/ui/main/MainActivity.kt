@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
@@ -66,4 +67,6 @@ class MainActivity : AppCompatActivity() {
         //todo : waiting for AboutDialogFragment
         //AboutDialogFragment().show(supportFragmentManager, null)
     }
+
+
 }
