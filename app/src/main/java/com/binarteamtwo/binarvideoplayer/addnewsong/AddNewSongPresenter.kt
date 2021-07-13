@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddNewSongPresenter (
-    private val playlistSource: PlaylistDataSource,
+    private val playlistSource: MediaPlaylistDataSource,
     private val view : AddNewSongContract.View
 ) : BasePresenterImpl(), AddNewSongContract.Presenter {
     override fun insertPlaylist(mediaplaylist: MediaPlaylist) {
