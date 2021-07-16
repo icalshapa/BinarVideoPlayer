@@ -29,38 +29,15 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "Welcome to Binar Video Player",
-                "Copy, add & Enjoy",
+                "Welcome TO \n YOUR OWN MUSIC VIDEO PARADISE",
                 R.drawable.ic_logo
             ), "Welcome"
         )
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "How to play? (1)",
-                "please copy your favorite link from youtube",
+                "SUBMIT TO PERSONALISE \n AND ENJOY YOUR MUSIC EXPERIENCE",
                 R.drawable.ic_logo
-            ), "copy"
-        )
-        fragmentAdapter.addFragment(
-            IntroFragment.newInstance(
-                "How to play (2)",
-                "Add here",
-                R.drawable.ic_logo
-            ), "add"
-        )
-        fragmentAdapter.addFragment(
-            IntroFragment.newInstance(
-                "How to play (3)",
-                "fill the form",
-                R.drawable.ic_logo
-            ), "fill"
-        )
-        fragmentAdapter.addFragment(
-            IntroFragment.newInstance(
-                "How to play (4)",
-                "ENJOY!!!",
-                R.drawable.ic_logo
-            ), "enjoy"
+            ), "submit"
         )
         fragmentAdapter.addFragment(
             FormFragment(), "form"
@@ -107,7 +84,7 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
             }
         }
         binding.btnGetStarted.setOnClickListener {
-            binding.vpIntro.setCurrentItem(5, false)
+            binding.vpIntro.setCurrentItem(2, false)
         }
     }
 
