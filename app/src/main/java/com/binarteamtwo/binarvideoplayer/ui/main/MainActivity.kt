@@ -1,20 +1,14 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.irfan.binarvideoplayer.model.MediaPlaylist
-import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

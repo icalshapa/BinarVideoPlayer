@@ -8,10 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
-import com.binarteamtwo.binarvideoplayer.startAnimation
 import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
-import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
-import kotlin.math.log
 
 class SplashScreenActivity : AppCompatActivity() {
     private var timer: CountDownTimer? = null

@@ -111,7 +111,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     override fun initList() {
         adapter = MediaPlaylistAdapter({ playlist, pos ->
             val intent = Intent(context, PlayerActivity::class.java)
-            intent.putExtra(Constant.EXTRAS_DATA_TODO, playlist.id)
+            intent.putExtra(Constant.EXTRAS_DATA_VIDEO, playlist.id)
             startActivity(intent)
         }, { todo, pos ->
             showDialogDeleteTodo(todo)

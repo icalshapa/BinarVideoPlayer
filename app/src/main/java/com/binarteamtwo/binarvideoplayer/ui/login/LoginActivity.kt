@@ -7,8 +7,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityLoginBinding
-import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
-import com.binarteamtwo.binarvideoplayer.startAnimation
+import com.binarteamtwo.binarvideoplayer.ui.splash.startAnimation
 import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {

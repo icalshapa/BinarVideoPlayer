@@ -1,4 +1,4 @@
-package com.binarteamtwo.binarvideoplayer
+package com.binarteamtwo.binarvideoplayer.ui.splash
 
 import android.view.View
 import android.view.animation.Animation
