@@ -13,6 +13,8 @@
         android:theme="@style/Theme.BinarVideoPlayer">
         <activity android:name=".ui.splash.SplashScreenActivity">
         <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".addnewsong.AddNewSongActivity"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_black"
+    android:padding="20dp"
+    tools:context=".addnewsong.AddNewSongActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_title_song"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title Song"
+        android:textColorHint="@color/main_yellow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_title_song"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_grey"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/main_yellow"
+            android:textSize="22sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/shape1"
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/shape_rectangle_yellow"
+        app:layout_constraintLeft_toLeftOf="@id/til_title_song"
+        app:layout_constraintRight_toRightOf="@id/til_title_song"
+        app:layout_constraintTop_toBottomOf="@id/til_title_song" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_singer_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Singer Name"
+        android:textColorHint="@color/main_yellow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shape2"
+        app:layout_constraintTop_toBottomOf="@id/shape1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_singer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_grey"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/main_yellow"
+            android:textSize="22sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/shape2"
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/shape_rectangle_yellow"
+        app:layout_constraintLeft_toLeftOf="@id/til_singer_name"
+        app:layout_constraintRight_toRightOf="@id/til_singer_name"
+        app:layout_constraintTop_toBottomOf="@id/til_singer_name" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_icon_url"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Icon URL"
+        android:textColorHint="@color/main_yellow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shape2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_icon_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_grey"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/main_yellow"
+            android:textSize="22sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/shape3"
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/shape_rectangle_yellow"
+        app:layout_constraintLeft_toLeftOf="@id/til_icon_url"
+        app:layout_constraintRight_toRightOf="@id/til_icon_url"
+        app:layout_constraintTop_toBottomOf="@id/til_icon_url" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_video_url"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Youtube URL"
+        android:textColorHint="@color/main_yellow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shape3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_video_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_grey"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/main_yellow"
+            android:textSize="22sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/shape4"
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/shape_rectangle_yellow"
+        app:layout_constraintLeft_toLeftOf="@id/til_video_url"
+        app:layout_constraintRight_toRightOf="@id/til_video_url"
+        app:layout_constraintTop_toBottomOf="@id/til_video_url" />
+
+    <Button
+        android:id="@+id/btn_add_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/bebas_neue_regular"
+        android:text="ADD"
+        android:textColor="@color/main_black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_video_url" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
