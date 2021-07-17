@@ -1,10 +1,10 @@
-package com.binarteamtwo.binarvideoplayer.local.room
+package com.binarteamtwo.binarvideoplayer.data.local.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 import com.irfan.binarvideoplayer.local.room.dao.MediaPlaylistDao
 
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_black"
     android:padding="20dp"
-    tools:context=".addnewsong.AddNewSongActivity">
+    tools:context=".ui.addnewsong.AddNewSongActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title_song"

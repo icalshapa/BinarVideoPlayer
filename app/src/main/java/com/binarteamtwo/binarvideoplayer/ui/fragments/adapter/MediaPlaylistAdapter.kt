@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 class MediaPlaylistAdapter(
     val itemClick: (MediaPlaylist, Int) -> Unit,

@@ -1,6 +1,8 @@
-package com.binarteamtwo.binarvideoplayer.addnewsong
+package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
 import com.binarteamtwo.binarvideoplayer.base.BasePresenterImpl
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -11,9 +13,9 @@ class AddNewSongPresenter (
     override fun insertPlaylist(mediaplaylist: MediaPlaylist) {
         scope.launch {
             try {
-                val playlistId = playlistSource.addPlaylist(mediaplaylist)
+                val playlistId = playlistSource.insertMediaPlaylist(mediaplaylist)
                 scope.launch (Dispatchers.Main){
-                    if (mediaplaylist > 0){
+                    if (playlistId > 0){
                         view.onSuccess()
                     } else {
                         view.onFailed()
@@ -30,9 +32,9 @@ class AddNewSongPresenter (
     override fun updatePlaylist(mediaplaylist: MediaPlaylist) {
         scope.launch {
             try {
-                val playlistId = playlistSource.updatePlaylist(mediaplaylist)
+                val playlistId = playlistSource.updateMediaPlaylist(mediaplaylist)
                 scope.launch (Dispatchers.Main){
-                    if (mediaplaylist > 0){
+                    if (playlistId > 0){
                         view.onSuccess()
                     } else {
                         view.onFailed()

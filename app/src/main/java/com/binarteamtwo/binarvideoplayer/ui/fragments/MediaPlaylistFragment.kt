@@ -9,13 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.data.Constant
+import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
-import com.binarteamtwo.binarvideoplayer.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.local.room.datasource.MediaPlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.ui.fragments.adapter.MediaPlaylistAdapter
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.ui.player.PlayerActivity
 
 
 class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
@@ -109,10 +109,9 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     override fun initList() {
         adapter = MediaPlaylistAdapter({ playlist, pos ->
-            //todo : waiting for DetailMediaPlaylistActivity
-            //val intent = Intent(context, DetailMediaPlaylistActivity::class.java)
-            //intent.putExtra(Constant.EXTRAS_DATA_TODO, playlist.id)
-            //startActivity(intent)
+            val intent = Intent(context, PlayerActivity::class.java)
+            intent.putExtra(Constant.EXTRAS_DATA_TODO, playlist.id)
+            startActivity(intent)
         }, { todo, pos ->
             showDialogDeleteTodo(todo)
         })

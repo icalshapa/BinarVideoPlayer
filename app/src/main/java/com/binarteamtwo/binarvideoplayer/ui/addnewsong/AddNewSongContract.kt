@@ -1,6 +1,7 @@
-package com.binarteamtwo.binarvideoplayer.addnewsong
+package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 interface AddNewSongContract {
     interface Presenter : BaseContract.BasePresenter{

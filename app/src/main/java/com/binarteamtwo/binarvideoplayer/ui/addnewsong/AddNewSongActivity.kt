@@ -1,4 +1,4 @@
-package com.binarteamtwo.binarvideoplayer.addnewsong
+package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 
 class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     private lateinit var binding: ActivityAddNewSongBinding
@@ -52,22 +55,65 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         if (isPlaylistFilled()) {
             if (appMode == MODE_EDIT) {
                 //editing playlist
-            } playlist = playlist. copy ()?.apply {
-                title = binding.etTitleSong.text.toString()
-                singer = binding.etSingerName.text.toString()
-                imgIconUrl = binding.etIconUrl.text.toString()
+                playlist = playlist?.copy()?.apply {
+                    title = binding.etTitleSong.text.toString()
+                    singer = binding.etSingerName.text.toString()
+                    imgIconUrl = binding.etIconUrl.text.toString()
+                    videoUrl = binding.etVideoUrl.text.toString()
+                }
+                playlist?.let { presenter.updatePlaylist(it) }
+            } else {
+                //insert playlist
+                playlist = MediaPlaylist(
+                    title = binding.etTitleSong.text.toString(),
+                    singer = binding.etSingerName.text.toString(),
+                    imgIconUrl = binding.etIconUrl.text.toString(),
+                    videoUrl = binding.etVideoUrl.text.toString()
+                )
+                playlist?.let { presenter.updatePlaylist(it) }
             }
-            playlist?.let { presenter.updatePlaylist(it) }
+        }
+    }
+
+    private fun isPlaylistFilled(): Boolean {
+        val title = binding.etTitleSong.text.toString()
+        val singer = binding.etSingerName.text.toString()
+        val imgIconUrl = binding.etIconUrl.text.toString()
+        val videoUrl = binding.etVideoUrl.text.toString()
+        var isFormValid = true
+
+        if (title.isEmpty()) {
+            isFormValid = false
+            binding.tilTitleSong.isErrorEnabled = true
+            binding.tilTitleSong.error = "Video Title must be filled"
         } else {
-            //insert playlist
-            playlist = MediaStore.Audio.Playlists(
-                title = binding.etTitleSong.text.toString(),
-                singer = binding.etSingerName.text.toString(),
-                imgIconUrl = binding.etIconUrl.text.toString()
-            )
-            playlist?.let { presenter.updatePlaylist(it) }
+            binding.tilTitleSong.isErrorEnabled = false
         }
 
+        if (singer.isEmpty()) {
+            isFormValid = false
+            binding.tilSingerName.isErrorEnabled = true
+            binding.tilSingerName.error = "Singer Name must be filled"
+        } else {
+            binding.tilSingerName.isErrorEnabled = false
+        }
+
+        if (imgIconUrl.isEmpty()) {
+            isFormValid = false
+            binding.tilIconUrl.isErrorEnabled = true
+            binding.tilIconUrl.error = "Icon URL must be filled"
+        } else {
+            binding.tilIconUrl.isErrorEnabled = false
+        }
+
+        if (videoUrl.isEmpty()) {
+            isFormValid = false
+            binding.tilVideoUrl.isErrorEnabled = true
+            binding.tilVideoUrl.error = "Video URL must be filled"
+        } else {
+            binding.tilVideoUrl.isErrorEnabled = false
+        }
+        return isFormValid
     }
 
     override fun onSuccess() {
@@ -88,14 +134,16 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun initializePlaylist() {
         //initialize presenter
-        val dataSource = MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).todoDao())
+        val dataSource =
+            MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         presenter = AddNewSongPresenter(dataSource, this)
         //preset data when form mode is edit mode
         if (appMode == MODE_EDIT) {
-            playlist.let {
+            playlist?.let {
                 binding.etTitleSong.setText(it.title)
-                binding.etSingerName.setText(it.desc)
-                binding.etIconUrl.setText(it.imgHeaderUrl)
+                binding.etSingerName.setText(it.singer)
+                binding.etIconUrl.setText(it.imgIconUrl)
+                binding.etVideoUrl.setText(it.videoUrl)
             }
             //"Edit Data"
             supportActionBar?.title = "Edit Playlist"
@@ -109,16 +157,18 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         setContentView(binding.root)
         addPlaylist()
         getIntentData()
+        initializePlaylist()
     }
 
-    private fun addDialog(){
+    private fun addDialog() {
         val builder = AlertDialog.Builder(this)
         val binding = FragmentAddDialogBinding.inflate(layoutInflater)
         builder.setView(binding.root)
         val dialog = builder.create()
         binding.tvDialogYes.setOnClickListener {
             //add song to playlist
-            playlist.let { presenter.insertPlaylist(it)
+            playlist.let {
+                it?.let { it1 -> presenter.insertPlaylist(it1) }
                 Toast.makeText(this, "Save song to playlist Success!", Toast.LENGTH_SHORT).show()
                 finish()
             }
