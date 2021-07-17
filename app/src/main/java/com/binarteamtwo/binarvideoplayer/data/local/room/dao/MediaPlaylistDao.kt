@@ -4,11 +4,11 @@ import androidx.room.*
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 @Dao
 interface MediaPlaylistDao {
-    @Query("SELECT * from mediaplaylist WHERE is_task_favorited == :isTaskComplete")
-    suspend fun getTodoByCompleteness(isTaskComplete : Boolean) : List<MediaPlaylist>
-    //todo : use for playlist fragment
-    //@Query("SELECT * from mediaplaylist")
-    //suspend fun getMediaPlaylist(mediaPlaylist: MediaPlaylist) : MediaPlaylist
+    @Query("SELECT * from mediaplaylist WHERE is_task_favorite")
+    suspend fun getFavoriteMediaPlaylist() : List<MediaPlaylist>
+
+    @Query("SELECT * from mediaplaylist")
+    suspend fun getMediaPlaylist() : List<MediaPlaylist>
 
     @Query("SELECT * from mediaplaylist WHERE id == :mediaPlaylistId")
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MediaPlaylist

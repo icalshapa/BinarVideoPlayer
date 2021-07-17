@@ -1,14 +1,20 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.irfan.binarvideoplayer.model.MediaPlaylist
+import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbarMain)
         initViewPager()
     }
 
@@ -30,8 +37,8 @@ class MainActivity : AppCompatActivity() {
     //todo : waiting for AddSongForm and AboutDialog
     /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_add_todo -> {
-                navigateToTodoForm()
+            R.id.menu_add_new_song -> {
+                navigateToAddSongForm()
                 true
             }
             R.id.menu_about -> {
@@ -56,13 +63,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToAddSongForm() {
         //todo : waiting for AddSongForm
-        //startActivity(Intent(this, TodoFormActivity::class.java))
+        //startActivity(Intent(this, AddSongFormActivity::class.java))
     }
 
     private fun openDialogAbout() {
         //todo : waiting for AboutDialogFragment
         //AboutDialogFragment().show(supportFragmentManager, null)
     }
-
-
 }
