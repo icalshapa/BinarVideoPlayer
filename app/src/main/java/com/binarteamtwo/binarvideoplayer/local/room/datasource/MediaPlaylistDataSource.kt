@@ -14,8 +14,11 @@ class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
         return mediaPlaylistDao.deleteMediaPlaylist(mediaPlaylist)
     }
 
-    suspend fun getMediaPlaylistByCompleteness(isTaskCompleted : Boolean) : List<MediaPlaylist>{
-        return mediaPlaylistDao.getTodoByCompleteness(isTaskCompleted)
+    suspend fun getFavoriteMediaPlaylist() : List<MediaPlaylist>{
+        return mediaPlaylistDao.getFavoriteMediaPlaylist()
+    }
+    suspend fun getMediaPlaylist() : List<MediaPlaylist>{
+        return mediaPlaylistDao.getMediaPlaylist()
     }
 
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MediaPlaylist {
@@ -23,7 +26,7 @@ class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
     }
     suspend fun changeMediaPlaylistStatus(mediaPlaylist : MediaPlaylist) : MediaPlaylist{
         val updatedMediaPlaylist = mediaPlaylist.copy().apply {
-            this.isTaskFavorited = isTaskFavorited.not()
+            this.isFavorite = isFavorite.not()
         }
         mediaPlaylistDao.updateMediaPlaylist(updatedMediaPlaylist)
         return  mediaPlaylistDao.getMediaPlaylistById(mediaPlaylist.id)

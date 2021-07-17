@@ -5,7 +5,7 @@ import com.irfan.binarvideoplayer.model.MediaPlaylist
 
 interface MediaPlaylistContract {
     interface View : BaseContract.BaseView{
-        fun getData()
+        fun getData(isFavorite: Boolean)
 
         //Callback get Data
         fun onDataSuccess(playlist : List<MediaPlaylist>)
@@ -16,7 +16,7 @@ interface MediaPlaylistContract {
         fun onDeleteDataSuccess()
         fun onDeleteDataFailed()
 
-        //setloading state and message visibility
+        //set loading state and message visibility
         fun setLoadingStatus(isLoading : Boolean)
         fun setEmptyStateVisibility(isDataEmpty : Boolean)
 
@@ -25,7 +25,7 @@ interface MediaPlaylistContract {
 
     }
     interface Presenter : BaseContract.BasePresenter{
-        fun getMediaPlaylistByCompleteness(isTaskComplete : Boolean)
+        fun getFavoriteMediaPlaylist(isFavorite:Boolean)
         fun deleteMediaPlaylist(mediaPlaylist : MediaPlaylist)
 
     }

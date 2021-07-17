@@ -20,7 +20,7 @@ import com.irfan.binarvideoplayer.model.MediaPlaylist
 
 class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
-    private var isFilteredByTaskStatus: Boolean = false
+    private var isFilteredByFavorite: Boolean = false
     private lateinit var binding: FragmentMediaPlaylistBinding
     private lateinit var adapter: MediaPlaylistAdapter
     private lateinit var presenter: MediaPlaylistContract.Presenter
@@ -28,15 +28,14 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     companion object {
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private const val ARG_FAVORITED_VIDEO = "ARG_FAVORITED_VIDEO"
-
+        private const val ARG_FAVORITE_VIDEO = "ARG_FAVORITE_VIDEO"
 
 
         @JvmStatic
-        fun newInstance(isFilterFavorited: Boolean) =
+        fun newInstance(isFilterFavorite: Boolean) =
             MediaPlaylistFragment().apply {
                 arguments = Bundle().apply {
-                    putBoolean(ARG_FAVORITED_VIDEO, isFilterFavorited)
+                    putBoolean(ARG_FAVORITE_VIDEO, isFilterFavorite)
                 }
             }
     }
@@ -44,7 +43,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            isFilteredByTaskStatus = it.getBoolean(ARG_FAVORITED_VIDEO)
+            isFilteredByFavorite = it.getBoolean(ARG_FAVORITE_VIDEO)
         }
     }
 
@@ -63,7 +62,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     override fun onResume() {
         super.onResume()
-        getData()
+        getData(isFilteredByFavorite)
     }
 
     override fun onDestroy() {
@@ -71,13 +70,15 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
         presenter.onDestroy()
     }
 
-    override fun getData() {
-        presenter.getMediaPlaylistByCompleteness(isFilteredByTaskStatus)
+    override fun getData(isFavorite: Boolean) {
+        presenter.getFavoriteMediaPlaylist(isFavorite)
+
     }
+
 
     override fun onDataSuccess(playlist: List<MediaPlaylist>) {
         playlist.let {
-            adapter.items =  it
+            adapter.items = it
         }
     }
 
@@ -91,7 +92,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun onDeleteDataSuccess() {
-        getData()
+        getData(isFilteredByFavorite)
     }
 
     override fun onDeleteDataFailed() {
@@ -99,12 +100,12 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun setLoadingStatus(isLoading: Boolean) {
-        binding.progressBar.visibility = if(isLoading) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun setEmptyStateVisibility(isDataEmpty: Boolean) {
         binding.tvMessage.text = "No Data"
-        binding.tvMessage.visibility = if(isDataEmpty) View.VISIBLE else View.GONE
+        binding.tvMessage.visibility = if (isDataEmpty) View.VISIBLE else View.GONE
     }
 
     override fun initList() {
@@ -126,7 +127,9 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     override fun initView() {
         context?.let {
-            val dataSource = MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(it).mediaPlaylistDao())
+            val dataSource = MediaPlaylistDataSource(
+                MediaPlaylistRoomDatabase.getInstance(it).mediaPlaylistDao()
+            )
             presenter = MediaPlaylistPresenter(dataSource, this@MediaPlaylistFragment)
         }
         initSwipeRefresh()
@@ -137,7 +140,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     private fun initSwipeRefresh() {
         binding.srlTask.setOnRefreshListener {
             binding.srlTask.isRefreshing = false
-            getData()
+            getData(isFilteredByFavorite)
 
         }
     }

@@ -2,6 +2,7 @@ package com.binarteamtwo.binarvideoplayer.ui.fragments
 
 import com.binarteamtwo.binarvideoplayer.local.room.datasource.MediaPlaylistDataSource
 import com.irfan.binarvideoplayer.base.BasePresenterImpl
+import com.irfan.binarvideoplayer.local.room.dao.MediaPlaylistDao
 import com.irfan.binarvideoplayer.model.MediaPlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,13 +10,20 @@ import java.lang.Exception
 
 class MediaPlaylistPresenter(
     private val dataSource: MediaPlaylistDataSource,
-    private val view: MediaPlaylistContract.View
+    private val view: MediaPlaylistContract.View,
 ) : BasePresenterImpl(), MediaPlaylistContract.Presenter {
-    override fun getMediaPlaylistByCompleteness(isTaskComplete: Boolean) {
+
+
+    override fun getFavoriteMediaPlaylist(isFavorite: Boolean) {
         view.setLoadingStatus(true)
+
         scope.launch {
             try {
-                val mediaPlaylists = dataSource.getMediaPlaylistByCompleteness(isTaskComplete)
+                val mediaPlaylists = if(isFavorite){
+                    dataSource.getFavoriteMediaPlaylist()
+                }else{
+                    dataSource.getMediaPlaylist()
+                }
                 scope.launch(Dispatchers.Main) {
                     if (!mediaPlaylists.isNullOrEmpty()) {
                         //data is not empty
@@ -38,6 +46,7 @@ class MediaPlaylistPresenter(
             }
         }
     }
+
 
     override fun deleteMediaPlaylist(mediaPlaylist: MediaPlaylist) {
         view.setLoadingStatus(true)
