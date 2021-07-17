@@ -1,4 +1,4 @@
-package com.irfan.binarvideoplayer.model
+package com.binarteamtwo.binarvideoplayer.data.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

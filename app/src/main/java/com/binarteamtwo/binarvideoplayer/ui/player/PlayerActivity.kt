@@ -27,7 +27,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     private fun getIntentData() {
-        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_TODO, -1)
+        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_VIDEO, -1)
     }
 
     private fun parseYoutubeUrl(url: String): String? {
@@ -66,7 +66,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     private fun setFabFavoriteIcon(mediaPlaylist: MediaPlaylist?) {
-        binding.fabFavorite.setImageResource(if (mediaPlaylist?.isVideoFavorited == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
+        binding.fabFavorite.setImageResource(if (mediaPlaylist?.isFavorite == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
     }
 
     override fun onFetchVideoSuccess(mediaPlaylist: MediaPlaylist) {
@@ -79,7 +79,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
 
     override fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist) {
         bindVideoData(mediaPlaylist)
-        if (mediaPlaylist.isVideoFavorited) {
+        if (mediaPlaylist.isFavorite) {
             Snackbar.make(binding.root, "Video Favorited", Snackbar.LENGTH_SHORT)
                 .show()
         }else{
