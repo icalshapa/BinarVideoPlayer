@@ -4,90 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/black"
     tools:context=".ui.intro.IntroActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_intro"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/view_pager_background"
-        app:layout_constraintBottom_toTopOf="@id/viewCenterOfNext"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cl_navigator"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/dots_indicator"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_navigator"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxWidth="100dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:dotsColor="@color/white"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="10dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:progressMode="true"
-        app:selectedDotColor="@color/yellow" />
-
-
-    <View
-        android:id="@+id/view_bg_next"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:background="@drawable/icon_outer_background"
-        app:layout_constraintBottom_toBottomOf="@id/btn_next"
-        app:layout_constraintEnd_toEndOf="@id/btn_next"
-        app:layout_constraintStart_toStartOf="@id/btn_next"
-        app:layout_constraintTop_toTopOf="@id/btn_next"/>
-
-
-    <View
-        android:id="@+id/viewCenterOfNext"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toBottomOf="@id/btn_next"
-        app:layout_constraintEnd_toEndOf="@id/btn_next"
-        app:layout_constraintStart_toStartOf="@id/btn_next"
-        app:layout_constraintTop_toTopOf="@id/btn_next"/>
-
-    <ImageView
-        android:id="@+id/btn_next"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/icon_background"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_right"
-        app:layout_constraintBottom_toTopOf="@id/btn_get_started"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/black"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_get_started"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="50dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:text="@string/get_started"
-        android:textAllCaps="false"
-        android:textColor="@color/yellow"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:backgroundTint="#070707"
-        app:cornerRadius="20dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:padding="8dp"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/bebas_neue_bold"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="SKIP" />
 
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/bebas_neue_bold"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="BACK" />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:dotsColor="@color/white"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="10dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progressMode="true"
+            app:selectedDotColor="@color/yellow" />
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/bebas_neue_bold"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="NEXT" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
