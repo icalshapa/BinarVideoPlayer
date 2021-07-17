@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.binarteamtwo.binarvideoplayer.MainActivity
+import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentFormActivityBinding
 import com.google.android.material.snackbar.Snackbar

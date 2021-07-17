@@ -113,8 +113,8 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
             val intent = Intent(context, PlayerActivity::class.java)
             intent.putExtra(Constant.EXTRAS_DATA_VIDEO, playlist.id)
             startActivity(intent)
-        }, { todo, pos ->
-            showDialogDeleteTodo(todo)
+        }, { mediaplaylist, pos ->
+            showDialogDeleteMediaPlaylist(mediaplaylist)
         })
         binding.rvTask.apply {
             layoutManager = LinearLayoutManager(context)
@@ -144,7 +144,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
         }
     }
 
-    private fun showDialogDeleteTodo(mediaPlaylist: MediaPlaylist) {
+    private fun showDialogDeleteMediaPlaylist(mediaPlaylist: MediaPlaylist) {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {

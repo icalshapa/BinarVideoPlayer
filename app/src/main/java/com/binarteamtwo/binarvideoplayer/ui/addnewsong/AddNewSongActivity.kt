@@ -48,10 +48,12 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     private fun addPlaylist() {
         binding.btnAddSong.setOnClickListener {
             savePlaylist()
+            addDialog()
         }
     }
 
     private fun savePlaylist() {
+
         if (isPlaylistFilled()) {
             if (appMode == MODE_EDIT) {
                 //editing playlist
@@ -60,6 +62,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                     singer = binding.etSingerName.text.toString()
                     imgIconUrl = binding.etIconUrl.text.toString()
                     videoUrl = binding.etVideoUrl.text.toString()
+
                 }
                 playlist?.let { presenter.updatePlaylist(it) }
             } else {
@@ -69,8 +72,10 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                     singer = binding.etSingerName.text.toString(),
                     imgIconUrl = binding.etIconUrl.text.toString(),
                     videoUrl = binding.etVideoUrl.text.toString()
+
                 )
-                playlist?.let { presenter.updatePlaylist(it) }
+                playlist?.let { presenter.insertMediaPlaylist(it) }
+
             }
         }
     }
@@ -118,7 +123,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun onSuccess() {
         // save playlist success
-        addDialog()
+
     }
 
     override fun onFailed() {
@@ -168,8 +173,9 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         binding.tvDialogYes.setOnClickListener {
             //add song to playlist
             playlist.let {
-                it?.let { it1 -> presenter.insertPlaylist(it1) }
+                it?.let { it1 -> presenter.insertMediaPlaylist(it1) }
                 Toast.makeText(this, "Save song to playlist Success!", Toast.LENGTH_SHORT).show()
+                savePlaylist()
                 finish()
             }
             //back to main menu?

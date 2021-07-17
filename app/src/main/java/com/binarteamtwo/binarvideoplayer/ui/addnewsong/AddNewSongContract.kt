@@ -5,7 +5,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 interface AddNewSongContract {
     interface Presenter : BaseContract.BasePresenter{
-        fun insertPlaylist(mediaplaylist : MediaPlaylist)
+        fun insertMediaPlaylist(mediaplaylist : MediaPlaylist)
         fun updatePlaylist(mediaplaylist : MediaPlaylist)
     }
 
