@@ -1,7 +1,7 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 interface PlayerContract {
     interface View: BaseContract.BaseView{

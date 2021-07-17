@@ -1,4 +1,4 @@
-package com.irfan.binarvideoplayer.model
+package com.binarteamtwo.binarvideoplayer.data.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -21,5 +21,5 @@ data class MediaPlaylist (
     @ColumnInfo(name ="video_url")
     var videoUrl: String?,
     @ColumnInfo(name ="is_task_favorited")
-    var isTaskFavorited: Boolean = false
+    var isVideoFavorited: Boolean = false
 ) : Parcelable

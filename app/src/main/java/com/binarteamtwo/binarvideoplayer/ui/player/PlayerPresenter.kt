@@ -1,8 +1,8 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
-import com.binarteamtwo.binarvideoplayer.local.room.datasource.MediaPlaylistDataSource
-import com.irfan.binarvideoplayer.base.BasePresenterImpl
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.base.BasePresenterImpl
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

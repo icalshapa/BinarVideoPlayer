@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.data.Constant
+import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
-import com.binarteamtwo.binarvideoplayer.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.local.room.datasource.MediaPlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.google.android.material.snackbar.Snackbar
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.regex.Matcher
@@ -27,7 +27,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     private fun getIntentData() {
-        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_VIDEO, -1)
+        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_TODO, -1)
     }
 
     private fun parseYoutubeUrl(url: String): String? {
@@ -66,7 +66,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     private fun setFabFavoriteIcon(mediaPlaylist: MediaPlaylist?) {
-        binding.fabFavorite.setImageResource(if (mediaPlaylist?.isTaskFavorited == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
+        binding.fabFavorite.setImageResource(if (mediaPlaylist?.isVideoFavorited == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
     }
 
     override fun onFetchVideoSuccess(mediaPlaylist: MediaPlaylist) {
@@ -79,7 +79,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
 
     override fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist) {
         bindVideoData(mediaPlaylist)
-        if (mediaPlaylist.isTaskFavorited) {
+        if (mediaPlaylist.isVideoFavorited) {
             Snackbar.make(binding.root, "Video Favorited", Snackbar.LENGTH_SHORT)
                 .show()
         }else{

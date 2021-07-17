@@ -1,7 +1,7 @@
-package com.binarteamtwo.binarvideoplayer.local.room.datasource
+package com.binarteamtwo.binarvideoplayer.data.local.room.datasource
 
 import com.irfan.binarvideoplayer.local.room.dao.MediaPlaylistDao
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
     suspend fun insertMediaPlaylist(mediaPlaylist : MediaPlaylist) : Long{
@@ -21,9 +21,9 @@ class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MediaPlaylist {
         return mediaPlaylistDao.getMediaPlaylistById(mediaPlaylistId)
     }
-    suspend fun changeMediaPlaylistStatus(mediaPlaylist : MediaPlaylist) : MediaPlaylist{
+    suspend fun changeMediaPlaylistStatus(mediaPlaylist : MediaPlaylist) : MediaPlaylist {
         val updatedMediaPlaylist = mediaPlaylist.copy().apply {
-            this.isTaskFavorited = isTaskFavorited.not()
+            this.isVideoFavorited = isVideoFavorited.not()
         }
         mediaPlaylistDao.updateMediaPlaylist(updatedMediaPlaylist)
         return  mediaPlaylistDao.getMediaPlaylistById(mediaPlaylist.id)

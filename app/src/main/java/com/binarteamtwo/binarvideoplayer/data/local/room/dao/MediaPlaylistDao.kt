@@ -1,7 +1,7 @@
 package com.irfan.binarvideoplayer.local.room.dao
 
 import androidx.room.*
-import com.irfan.binarvideoplayer.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 @Dao
 interface MediaPlaylistDao {
     @Query("SELECT * from mediaplaylist WHERE is_task_favorited == :isTaskComplete")

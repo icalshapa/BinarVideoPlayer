@@ -11,12 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BinarVideoPlayer">
-        <activity android:name=".ui.splash.SplashScreenActivity">
-        <activity android:name=".ui.main.MainActivity">
-        <activity android:name=".addnewsong.AddNewSongActivity"></activity>
-        <activity android:name=".MainActivity">
-        <activity android:name=".ui.login.LoginActivity"></activity>
-        <activity android:name=".ui.main.MainActivity"></activity>
+        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.addnewsong.AddNewSongActivity"/>
+        <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.splash.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.intro.IntroActivity" />
+        <activity android:name=".ui.player.PlayerActivity"/>
     </application>
 
 </manifest>
