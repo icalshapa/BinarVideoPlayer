@@ -1,11 +1,14 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
+import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main_activity, menu)
         return true
     }
-    //todo : waiting for AddSongForm and AboutDialog
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_add_new_song -> {
+            R.id.menu_add_song -> {
                 navigateToAddSongForm()
                 true
             }
@@ -41,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }*/
+    }
 
     private fun initViewPager() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
@@ -56,12 +59,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToAddSongForm() {
-        //todo : waiting for AddSongForm
-        //startActivity(Intent(this, AddSongFormActivity::class.java))
+
+        startActivity(Intent(this, AddNewSongActivity::class.java))
     }
 
     private fun openDialogAbout() {
         //todo : waiting for AboutDialogFragment
         //AboutDialogFragment().show(supportFragmentManager, null)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        onDestroy()
+        finish()
     }
 }

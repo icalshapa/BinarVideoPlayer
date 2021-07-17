@@ -10,7 +10,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title_song"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title Song"
@@ -43,7 +43,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_singer_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -79,7 +78,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_icon_url"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -113,7 +111,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_video_url"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

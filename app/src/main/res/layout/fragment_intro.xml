@@ -16,7 +16,7 @@
         android:fontFamily="@font/bebas_neue_bold"
         android:textAlignment="center"
         android:textColor="@color/yellow"
-        android:textSize="30sp"
+        android:textSize="@dimen/_36ssp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_intro"

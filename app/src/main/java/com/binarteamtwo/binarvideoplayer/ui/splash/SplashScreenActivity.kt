@@ -8,6 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
+import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class SplashScreenActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                val intent = Intent(this@SplashScreenActivity, IntroActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
