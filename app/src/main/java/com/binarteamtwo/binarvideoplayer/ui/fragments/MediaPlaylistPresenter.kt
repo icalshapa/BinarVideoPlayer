@@ -41,7 +41,6 @@ class MediaPlaylistPresenter(
                     view.setLoadingStatus(false)
                     view.setEmptyStateVisibility(false)
                 }
-
             }
         }
     }
@@ -55,11 +54,8 @@ class MediaPlaylistPresenter(
                 scope.launch(Dispatchers.Main) {
                     if (result.equals(1)) {
                         view.onDeleteDataSuccess()
-
                     } else {
                         view.onDeleteDataFailed()
-
-
                     }
                     view.setLoadingStatus(false)
                 }
@@ -68,13 +64,8 @@ class MediaPlaylistPresenter(
                     //when getting data is error
                     view.onDeleteDataFailed()
                     view.setLoadingStatus(false)
-
                 }
-
             }
         }
-
     }
-
-
 }

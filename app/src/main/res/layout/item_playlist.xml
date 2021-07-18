@@ -4,40 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/black"
     android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="4dp"
-    android:layout_marginTop="4dp"
+    android:backgroundTint="@color/black"
     app:cardCornerRadius="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/black"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:background="@color/black"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:padding="12dp"
+        app:layout_constraintCircleRadius="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_icon_song"
+
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:layout_marginLeft="@dimen/_6sdp"
+            app:civ_circle_background_color="@color/white"
+            tools:src="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:id="@+id/ll_item"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title_song"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Title Song"
+                android:textStyle="bold"
+                android:textSize="@dimen/_26ssp"
+                android:fontFamily="@font/bebas_neue_regular"
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/_5sdp"/>
+
+            <TextView
+                android:id="@+id/tv_singer_name"
+                android:layout_width="match_parent"
+                android:text="Singer Name"
+                android:textSize="@dimen/_18ssp"
+                android:fontFamily="@font/bebas_neue_regular"
+                android:textColor="@color/white"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/ic_item_playlist"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_btn_play"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_title_item_playlist"/>
+            android:id="@+id/ic_play_button"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_btn_play" />
 
-        <TextView
-            android:id="@+id/tv_title_item_playlist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            android:ellipsize="end"
-            android:maxLines="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/ic_item_playlist"
-            tools:text="Ini adalah title task" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
