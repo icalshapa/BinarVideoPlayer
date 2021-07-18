@@ -72,7 +72,6 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     override fun getData(isFavorite: Boolean) {
         presenter.getFavoriteMediaPlaylist(isFavorite)
-
     }
 
 
@@ -88,7 +87,6 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
 
     override fun onDataEmpty() {
         adapter.items = mutableListOf()
-
     }
 
     override fun onDeleteDataSuccess() {
@@ -120,8 +118,6 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
             layoutManager = LinearLayoutManager(context)
             adapter = this@MediaPlaylistFragment.adapter
         }
-
-
     }
 
     override fun initView() {
@@ -140,7 +136,6 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
         binding.srlTask.setOnRefreshListener {
             binding.srlTask.isRefreshing = false
             getData(isFilteredByFavorite)
-
         }
     }
 
@@ -162,6 +157,4 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
         }
         alertDialog?.show()
     }
-
-
 }
