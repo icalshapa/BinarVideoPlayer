@@ -42,6 +42,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initView()
     }
 
@@ -159,6 +160,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun initView() {
         binding = ActivityAddNewSongBinding.inflate(layoutInflater)
+        setSupportActionBar(binding.toolbarAddSong)
         setContentView(binding.root)
         addPlaylist()
         getIntentData()

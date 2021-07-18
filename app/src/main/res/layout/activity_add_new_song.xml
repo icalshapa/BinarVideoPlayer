@@ -8,6 +8,16 @@
     android:padding="20dp"
     tools:context=".ui.addnewsong.AddNewSongActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_song"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/black"
+        app:subtitleTextColor="@color/black"
+        android:background="@color/yellow"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title_song"
 
@@ -17,7 +27,7 @@
         android:textColorHint="@color/main_yellow"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+       app:layout_constraintTop_toBottomOf="@id/toolbar_add_song">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title_song"
