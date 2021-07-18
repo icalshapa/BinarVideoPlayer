@@ -36,24 +36,26 @@ class MediaPlaylistAdapter(
         val longClick: (MediaPlaylist, Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-/*        lateinit var fragment: FragmentViewHolder*/
+
 
         fun bindView(item: MediaPlaylist, position: Int) {
             with(item) {
                 //error 1 tvmedia....
                 binding.tvTitleSong.text = item.title
                 binding.tvSingerName.text = item.singer
+
+                Glide.with(itemView.context)
+                    .load(imgIconUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_placeholder)
+                    .into(binding.ivIconSong)
                 itemView.setOnClickListener { itemClick(this, position) }
                 itemView.setOnLongClickListener {
                     longClick(this, position)
                     true
                 }
 
-                /*val image = if (imgIconUrl != null) "$imgIconUrl?w=360" else null
-                Glide.with(fragment)
-                    .load(imgIconUrl)
-                    .centerCrop()
-                    .into(binding.ivIconSong)*/
+
             }
         }
     }
@@ -67,6 +69,7 @@ class MediaPlaylistAdapter(
 
     override fun onBindViewHolder(holder: FragmentsViewHolder, position: Int) {
         holder.bindView(items[position], position)
+
     }
 
     override fun getItemCount(): Int = items.size

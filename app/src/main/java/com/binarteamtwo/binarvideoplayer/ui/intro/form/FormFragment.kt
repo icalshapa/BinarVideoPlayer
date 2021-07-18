@@ -63,6 +63,7 @@ class FormFragment : Fragment() {
         if(isFormFilled()){
             userPreference.userName = binding.etPlayerName.text.toString()
             context?.startActivity(Intent(context, MainActivity::class.java))
+            activity?.finish()
         }
     }
 

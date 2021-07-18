@@ -68,13 +68,11 @@ class MainActivity : AppCompatActivity() {
         //AboutDialogFragment().show(supportFragmentManager, null)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
-        onDestroy()
-        finish()
+
+
     }
 }
