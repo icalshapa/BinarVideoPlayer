@@ -48,7 +48,6 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     private fun addPlaylist() {
         binding.btnAddSong.setOnClickListener {
-            savePlaylist()
             addDialog()
         }
     }
@@ -168,11 +167,12 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     }
 
     private fun addDialog() {
+        val alertDialog = FragmentAddDialogBinding.inflate(layoutInflater)
         val builder = AlertDialog.Builder(this)
-        val binding = FragmentAddDialogBinding.inflate(layoutInflater)
-        builder.setView(binding.root)
+        builder.setView(alertDialog.root)
+        builder.show()
         val dialog = builder.create()
-        binding.tvDialogYes.setOnClickListener {
+        alertDialog.tvDialogYes.setOnClickListener {
             //add song to playlist
             playlist.let {
                 it?.let { it1 -> presenter.insertMediaPlaylist(it1) }
@@ -182,7 +182,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
             }
             //back to main menu?
         }
-        binding.tvDialogNo.setOnClickListener {
+        alertDialog.tvDialogNo.setOnClickListener {
             //back to main activity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
