@@ -15,7 +15,7 @@
         android:layout_marginRight="16dp"
         android:fontFamily="@font/bebas_neue_bold"
         android:textAlignment="center"
-        android:textColor="@color/yellow"
+        android:textColor="@color/green"
         android:textSize="@dimen/_36ssp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

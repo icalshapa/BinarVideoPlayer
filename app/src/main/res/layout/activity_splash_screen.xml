@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="VIDEO PLAYER"
         android:textSize="@dimen/_35ssp"
-        android:textColor="@color/yellow"
+        android:textColor="@color/green"
         android:fontFamily="@font/bebas_neue_bold"
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toBottomOf="@id/iv_logo_splash"
