@@ -1,23 +1,16 @@
 package com.binarteamtwo.binarvideoplayer.ui.fragments.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentViewHolder
 import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 import com.binarteamtwo.binarvideoplayer.databinding.ItemPlaylistBinding
-import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.bumptech.glide.Glide
-import java.security.AccessController.getContext
-import kotlin.coroutines.coroutineContext
 
 class MediaPlaylistAdapter(
-    val itemClick: (MediaPlaylist, Int) -> Unit,
-    val longClick: (MediaPlaylist, Int) -> Unit
+    private val itemClick: (MediaPlaylist, Int) -> Unit,
+    private val longClick: (MediaPlaylist, Int) -> Unit
 ) :
     RecyclerView.Adapter<MediaPlaylistAdapter.FragmentsViewHolder>() {
 
@@ -40,7 +33,6 @@ class MediaPlaylistAdapter(
 
         fun bindView(item: MediaPlaylist, position: Int) {
             with(item) {
-                //error 1 tvmedia....
                 binding.tvTitleSong.text = item.title
                 binding.tvSingerName.text = item.singer
 

@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
-import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 
 class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     private lateinit var binding: ActivityAddNewSongBinding
@@ -48,7 +47,9 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     private fun addPlaylist() {
         binding.btnAddSong.setOnClickListener {
-            addDialog()
+            if (isPlaylistFilled()){
+                addDialog()
+            }
         }
     }
 
@@ -90,7 +91,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         if (title.isEmpty()) {
             isFormValid = false
             binding.tilTitleSong.isErrorEnabled = true
-            binding.tilTitleSong.error = "Video Title must be filled"
+            binding.tilTitleSong.error = getString(R.string.addnewsong_error_title)
         } else {
             binding.tilTitleSong.isErrorEnabled = false
         }
@@ -98,7 +99,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         if (singer.isEmpty()) {
             isFormValid = false
             binding.tilSingerName.isErrorEnabled = true
-            binding.tilSingerName.error = "Singer Name must be filled"
+            binding.tilSingerName.error = getString(R.string.addnewsong_error_singer)
         } else {
             binding.tilSingerName.isErrorEnabled = false
         }
@@ -106,7 +107,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         if (imgIconUrl.isEmpty()) {
             isFormValid = false
             binding.tilIconUrl.isErrorEnabled = true
-            binding.tilIconUrl.error = "Icon URL must be filled"
+            binding.tilIconUrl.error = getString(R.string.addnewsong_error_icon)
         } else {
             binding.tilIconUrl.isErrorEnabled = false
         }
@@ -114,7 +115,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         if (videoUrl.isEmpty()) {
             isFormValid = false
             binding.tilVideoUrl.isErrorEnabled = true
-            binding.tilVideoUrl.error = "Video URL must be filled"
+            binding.tilVideoUrl.error = getString(R.string.addnewsong_error_video)
         } else {
             binding.tilVideoUrl.isErrorEnabled = false
         }
@@ -122,13 +123,13 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     }
 
     override fun onSuccess() {
-        // save playlist success
-
+        Toast.makeText(this, getString(R.string.addnewsong_toast_success), Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     override fun onFailed() {
         // save playlist failed
-        Toast.makeText(this, "Saving Playlist Failed!, Please Try Again", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.addnewsong_toast_failed), Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -151,9 +152,9 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                 binding.etVideoUrl.setText(it.videoUrl)
             }
             //"Edit Data"
-            supportActionBar?.title = "Edit Playlist"
+            supportActionBar?.title = getString(R.string.addnewsong_header_edit)
         } else {
-            supportActionBar?.title = "Add Playlist"
+            supportActionBar?.title = getString(R.string.addnewsong_header_add)
         }
     }
 
@@ -171,23 +172,19 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         val builder = AlertDialog.Builder(this)
         builder.setView(alertDialog.root)
         builder.show()
-        val dialog = builder.create()
         alertDialog.tvDialogYes.setOnClickListener {
             //add song to playlist
             playlist.let {
                 it?.let { it1 -> presenter.insertMediaPlaylist(it1) }
-                Toast.makeText(this, "Save song to playlist Success!", Toast.LENGTH_SHORT).show()
                 savePlaylist()
-                finish()
+
             }
-            //back to main menu?
         }
         alertDialog.tvDialogNo.setOnClickListener {
-            //back to main activity
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Back To Homepage", Toast.LENGTH_SHORT).show()
-            finish()
+            //back to Homepage
+            onBackPressed()
+            Toast.makeText(this, getString(R.string.addnewsong_toast_cancel), Toast.LENGTH_SHORT).show()
+
         }
     }
 }

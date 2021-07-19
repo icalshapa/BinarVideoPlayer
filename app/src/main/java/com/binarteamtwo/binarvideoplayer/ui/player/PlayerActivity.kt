@@ -1,8 +1,14 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
+import android.content.res.Configuration
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
@@ -10,6 +16,7 @@ import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDataba
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.google.android.material.snackbar.Snackbar
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.regex.Matcher
@@ -60,7 +67,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
             }
         }
         binding.fabEdit.setOnClickListener {
-            //Add New Song
+            AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_EDIT,mediaPlaylist)
         }
 
     }
@@ -80,16 +87,16 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     override fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist) {
         bindVideoData(mediaPlaylist)
         if (mediaPlaylist.isFavorite) {
-            Snackbar.make(binding.root, "Video Favorited", Snackbar.LENGTH_SHORT)
+            Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_true), Snackbar.LENGTH_SHORT)
                 .show()
         }else{
-            Snackbar.make(binding.root, "Video Unfavorited", Snackbar.LENGTH_SHORT)
+            Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_false), Snackbar.LENGTH_SHORT)
                 .show()
         }
     }
 
     override fun onChangeFavoriteStatusFailed() {
-        Toast.makeText(this, "Failed to change favorite status", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.player_toast_favorite_failed), Toast.LENGTH_SHORT).show()
     }
 
     override fun bindVideoData(mediaPlaylist: MediaPlaylist?) {
@@ -117,5 +124,15 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     override fun onResume() {
         super.onResume()
         getData()
+    }
+
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
     }
 }
