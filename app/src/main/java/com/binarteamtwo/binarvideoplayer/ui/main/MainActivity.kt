@@ -1,9 +1,11 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
@@ -72,14 +74,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGreetings() {
+
         val snackBar = Snackbar.make(
             binding.root,
             String.format(getString(R.string.main_snackbar_greeting, UserPreference(this).userName)),
             Snackbar.LENGTH_INDEFINITE
+
         )
         snackBar.setAction(getString(R.string.main_snackbar_dismiss)) {
             snackBar.dismiss()
         }
+        snackBar.view.setBackgroundColor(Color.parseColor("#000000"))
+        val textView = snackBar.view.findViewById(R.id.snackbar_text) as TextView
+        // change Snackbar text color
+        textView.setTextColor(Color.parseColor("#FFFFFF"))
         snackBar.show()
     }
 
