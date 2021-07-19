@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentFormActivityBinding
@@ -53,7 +54,7 @@ class FormFragment : Fragment() {
         when {
             name.isEmpty() -> {
                 isFormValid = false
-                Snackbar.make(binding.root, "Please fill your name", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.intro_snackbar_name), Snackbar.LENGTH_SHORT).show()
             }
         }
         return isFormValid

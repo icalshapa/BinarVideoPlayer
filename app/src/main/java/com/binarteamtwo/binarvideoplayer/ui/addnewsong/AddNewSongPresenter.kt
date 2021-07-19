@@ -1,7 +1,5 @@
 package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
-import android.content.Context
-import android.widget.Toast
 import com.binarteamtwo.binarvideoplayer.base.BasePresenterImpl
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist

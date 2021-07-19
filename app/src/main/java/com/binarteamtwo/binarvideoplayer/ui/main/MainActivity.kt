@@ -1,16 +1,18 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
+import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarMain)
+        showGreetings()
         initViewPager()
     }
 
@@ -48,8 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
-        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(false), "Playlist")
-        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(true), "Favorite")
+        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(false), getString(R.string.main_playlist))
+        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(true), getString(R.string.main_favorite))
         binding.viewPager.apply {
             adapter = fragmentAdapter
         }
@@ -60,14 +63,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToAddSongForm() {
 
-        startActivity(Intent(this, AddNewSongActivity::class.java))
+        AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_INSERT)
     }
 
     private fun openDialogAbout() {
-        //todo : waiting for AboutDialogFragment
-        //AboutDialogFragment().show(supportFragmentManager, null)
+
+        AboutDialogFragment().show(supportFragmentManager, null)
     }
 
+    private fun showGreetings() {
+        val snackBar = Snackbar.make(
+            binding.root,
+            String.format(getString(R.string.main_snackbar_greeting, UserPreference(this).userName)),
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackBar.setAction(getString(R.string.main_snackbar_dismiss)) {
+            snackBar.dismiss()
+        }
+        snackBar.show()
+    }
 
 
     override fun onBackPressed() {

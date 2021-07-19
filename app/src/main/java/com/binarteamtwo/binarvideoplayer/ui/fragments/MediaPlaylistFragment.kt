@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
@@ -82,7 +83,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun onDataFailed(msg: String?) {
-        Toast.makeText(context, msg ?: "Get Data Failed", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, msg ?: getString(R.string.main_toast_failed_fetch), Toast.LENGTH_SHORT).show()
     }
 
     override fun onDataEmpty() {
@@ -94,7 +95,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun onDeleteDataFailed() {
-        Toast.makeText(context, "Delete Data Failed", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.main_toast_failed_delete), Toast.LENGTH_SHORT).show()
     }
 
     override fun setLoadingStatus(isLoading: Boolean) {
@@ -102,7 +103,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun setEmptyStateVisibility(isDataEmpty: Boolean) {
-        binding.tvMessage.text = "No Data"
+        binding.tvMessage.text = getString(R.string.main_message_empty)
         binding.tvMessage.visibility = if (isDataEmpty) View.VISIBLE else View.GONE
     }
 
