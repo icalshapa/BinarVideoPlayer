@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter( fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager,lifecycle){
+class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager,lifecycle) {
 
     private val fragmentList: MutableList<Fragment> = mutableListOf()
     private val fragmentTitleList: MutableList<String> = mutableListOf()
@@ -26,4 +26,7 @@ class ViewPagerAdapter( fragmentManager: FragmentManager, lifecycle: Lifecycle) 
         return fragmentList[position]
     }
 
+    fun getPageTitle(position: Int): String {
+        return fragmentTitleList[position]
+    }
 }
