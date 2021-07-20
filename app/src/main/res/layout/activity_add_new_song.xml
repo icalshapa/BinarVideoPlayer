@@ -47,7 +47,7 @@
         android:layout_height="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/shape_rectangle_green"
+        android:src="@drawable/bg_rectangle_green"
         app:layout_constraintLeft_toLeftOf="@id/til_title_song"
         app:layout_constraintRight_toRightOf="@id/til_title_song"
         app:layout_constraintTop_toBottomOf="@id/til_title_song" />
@@ -82,7 +82,7 @@
         android:layout_height="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/shape_rectangle_green"
+        android:src="@drawable/bg_rectangle_green"
         app:layout_constraintLeft_toLeftOf="@id/til_singer_name"
         app:layout_constraintRight_toRightOf="@id/til_singer_name"
         app:layout_constraintTop_toBottomOf="@id/til_singer_name" />
@@ -117,7 +117,7 @@
         android:layout_height="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/shape_rectangle_green"
+        android:src="@drawable/bg_rectangle_green"
         app:layout_constraintLeft_toLeftOf="@id/til_icon_url"
         app:layout_constraintRight_toRightOf="@id/til_icon_url"
         app:layout_constraintTop_toBottomOf="@id/til_icon_url" />
@@ -151,7 +151,7 @@
         android:layout_height="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/shape_rectangle_green"
+        android:src="@drawable/bg_rectangle_green"
         app:layout_constraintLeft_toLeftOf="@id/til_video_url"
         app:layout_constraintRight_toRightOf="@id/til_video_url"
         app:layout_constraintTop_toBottomOf="@id/til_video_url" />
