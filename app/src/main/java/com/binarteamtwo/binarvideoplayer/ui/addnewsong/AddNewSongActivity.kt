@@ -2,6 +2,8 @@ package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -153,6 +155,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
             }
             //"Edit Data"
             supportActionBar?.title = getString(R.string.addnewsong_header_edit)
+            binding.btnAddSong.text = getString(R.string.addnewsong_btn_edit)
         } else {
             supportActionBar?.title = getString(R.string.addnewsong_header_add)
         }
@@ -172,13 +175,15 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         val builder = AlertDialog.Builder(this)
         builder.setView(alertDialog.root)
         builder.show()
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        if (appMode == MODE_EDIT){
+            alertDialog.tvDialogConfirmation.text = getString(R.string.addnewsong_dialog_edit)
+        }
+
         alertDialog.tvDialogYes.setOnClickListener {
             //add song to playlist
-            playlist.let {
-                it?.let { it1 -> presenter.insertMediaPlaylist(it1) }
                 savePlaylist()
 
-            }
         }
         alertDialog.tvDialogNo.setOnClickListener {
             //back to Homepage

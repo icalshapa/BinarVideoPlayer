@@ -10,7 +10,7 @@
         android:id="@+id/tv_dialog_confirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are You Sure Want To Add \nThis Song to Playlist?"
+        android:text="Are You Sure you Want To Add \nThis Song to Playlist?"
         android:textAlignment="center"
         android:fontFamily="@font/bebas_neue_regular"
         android:textColor="@color/black"

@@ -1,5 +1,6 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
+import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
@@ -45,6 +47,11 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_about -> {
                 openDialogAbout()
+                true
+            }
+            R.id.menu_logout -> {
+                deleteLoginData()
+                navigateToIntro()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -89,6 +96,16 @@ class MainActivity : AppCompatActivity() {
         // change Snackbar text color
         textView.setTextColor(Color.parseColor("#FFFFFF"))
         snackBar.show()
+    }
+
+    private fun navigateToIntro(){
+        val intent = Intent(this, IntroActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+    private fun deleteLoginData(){
+        UserPreference(this).isUserLoggedIn = false
     }
 
 

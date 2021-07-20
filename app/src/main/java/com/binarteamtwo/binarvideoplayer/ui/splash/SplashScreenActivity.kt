@@ -7,9 +7,11 @@ import android.os.CountDownTimer
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
 import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
+import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private var timer: CountDownTimer? = null
@@ -49,9 +51,15 @@ class SplashScreenActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                val intent = Intent(this@SplashScreenActivity, IntroActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
+                if (UserPreference(this@SplashScreenActivity).isUserLoggedIn) {
+                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@SplashScreenActivity, IntroActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
                 finish()
             }
         }

@@ -23,171 +23,149 @@
 
     <ImageView
         android:id="@+id/iv_image_profile_1"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="24dp"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_image_profile_2"
         app:layout_constraintTop_toBottomOf="@id/tv_title_about" />
 
     <ImageView
         android:id="@+id/iv_image_profile_2"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="24dp"
-        android:layout_width="@dimen/_80sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_1" />
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_1"
+        app:layout_constraintRight_toLeftOf="@id/iv_image_profile_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_about" />
 
     <ImageView
         android:id="@+id/iv_image_profile_3"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="24dp"
-        android:layout_width="@dimen/_80sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_2" />
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_about" />
 
     <ImageView
         android:id="@+id/iv_image_profile_4"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="24dp"
-        android:layout_width="@dimen/_80sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_3" />
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_70sdp"
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_1"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_2"
+        app:layout_constraintTop_toBottomOf="@id/btn_redirect_github_1" />
 
     <ImageView
         android:id="@+id/iv_image_profile_5"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="24dp"
-        android:layout_width="@dimen/_80sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_4" />
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_70sdp"
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_2"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_3"
+        app:layout_constraintTop_toBottomOf="@id/btn_redirect_github_3" />
 
     <TextView
         android:id="@+id/tv_name_profile_1"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="icalshapa"
         android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
         android:fontFamily="@font/bebas_neue_bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_image_profile_1"
-        app:layout_constraintBottom_toTopOf="@id/btn_redirect_github_1"/>
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_1"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_1"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_1"/>
 
     <TextView
         android:id="@+id/tv_name_profile_2"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="irfanbagir"
         android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
         android:fontFamily="@font/bebas_neue_bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_image_profile_2"
-        app:layout_constraintBottom_toTopOf="@id/btn_redirect_github_2"/>
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_2"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_2"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_2"/>
 
     <TextView
         android:id="@+id/tv_name_profile_3"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="fachrulRazi24"
         android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
         android:fontFamily="@font/bebas_neue_bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_3"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_image_profile_3"
-        app:layout_constraintBottom_toTopOf="@id/btn_redirect_github_3"/>
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_3"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_3"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_3"/>
 
     <TextView
         android:id="@+id/tv_name_profile_4"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="rizqulloh07"
         android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
         android:fontFamily="@font/bebas_neue_bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_4"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_image_profile_4"
-        app:layout_constraintBottom_toTopOf="@id/btn_redirect_github_4"/>
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_4"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_4"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_4"/>
 
     <TextView
         android:id="@+id/tv_name_profile_5"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="renggakd"
         android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
         android:fontFamily="@font/bebas_neue_bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_5"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_image_profile_5"
-        app:layout_constraintBottom_toTopOf="@id/btn_redirect_github_5"/>
+        app:layout_constraintLeft_toLeftOf="@id/iv_image_profile_5"
+        app:layout_constraintRight_toRightOf="@id/iv_image_profile_5"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_profile_5"/>
 
     <Button
         android:id="@+id/btn_redirect_github_1"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="repo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_image_profile_1"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_1"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name_profile_1"
+        app:layout_constraintRight_toRightOf="@id/tv_name_profile_1"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile_1"/>
 
     <Button
         android:id="@+id/btn_redirect_github_2"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="repo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_image_profile_2"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_2"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name_profile_2"
+        app:layout_constraintRight_toRightOf="@id/tv_name_profile_2"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile_2"/>
 
     <Button
         android:id="@+id/btn_redirect_github_3"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="repo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_image_profile_3"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_3"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name_profile_3"
+        app:layout_constraintRight_toRightOf="@id/tv_name_profile_3"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile_3"/>
 
     <Button
         android:id="@+id/btn_redirect_github_4"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="repo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_image_profile_4"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_4"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name_profile_4"
+        app:layout_constraintRight_toRightOf="@id/tv_name_profile_4"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile_4"/>
 
     <Button
         android:id="@+id/btn_redirect_github_5"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="repo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_image_profile_5"
-        app:layout_constraintLeft_toRightOf="@id/iv_image_profile_5"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name_profile_5"
+        app:layout_constraintRight_toRightOf="@id/tv_name_profile_5"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile_5"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

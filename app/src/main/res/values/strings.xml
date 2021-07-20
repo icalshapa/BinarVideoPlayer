@@ -31,4 +31,6 @@
     <string name="intro_skip">SKIP</string>
     <string name="intro_back">BACK</string>
     <string name="intro_next">NEXT</string>
+    <string name="addnewsong_btn_edit">edit</string>
+    <string name="addnewsong_dialog_edit">Are You Sure you Want To Edit This Song?</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.irfan.binarvideoplayer.local.room.dao
+package com.binarteamtwo.binarvideoplayer.data.local.room.dao
 
 import androidx.room.*
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist

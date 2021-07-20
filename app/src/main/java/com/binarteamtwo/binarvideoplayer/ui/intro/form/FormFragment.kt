@@ -35,6 +35,7 @@ class FormFragment : Fragment() {
         binding.btnSubmit.setOnClickListener {
             if(this::listener.isInitialized){
                 listener.onNameSubmitted(binding.etPlayerName.text.toString())
+                saveLoginData()
                 navigateToMenuPlayer()
             }
         }
@@ -73,5 +74,8 @@ class FormFragment : Fragment() {
         if(context is FormFragmentListener){
             listener = context
         }
+    }
+    private fun saveLoginData(){
+        UserPreference(requireContext()).isUserLoggedIn = true
     }
 }

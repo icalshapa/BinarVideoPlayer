@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
-import com.irfan.binarvideoplayer.local.room.dao.MediaPlaylistDao
+import com.binarteamtwo.binarvideoplayer.data.local.room.dao.MediaPlaylistDao
 
 
 @Database(entities = [MediaPlaylist::class], version = 1)

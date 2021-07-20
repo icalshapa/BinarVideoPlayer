@@ -1,6 +1,6 @@
 package com.binarteamtwo.binarvideoplayer.data.local.room.datasource
 
-import com.irfan.binarvideoplayer.local.room.dao.MediaPlaylistDao
+import com.binarteamtwo.binarvideoplayer.data.local.room.dao.MediaPlaylistDao
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
