@@ -21,7 +21,7 @@ interface PlayerContract {
         fun getData()
     }
 
-    interface Presenter : BaseContract.BasePresenter {
+    interface ViewModel {
         fun getVideo(videoId: Int)
         fun changeStatusFavorite(mediaPlaylist: MediaPlaylist)
     }

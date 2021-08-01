@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
@@ -17,7 +18,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 
 class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     private lateinit var binding: ActivityAddNewSongBinding
-    private lateinit var presenter: AddNewSongContract.Presenter
+    private lateinit var viewModel: AddNewSongViewModel
     private var appMode: Int = MODE_INSERT
     private var playlist: MediaPlaylist? = null
 
@@ -67,7 +68,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                     videoUrl = binding.etVideoUrl.text.toString()
 
                 }
-                playlist?.let { presenter.updatePlaylist(it) }
+                playlist?.let { viewModel.updatePlaylist(it) }
             } else {
                 //insert playlist
                 playlist = MediaPlaylist(
@@ -77,7 +78,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                     videoUrl = binding.etVideoUrl.text.toString()
 
                 )
-                playlist?.let { presenter.insertMediaPlaylist(it) }
+                playlist?.let { viewModel.insertMediaPlaylist(it) }
 
             }
         }
@@ -141,10 +142,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     }
 
     override fun initializePlaylist() {
-        //initialize presenter
-        val dataSource =
-            MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
-        presenter = AddNewSongPresenter(dataSource, this)
+        initViewModel()
         //preset data when form mode is edit mode
         if (appMode == MODE_EDIT) {
             playlist?.let {
@@ -168,6 +166,21 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         addPlaylist()
         getIntentData()
         initializePlaylist()
+    }
+
+    override fun initViewModel() {
+        val dataSource =
+            MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+        val repository = AddNewSongRepository(dataSource)
+        viewModel = GenericViewModelFactory(AddNewSongViewModel(repository)).create(AddNewSongViewModel::class.java)
+
+        viewModel.transactionResult.observe(this, { isTransactionSuccess ->
+            if (isTransactionSuccess) {
+                onSuccess()
+            } else {
+                onFailed()
+            }
+        })
     }
 
     private fun addDialog() {

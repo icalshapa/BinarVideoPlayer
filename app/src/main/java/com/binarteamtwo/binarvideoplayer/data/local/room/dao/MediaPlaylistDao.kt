@@ -4,7 +4,7 @@ import androidx.room.*
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
 @Dao
 interface MediaPlaylistDao {
-    @Query("SELECT * from mediaplaylist WHERE is_task_favorite")
+    @Query("SELECT * from mediaplaylist WHERE is_video_favorite")
     suspend fun getFavoriteMediaPlaylist() : List<MediaPlaylist>
 
     @Query("SELECT * from mediaplaylist")

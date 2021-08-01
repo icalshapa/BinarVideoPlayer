@@ -24,7 +24,7 @@ interface MediaPlaylistContract {
         fun initList()
 
     }
-    interface Presenter : BaseContract.BasePresenter{
+    interface ViewModel{
         fun getFavoriteMediaPlaylist(isFavorite:Boolean)
         fun deleteMediaPlaylist(mediaPlaylist : MediaPlaylist)
 

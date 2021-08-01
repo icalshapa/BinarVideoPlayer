@@ -20,6 +20,6 @@ data class MediaPlaylist (
     var imgIconUrl: String?,
     @ColumnInfo(name ="video_url")
     var videoUrl: String?,
-    @ColumnInfo(name ="is_task_favorite")
+    @ColumnInfo(name ="is_video_favorite")
     var isFavorite: Boolean = false
 ) : Parcelable

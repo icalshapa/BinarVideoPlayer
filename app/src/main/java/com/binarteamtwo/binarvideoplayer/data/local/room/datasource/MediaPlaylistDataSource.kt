@@ -24,11 +24,4 @@ class MediaPlaylistDataSource(private val mediaPlaylistDao: MediaPlaylistDao) {
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MediaPlaylist {
         return mediaPlaylistDao.getMediaPlaylistById(mediaPlaylistId)
     }
-    suspend fun changeMediaPlaylistStatus(mediaPlaylist : MediaPlaylist) : MediaPlaylist {
-        val updatedMediaPlaylist = mediaPlaylist.copy().apply {
-            this.isFavorite = isFavorite.not()
-        }
-        mediaPlaylistDao.updateMediaPlaylist(updatedMediaPlaylist)
-        return  mediaPlaylistDao.getMediaPlaylistById(mediaPlaylist.id)
-    }
 }

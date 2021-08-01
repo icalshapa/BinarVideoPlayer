@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
+import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
@@ -24,7 +26,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     private var isFilteredByFavorite: Boolean = false
     private lateinit var binding: FragmentMediaPlaylistBinding
     private lateinit var adapter: MediaPlaylistAdapter
-    private lateinit var presenter: MediaPlaylistContract.Presenter
+    private lateinit var viewModel: MediaPlaylistViewModel
 
 
     companion object {
@@ -66,13 +68,8 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
         getData(isFilteredByFavorite)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
-    }
-
     override fun getData(isFavorite: Boolean) {
-        presenter.getFavoriteMediaPlaylist(isFavorite)
+        viewModel.getFavoriteMediaPlaylist(isFavorite)
     }
 
 
@@ -122,14 +119,50 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
     }
 
     override fun initView() {
+        initViewModel()
+        initSwipeRefresh()
+        initList()
+    }
+
+    override fun initViewModel() {
         context?.let {
             val dataSource = MediaPlaylistDataSource(
                 MediaPlaylistRoomDatabase.getInstance(it).mediaPlaylistDao()
             )
-            presenter = MediaPlaylistPresenter(dataSource, this@MediaPlaylistFragment)
+            val repository = MediaPlaylistRepository(dataSource)
+            viewModel = GenericViewModelFactory(MediaPlaylistViewModel(repository)).create(MediaPlaylistViewModel::class.java)
         }
-        initSwipeRefresh()
-        initList()
+        viewModel.videoData.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Loading -> {
+                    setLoadingStatus(true)
+                    setEmptyStateVisibility(false)
+                }
+                is Resource.Success -> {
+                    setLoadingStatus(false)
+                    it.data?.let { data ->
+                        if(data.isNullOrEmpty()){
+                            onDataEmpty()
+                            setEmptyStateVisibility(true)
+                        }else{
+                            onDataSuccess(data)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    setLoadingStatus(false)
+                    setEmptyStateVisibility(false)
+                    onDataFailed(it.message.orEmpty())
+                }
+            }
+        })
+        viewModel.deleteResponse.observe(viewLifecycleOwner, { isSuccessDelete ->
+            if(isSuccessDelete){
+                onDeleteDataSuccess()
+            }else{
+                onDeleteDataFailed()
+            }
+        })
     }
 
 
@@ -146,7 +179,7 @@ class MediaPlaylistFragment : Fragment(), MediaPlaylistContract.View {
             builder.apply {
                 setTitle("Do you want to delete \"${mediaPlaylist.title}\" ?")
                 setPositiveButton("Yes") { dialog, id ->
-                    presenter.deleteMediaPlaylist(mediaPlaylist)
+                    viewModel.deleteMediaPlaylist(mediaPlaylist)
                     dialog?.dismiss()
                 }
                 setNegativeButton("Cancel") { dialog, id ->

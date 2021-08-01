@@ -1,22 +1,20 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
 import android.content.res.Configuration
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
+import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
-import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
-import com.google.android.material.snackbar.Snackbar
 import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
+import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.regex.Matcher
@@ -24,7 +22,7 @@ import java.util.regex.Pattern
 
 class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     private lateinit var binding: ActivityPlayerBinding
-    private lateinit var presenter: PlayerContract.Presenter
+    private lateinit var viewModel: PlayerViewModel
     private var videoId: Int? = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +61,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         setFabFavoriteIcon(mediaPlaylist)
         binding.fabFavorite.setOnClickListener {
             mediaPlaylist?.let {
-                presenter.changeStatusFavorite(it)
+                viewModel.changeStatusFavorite(it)
             }
         }
         binding.fabEdit.setOnClickListener {
@@ -85,7 +83,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     override fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist) {
-        bindVideoData(mediaPlaylist)
+        getData()
         if (mediaPlaylist.isFavorite) {
             Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_true), Snackbar.LENGTH_SHORT)
                 .show()
@@ -104,7 +102,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     override fun getData() {
-        videoId?.let { presenter.getVideo(it) }
+        videoId?.let { viewModel.getVideo(it) }
     }
 
     override fun initView() {
@@ -112,13 +110,39 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         setContentView(binding.root)
         supportActionBar?.hide()
         getIntentData()
-        val dataSource = MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
-        presenter = PlayerPresenter(dataSource,this)
+        initViewModel()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
+    override fun initViewModel() {
+        val dataSource = MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+        val repository = PlayerRepository(dataSource)
+        viewModel = GenericViewModelFactory(PlayerViewModel(repository)).create(
+            PlayerViewModel::class.java
+        )
+        viewModel.playerData.observe(this,{
+            when (it){
+                is Resource.Loading ->{
+
+                }
+                is Resource.Success -> {
+                    it.data?.let { data ->
+                        onFetchVideoSuccess(data)
+                    }
+                }
+                is Resource.Error ->{
+                    onFetchVideoFailed()
+                }
+            }
+        })
+        viewModel.changeStatusResult.observe(this,{
+            if(it.first){
+                it.second?.let { video ->
+                    onChangeFavoriteStatusSuccess(video)
+                }
+            }else{
+                onChangeFavoriteStatusFailed()
+            }
+        })
     }
 
     override fun onResume() {
