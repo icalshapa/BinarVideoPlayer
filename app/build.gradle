@@ -35,6 +35,15 @@ android {
     buildFeatures {
         viewBinding true
     }
+    flavorDimensions 'default'
+    productFlavors {
+        production {
+            dimension = 'default'
+            buildConfigField("String", "BASE_URL_BINAR_AUTH", "\"https://binar-gdd-cc8.herokuapp.com/\"")
+            buildConfigField("String", "BASE_URL_THEMOVIE_DB", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_KEY_THEMOVIE_DB", "\"5a85e710e3d9699b5696e5ac51aa3104\"")
+        }
+    }
 }
 
 dependencies {
