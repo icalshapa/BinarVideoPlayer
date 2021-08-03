@@ -7,7 +7,7 @@ class SessionPreference(context: Context) {
     private var preference: SharedPreferences = context.getSharedPreferences(NAME, MODE)
 
     companion object {
-        private const val NAME = "CovidApp" //app name or else
+        private const val NAME = "Video Player" //app name or else
         private const val MODE = Context.MODE_PRIVATE
         private val PREF_AUTH_TOKEN = Pair("PREF_AUTH_TOKEN", null)
     }
