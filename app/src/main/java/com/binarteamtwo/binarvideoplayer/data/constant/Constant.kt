@@ -17,4 +17,6 @@ object Constant {
 
     const val URL_GITHUB_RENGGA = "https://github.com/renggakd"
     const val URL_PHOTO_PROFILE_RENGGA = "https://avatars.githubusercontent.com/u/79265332?v=4"
+
+    const val MOVIE_LANGUAGE = "en-US"
 }
