@@ -2,6 +2,7 @@ package com.binarteamtwo.binarvideoplayer.data.network.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieDetail
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,23 +12,19 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
-interface MovieApiServices {
+interface MovieDetailApiServices {
 
-    @GET("discover/movie")
-    suspend fun getMovie(
-        @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
-        @Query("language")language : String = Constant.MOVIE_LANGUAGE
-    ): MovieResponse
+
     @GET("movie/")
     suspend fun getMovieDetails(
         @Query("id")movieId : String,
         @Query("api-key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
         @Query("append-to-response")appendToResponse : String = Constant.APPEND_TO_RESPONSE
-    )
+    ) : MovieDetail
 
     companion object{
-        private var retrofitServices : MovieApiServices? = null
-        fun getInstance() : MovieApiServices?{
+        private var retrofitServices : MovieDetailApiServices? = null
+        fun getInstance() : MovieDetailApiServices?{
             if(retrofitServices == null){
                 //initialize
                 val okHttpClient = OkHttpClient.Builder()
@@ -41,7 +38,7 @@ interface MovieApiServices {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build()
-                retrofitServices = retrofit.create(MovieApiServices::class.java)
+                retrofitServices = retrofit.create(MovieDetailApiServices::class.java)
             }
             return retrofitServices
         }
