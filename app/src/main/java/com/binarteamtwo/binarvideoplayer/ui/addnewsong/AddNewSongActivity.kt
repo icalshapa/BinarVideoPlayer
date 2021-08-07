@@ -1,21 +1,5 @@
 package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
-import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
-import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
-import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
-import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
-
 // class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 // private lateinit var binding: ActivityAddNewSongBinding
 // private lateinit var viewModel: AddNewSongViewModel

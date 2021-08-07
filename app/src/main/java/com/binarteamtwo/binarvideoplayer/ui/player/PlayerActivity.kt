@@ -1,21 +1,11 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
-import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
-import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
-import com.google.android.material.snackbar.Snackbar
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 

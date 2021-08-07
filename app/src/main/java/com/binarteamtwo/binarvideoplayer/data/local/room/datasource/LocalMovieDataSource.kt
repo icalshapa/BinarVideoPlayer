@@ -5,7 +5,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import com.binarteamtwo.binarvideoplayer.data.network.services.MovieApiServices
 
-class MovieDataSource(private val movieApiServices: MovieApiServices) {
+class LocalMovieDataSource(private val movieApiServices: MovieApiServices) {
     suspend fun getMovie(): MovieResponse {
         return movieApiServices.getMovie()
 

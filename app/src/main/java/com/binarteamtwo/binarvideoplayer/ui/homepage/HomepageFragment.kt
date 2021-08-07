@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.LocalMovieDataSource
+import com.binarteamtwo.binarvideoplayer.data.network.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import com.binarteamtwo.binarvideoplayer.data.network.services.MovieApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentHomePageBinding
