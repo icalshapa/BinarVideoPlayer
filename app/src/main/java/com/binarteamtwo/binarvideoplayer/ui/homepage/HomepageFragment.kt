@@ -1,18 +1,14 @@
 package com.binarteamtwo.binarvideoplayer.ui.homepage
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
-import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import com.binarteamtwo.binarvideoplayer.data.network.services.MovieApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentHomePageBinding
@@ -109,7 +105,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
     override fun initViewModel() {
         val movieApiServices = MovieApiServices.getInstance()
         movieApiServices?.let {
-            val dataSource = MoviePlaylistDataSource(it)
+            val dataSource = MovieDataSource(it)
             val repository = HomepageRepository(dataSource)
             viewModel =
                 GenericViewModelFactory(HomepageViewModel(repository)).create(HomepageViewModel::class.java)

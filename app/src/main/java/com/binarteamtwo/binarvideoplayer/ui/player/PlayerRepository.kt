@@ -1,9 +1,9 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 
-class PlayerRepository(private val dataSource: MoviePlaylistDataSource) {
+class PlayerRepository(private val dataSource: MovieDataSource) {
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MoviePlaylist{
         return dataSource.getMoviePlaylistById(mediaPlaylistId)
     }

@@ -1,6 +1,7 @@
 package com.binarteamtwo.binarvideoplayer.data.network.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
+import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
 import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
 import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
 
@@ -33,12 +34,12 @@ interface BinarApiServices {
 
     companion object{
         private var retrofitServices : BinarApiServices? = null
-        fun getInstance(sessionPreference: SessionPreference) : BinarApiServices?{
+        fun getInstance(sessionPreferences: SessionPreferences) : BinarApiServices?{
             if(retrofitServices == null){
                 //todo : add interceptor token
                 val authInterceptor = Interceptor{
                     val requestBuilder = it.request().newBuilder()
-                    sessionPreference.authToken?.let { token ->
+                    sessionPreferences.authToken?.let { token ->
                         requestBuilder.addHeader("Authorization", "Bearer $token")
                     }
                     it.proceed(requestBuilder.build())

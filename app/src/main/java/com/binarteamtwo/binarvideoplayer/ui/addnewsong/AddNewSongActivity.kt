@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
@@ -170,7 +170,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun initViewModel() {
         val dataSource =
-            MoviePlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+            MovieDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         val repository = AddNewSongRepository(dataSource)
         viewModel = GenericViewModelFactory(AddNewSongViewModel(repository)).create(AddNewSongViewModel::class.java)
 

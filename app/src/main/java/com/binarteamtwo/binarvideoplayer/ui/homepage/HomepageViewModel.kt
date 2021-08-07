@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Results
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,7 +17,7 @@ class HomepageViewModel(private val repository: HomepageRepository) : ViewModel(
         movieData.value = Resource.Loading()
         viewModelScope.launch (Dispatchers.IO){
             try {
-                val response = repository.getMoviePlaylist()
+                val response = repository.getMovie()
                 viewModelScope.launch (Dispatchers.Main){
                     movieData.value = Resource.Success(response)
                 }

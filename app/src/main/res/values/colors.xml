@@ -12,11 +12,9 @@
     <color name="grey"> #4a4a4a </color>
 
     <!--Custom colors-->
-    <color name="custom_color_primary">#643AE7</color>
-    <color name="custom_color_secondary">#FF8F00</color>
-    <color name="custom_color_secondary_light">#FFD299</color>
-    <color name="custom_color_background">#FFFFFF</color>
-    <color name="custom_color_text_primary">#060906</color>
-    <color name="custom_color_text_secondary">#464747</color>
+    <color name="custom_color_background">#333131</color>
+    <color name="custom_color_red">#FF0101</color>
+    <color name="custom_color_text_primary">#FFFFFF</color>
+    <color name="custom_color_text_secondary">#000000</color>
 
 </resources>

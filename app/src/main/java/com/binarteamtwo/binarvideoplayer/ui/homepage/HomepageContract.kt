@@ -12,7 +12,6 @@ interface HomepageContract {
     interface View : BaseContract.View {
         fun showMoviePlaylistContent(isContentVisible: Boolean)
         fun showLoading(isLoading: Boolean)
-
         fun showError(isErrorEnabled : Boolean, msg : String?)
         fun setupSwipeRefresh()
         fun setupList()

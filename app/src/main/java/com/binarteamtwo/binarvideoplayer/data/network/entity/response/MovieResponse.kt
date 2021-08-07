@@ -1,6 +1,7 @@
 package com.binarteamtwo.binarvideoplayer.data.network.entity.response
 
 
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(
@@ -12,4 +13,4 @@ data class MovieResponse(
     var totalPages: Int? = null,
     @SerializedName("total_results")
     var totalResults: Int? = null
-) : List<Results>
+)

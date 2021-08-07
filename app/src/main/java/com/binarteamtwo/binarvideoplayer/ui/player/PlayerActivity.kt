@@ -10,7 +10,7 @@ import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
@@ -114,7 +114,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     override fun initViewModel() {
-        val dataSource = MoviePlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+        val dataSource = MovieDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         val repository = PlayerRepository(dataSource)
         viewModel = GenericViewModelFactory(PlayerViewModel(repository)).create(
             PlayerViewModel::class.java
