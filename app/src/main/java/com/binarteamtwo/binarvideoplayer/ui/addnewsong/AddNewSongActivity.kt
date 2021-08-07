@@ -11,16 +11,16 @@ import androidx.appcompat.app.AlertDialog
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
 import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 
 class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
     private lateinit var binding: ActivityAddNewSongBinding
     private lateinit var viewModel: AddNewSongViewModel
     private var appMode: Int = MODE_INSERT
-    private var playlist: MediaPlaylist? = null
+    private var playlist: MoviePlaylist? = null
 
     companion object {
         const val MODE_INSERT = 0
@@ -28,7 +28,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
         const val ARG_MODE = "ARG_MODE"
         const val ARG_PLAYLIST_DATA = "ARG_PLAYLIST_DATA"
 
-        fun startActivity(context: Context, appMode: Int, playlist: MediaPlaylist?) {
+        fun startActivity(context: Context, appMode: Int, playlist: MoviePlaylist?) {
             val intent = Intent(context, AddNewSongActivity::class.java)
             intent.putExtra(ARG_MODE, appMode)
             playlist.let {
@@ -71,7 +71,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
                 playlist?.let { viewModel.updatePlaylist(it) }
             } else {
                 //insert playlist
-                playlist = MediaPlaylist(
+                playlist = MoviePlaylist(
                     title = binding.etTitleSong.text.toString(),
                     singer = binding.etSingerName.text.toString(),
                     imgIconUrl = binding.etIconUrl.text.toString(),
@@ -170,7 +170,7 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun initViewModel() {
         val dataSource =
-            MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+            MoviePlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         val repository = AddNewSongRepository(dataSource)
         viewModel = GenericViewModelFactory(AddNewSongViewModel(repository)).create(AddNewSongViewModel::class.java)
 

@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
-import com.binarteamtwo.binarvideoplayer.data.local.room.dao.MediaPlaylistDao
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+import com.binarteamtwo.binarvideoplayer.data.local.room.dao.MoviePlaylistDao
 
 
-@Database(entities = [MediaPlaylist::class], version = 1)
+@Database(entities = [MoviePlaylist::class], version = 1)
 abstract class MediaPlaylistRoomDatabase : RoomDatabase() {
 
-    abstract fun mediaPlaylistDao() : MediaPlaylistDao
+    abstract fun mediaPlaylistDao() : MoviePlaylistDao
 
     companion object {
         @Volatile

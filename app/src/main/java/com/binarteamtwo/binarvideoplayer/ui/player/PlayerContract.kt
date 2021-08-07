@@ -1,21 +1,21 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 
 interface PlayerContract {
     interface View: BaseContract.BaseView{
 
         //callback when get video
-        fun onFetchVideoSuccess(mediaPlaylist: MediaPlaylist)
+        fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist)
         fun onFetchVideoFailed()
 
         //callback when change favorite status
-        fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist)
+        fun onChangeFavoriteStatusSuccess(moviePlaylist: MoviePlaylist)
         fun onChangeFavoriteStatusFailed()
 
         //set data to layout
-        fun bindVideoData(mediaPlaylist: MediaPlaylist?)
+        fun bindVideoData(moviePlaylist: MoviePlaylist?)
 
         //getting data
         fun getData()
@@ -23,7 +23,7 @@ interface PlayerContract {
 
     interface ViewModel {
         fun getVideo(videoId: Int)
-        fun changeStatusFavorite(mediaPlaylist: MediaPlaylist)
+        fun changeStatusFavorite(moviePlaylist: MoviePlaylist)
     }
 
 

@@ -10,8 +10,8 @@ import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MoviePlaylistDataSource
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.google.android.material.snackbar.Snackbar
@@ -47,44 +47,44 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         }
     }
 
-    private fun bindData(mediaPlaylist: MediaPlaylist?) {
+    private fun bindData(moviePlaylist: MoviePlaylist?) {
         supportActionBar?.hide()
-        val youtubeId = mediaPlaylist?.videoUrl?.let { parseYoutubeUrl(it) }
-        binding.tvPlayerTitle.text = mediaPlaylist?.title
-        binding.tvPlayerArtist.text = mediaPlaylist?.singer
+        val youtubeId = moviePlaylist?.videoUrl?.let { parseYoutubeUrl(it) }
+        binding.tvPlayerTitle.text = moviePlaylist?.title
+        binding.tvPlayerArtist.text = moviePlaylist?.singer
         binding.youtubePlayerView.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youtubeId?.let { youTubePlayer.loadVideo(it, 0f) }
             }
         })
-        setFabFavoriteIcon(mediaPlaylist)
+        setFabFavoriteIcon(moviePlaylist)
         binding.fabFavorite.setOnClickListener {
-            mediaPlaylist?.let {
+            moviePlaylist?.let {
                 viewModel.changeStatusFavorite(it)
             }
         }
         binding.fabEdit.setOnClickListener {
-            AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_EDIT,mediaPlaylist)
+            AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_EDIT,moviePlaylist)
         }
 
     }
 
-    private fun setFabFavoriteIcon(mediaPlaylist: MediaPlaylist?) {
-        binding.fabFavorite.setImageResource(if (mediaPlaylist?.isFavorite == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
+    private fun setFabFavoriteIcon(moviePlaylist: MoviePlaylist?) {
+        binding.fabFavorite.setImageResource(if (moviePlaylist?.isFavorite == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
     }
 
-    override fun onFetchVideoSuccess(mediaPlaylist: MediaPlaylist) {
-        bindVideoData(mediaPlaylist)
+    override fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist) {
+        bindVideoData(moviePlaylist)
     }
 
     override fun onFetchVideoFailed() {
         Toast.makeText(this, "Failed fetching video $videoId", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onChangeFavoriteStatusSuccess(mediaPlaylist: MediaPlaylist) {
+    override fun onChangeFavoriteStatusSuccess(moviePlaylist: MoviePlaylist) {
         getData()
-        if (mediaPlaylist.isFavorite) {
+        if (moviePlaylist.isFavorite) {
             Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_true), Snackbar.LENGTH_SHORT)
                 .show()
         }else{
@@ -97,8 +97,8 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         Toast.makeText(this, getString(R.string.player_toast_favorite_failed), Toast.LENGTH_SHORT).show()
     }
 
-    override fun bindVideoData(mediaPlaylist: MediaPlaylist?) {
-        bindData(mediaPlaylist)
+    override fun bindVideoData(moviePlaylist: MoviePlaylist?) {
+        bindData(moviePlaylist)
     }
 
     override fun getData() {
@@ -114,7 +114,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
     }
 
     override fun initViewModel() {
-        val dataSource = MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+        val dataSource = MoviePlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         val repository = PlayerRepository(dataSource)
         viewModel = GenericViewModelFactory(PlayerViewModel(repository)).create(
             PlayerViewModel::class.java

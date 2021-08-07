@@ -13,7 +13,7 @@ import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
-import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
+import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment
 import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
-        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(false), getString(R.string.main_playlist))
-        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(true), getString(R.string.main_favorite))
+        fragmentAdapter.addFragment(HomepageFragment.newInstance(false), getString(R.string.main_playlist))
+        fragmentAdapter.addFragment(HomepageFragment.newInstance(true), getString(R.string.main_favorite))
         binding.viewPager.apply {
             adapter = fragmentAdapter
         }

@@ -11,7 +11,16 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
+
+
+const val FIRST_PAGE = 1
+const val  POST_PER_PAGE = 20
+
 interface MovieApiServices {
+
+    @GET("movie/popular")
+    fun getPopularMovie(@Query("page") page : Int) : MovieResponse
+
 
     @GET("discover/movie")
     suspend fun getMovie(
@@ -40,9 +49,6 @@ interface MovieApiServices {
             return retrofitServices
         }
     }
-
-
-
 }
 
 

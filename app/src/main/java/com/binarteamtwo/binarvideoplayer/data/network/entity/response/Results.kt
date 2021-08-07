@@ -3,7 +3,7 @@ package com.binarteamtwo.binarvideoplayer.data.network.entity.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Results(
     @SerializedName("adult")
     var adult: Boolean? = null,
     @SerializedName("backdrop_path")
@@ -19,7 +19,7 @@ data class Result(
     @SerializedName("overview")
     var overview: String? = null,
     @SerializedName("popularity")
-    var popularity: Double? = null,
+    var popularity: Float? = null,
     @SerializedName("poster_path")
     var posterPath: String? = null,
     @SerializedName("release_date")
@@ -29,7 +29,7 @@ data class Result(
     @SerializedName("video")
     var video: Boolean? = null,
     @SerializedName("vote_average")
-    var voteAverage: Double? = null,
+    var voteAverage: Float? = null,
     @SerializedName("vote_count")
     var voteCount: Int? = null
 )
