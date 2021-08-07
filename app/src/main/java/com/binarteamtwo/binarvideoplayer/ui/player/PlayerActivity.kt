@@ -13,14 +13,13 @@ import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDataba
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
-import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class PlayerActivity : AppCompatActivity(), PlayerContract.View {
+class PlayerActivity : AppCompatActivity()/*, PlayerContract.View*/ {
     private lateinit var binding: ActivityPlayerBinding
     private lateinit var viewModel: PlayerViewModel
     private var videoId: Int? = -1
@@ -49,7 +48,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
 
     private fun bindData(moviePlaylist: MoviePlaylist?) {
         supportActionBar?.hide()
-        val youtubeId = moviePlaylist?.videoUrl?.let { parseYoutubeUrl(it) }
+       /* val youtubeId = moviePlaylist?.videoUrl?.let { parseYoutubeUrl(it) }
         binding.tvPlayerTitle.text = moviePlaylist?.title
         binding.tvPlayerArtist.text = moviePlaylist?.singer
         binding.youtubePlayerView.addYouTubePlayerListener(object :
@@ -66,7 +65,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         }
         binding.fabEdit.setOnClickListener {
             AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_EDIT,moviePlaylist)
-        }
+        }*/
 
     }
 
@@ -74,7 +73,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         binding.fabFavorite.setImageResource(if (moviePlaylist?.isFavorite == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)
     }
 
-    override fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist) {
+    /*override fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist) {
         bindVideoData(moviePlaylist)
     }
 
@@ -103,17 +102,17 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
 
     override fun getData() {
         videoId?.let { viewModel.getVideo(it) }
-    }
+    }*/
 
-    override fun initView() {
+    fun initView() {
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
         getIntentData()
-        initViewModel()
+    /*    initViewModel()*/
     }
 
-    override fun initViewModel() {
+    /*override fun initViewModel() {
         val dataSource = MovieDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
         val repository = PlayerRepository(dataSource)
         viewModel = GenericViewModelFactory(PlayerViewModel(repository)).create(
@@ -158,5 +157,5 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View {
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
-    }
+    }*/
 }

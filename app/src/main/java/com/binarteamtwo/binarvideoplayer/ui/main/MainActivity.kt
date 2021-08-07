@@ -12,7 +12,6 @@ import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
-import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment
 import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
@@ -29,9 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbarMain)
         showGreetings()
-        initViewPager()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_add_song -> {
-                navigateToAddSongForm()
                 true
             }
             R.id.menu_about -> {
@@ -58,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPager() {
+    /*private fun initViewPager() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         fragmentAdapter.addFragment(HomepageFragment.newInstance(false), getString(R.string.main_playlist))
         fragmentAdapter.addFragment(HomepageFragment.newInstance(true), getString(R.string.main_favorite))
@@ -73,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToAddSongForm() {
 
         AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_INSERT)
-    }
+    }*/
 
     private fun openDialogAbout() {
 

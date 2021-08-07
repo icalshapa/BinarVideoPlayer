@@ -8,7 +8,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayerViewModel(private val repository: PlayerRepository):ViewModel(),PlayerContract.ViewModel {
+class PlayerViewModel(private val repository: PlayerRepository):ViewModel()/*,PlayerContract.ViewModel {
     val playerData = MutableLiveData<Resource<MoviePlaylist>>()
     val changeStatusResult = MutableLiveData<Pair<Boolean, MoviePlaylist?>>()
     override fun getVideo(videoId: Int) {
@@ -43,4 +43,4 @@ class PlayerViewModel(private val repository: PlayerRepository):ViewModel(),Play
             }
         }
     }
-}
+}*/

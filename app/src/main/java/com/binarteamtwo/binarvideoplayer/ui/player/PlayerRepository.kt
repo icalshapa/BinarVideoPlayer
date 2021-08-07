@@ -3,7 +3,7 @@ package com.binarteamtwo.binarvideoplayer.ui.player
 import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MovieDataSource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 
-class PlayerRepository(private val dataSource: MovieDataSource) {
+class PlayerRepository(private val dataSource: MovieDataSource)/* {
     suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MoviePlaylist{
         return dataSource.getMoviePlaylistById(mediaPlaylistId)
     }
@@ -15,4 +15,4 @@ class PlayerRepository(private val dataSource: MovieDataSource) {
         return getMediaPlaylistById(moviePlaylist.id)
     }
 
-}
+}*/

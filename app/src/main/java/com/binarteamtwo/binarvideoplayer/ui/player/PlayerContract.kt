@@ -4,7 +4,7 @@ import com.binarteamtwo.binarvideoplayer.base.BaseContract
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 
 interface PlayerContract {
-    interface View: BaseContract.BaseView{
+    /*interface View: BaseContract.BaseView{
 
         //callback when get video
         fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist)
@@ -26,5 +26,5 @@ interface PlayerContract {
         fun changeStatusFavorite(moviePlaylist: MoviePlaylist)
     }
 
-
+*/
 }

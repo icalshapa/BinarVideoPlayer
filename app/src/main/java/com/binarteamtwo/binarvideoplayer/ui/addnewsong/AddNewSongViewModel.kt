@@ -7,6 +7,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/*
 class AddNewSongViewModel (private val repository: AddNewSongRepository): ViewModel(),
     AddNewSongContract.ViewModel{
 
@@ -41,4 +42,4 @@ class AddNewSongViewModel (private val repository: AddNewSongRepository): ViewMo
             }
         }
     }
-}
+}*/
