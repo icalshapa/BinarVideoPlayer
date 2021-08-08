@@ -15,5 +15,4 @@
         <item name="android:textColor">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="myRatingBar" parent="@android:style/Widget.RatingBar.Small"></style>
 </resources>
