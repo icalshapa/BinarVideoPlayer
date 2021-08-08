@@ -16,7 +16,8 @@ interface MovieApiServices {
     @GET("movie/popular")
     suspend fun getMovie(
         @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
-        @Query("language")language : String = Constant.MOVIE_LANGUAGE
+        @Query("language")language : String = Constant.MOVIE_LANGUAGE,
+        @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
     ): MovieResponse
     @GET("movie/")
     suspend fun getMovieTrailer(

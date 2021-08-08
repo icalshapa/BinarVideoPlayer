@@ -19,5 +19,5 @@ object Constant {
     const val URL_PHOTO_PROFILE_RENGGA = "https://avatars.githubusercontent.com/u/79265332?v=4"
 
     const val MOVIE_LANGUAGE = "en-US"
-    const val APPEND_TO_RESPONSE = "&append_to_response=videos"
+    const val PAGE_SIZE = 20
 }
