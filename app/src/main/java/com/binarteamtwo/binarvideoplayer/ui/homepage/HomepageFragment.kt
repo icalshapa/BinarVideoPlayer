@@ -39,7 +39,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
     }
 
 
-    companion object {
+   /* companion object {
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private const val ARG_FAVORITE_VIDEO = "ARG_FAVORITE_VIDEO"
 
@@ -56,7 +56,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
         arguments?.let {
             isFilteredByFavorite = it.getBoolean(ARG_FAVORITE_VIDEO)
         }
-    }
+    }*/
 
     /*override fun onResume() {
         super.onResume()
@@ -93,13 +93,9 @@ class HomepageFragment : Fragment(), HomepageContract.View {
         }
     }
 
-
     override fun setListData(data: List<Movie>) {
         adapter.items = data
     }
-
-    //baru
-
 
     override fun initView() {
         setupSwipeRefresh()

@@ -41,7 +41,7 @@ class HomepageAdapter(
                     rbMovie.apply {
                         max = 10
                         numStars = 5
-                        setIsIndicator(true)
+                        /*setIsIndicator(true)*/
                         rating = (voteAverage?.toFloat() ?:0f)/2
 
                     }

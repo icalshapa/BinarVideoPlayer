@@ -21,4 +21,8 @@ object Constant {
     const val MOVIE_LANGUAGE = "en-US"
     const val PAGE_SIZE = 20
     const val IMAGE_URL_PATH_POSTER = "https://image.tmdb.org/t/p/w500/"
+
+
+    const val TAG_FRAGMENT_HOME_PAGE = "TAG_FRAGMENT_HOME_PAGE"
+    const val TAG_FRAGMENT_FAVOURITE = "TAG_FRAGMENT_FAVOURITE"
 }
