@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 interface MovieApiServices {
 
-    @GET("discover/movie")
+    @GET("movie/popular")
     suspend fun getMovie(
         @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
         @Query("language")language : String = Constant.MOVIE_LANGUAGE
