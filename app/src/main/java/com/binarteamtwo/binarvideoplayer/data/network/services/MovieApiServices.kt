@@ -2,13 +2,11 @@ package com.binarteamtwo.binarvideoplayer.data.network.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -58,6 +56,9 @@ interface MovieApiServices {
             return retrofitServices
         }
     }
+
+
+
 }
 
 
