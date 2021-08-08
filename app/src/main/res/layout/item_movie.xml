@@ -34,7 +34,7 @@
 
         <RatingBar
             android:id="@+id/rb_movie"
-            android:progressTint="@color/white"
+            android:progressTint="@color/custom_color_gold"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
