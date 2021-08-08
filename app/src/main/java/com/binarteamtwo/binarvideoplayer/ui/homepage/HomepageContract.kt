@@ -2,7 +2,6 @@ package com.binarteamtwo.binarvideoplayer.ui.homepage
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Results
 
 interface HomepageContract {
     interface ViewModel : BaseContract.ViewModel {

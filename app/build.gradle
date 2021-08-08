@@ -42,6 +42,7 @@ android {
             buildConfigField("String", "BASE_URL_BINAR_AUTH", "\"https://binar-gdd-cc8.herokuapp.com/\"")
             buildConfigField("String", "BASE_URL_THEMOVIE_DB", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "API_KEY_THEMOVIE_DB", "\"5a85e710e3d9699b5696e5ac51aa3104\"")
+            buildConfigField("String", "POPULAR_MOVIE_THEMOVIE_DB", "\"https://api.themoviedb.org/3/movie/popular?api_key=77baa9b907b2ae11324da951e0482125\"")
         }
     }
 }

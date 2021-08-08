@@ -34,10 +34,11 @@ class HomepageFragment : Fragment(), HomepageContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModel()
     }
 
 
-    /*companion object {
+    companion object {
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private const val ARG_FAVORITE_VIDEO = "ARG_FAVORITE_VIDEO"
 
@@ -56,7 +57,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
         }
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         getData(isFilteredByFavorite)
     }*/
@@ -84,7 +85,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
     }
 
     override fun setupList() {
-        adapter = HomepageAdapter {  }
+        adapter = HomepageAdapter {}
         binding.rvMovieList.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@HomepageFragment.adapter
@@ -99,8 +100,8 @@ class HomepageFragment : Fragment(), HomepageContract.View {
 
 
     override fun initView() {
-        initViewModel()
         setupSwipeRefresh()
+        setupList()
     }
 
     override fun initViewModel() {

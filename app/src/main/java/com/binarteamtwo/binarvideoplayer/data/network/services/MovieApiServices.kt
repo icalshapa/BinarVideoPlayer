@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -19,7 +20,10 @@ const val  POST_PER_PAGE = 20
 interface MovieApiServices {
 
     @GET("movie/popular")
-    fun getPopularMovie(@Query("page") page : Int) : MovieResponse
+    fun getPopularMovie(
+        @Query("api_key") apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
+        @Query("page") page : Int
+    ) : MovieResponse
 
 
     @GET("discover/movie")

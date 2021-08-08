@@ -32,12 +32,12 @@ class HomepageAdapter(
             with(item) {
                 binding.apply {
                     Glide.with(itemView.context)
-                        .load(results?.posterPath)
+                        .load(movieList?.posterPath)
                         .centerCrop()
                         .placeholder(R.drawable.ic_placeholder)
                         .into(binding.ivMoviePoster)
-                    tvMovieTitle.text = results?.title
-                    rbMovie.rating = results?.voteAverage!!
+                    tvMovieTitle.text = movieList?.title
+                    rbMovie.rating = movieList?.voteAverage!!
                 }
                 itemView.setOnClickListener { itemClick(this) }
                 itemView.setOnLongClickListener {
