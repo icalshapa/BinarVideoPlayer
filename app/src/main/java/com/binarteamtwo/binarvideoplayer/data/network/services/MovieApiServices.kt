@@ -20,17 +20,18 @@ const val  POST_PER_PAGE = 20
 interface MovieApiServices {
 
     @GET("movie/popular")
-    fun getPopularMovie(
-        @Query("api_key") apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
-        @Query("page") page : Int
-    ) : MovieResponse
-
-
-    @GET("discover/movie")
     suspend fun getMovie(
         @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
-        @Query("language")language : String = Constant.MOVIE_LANGUAGE
+        @Query("language")language : String = Constant.MOVIE_LANGUAGE,
+        @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
     ): MovieResponse
+
+    @GET("movie/")
+    suspend fun getMovieTrailer(
+        @Query("id")movieId : String,
+        @Query("api-key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
+
+        ): MovieResponse
 
     companion object{
         private var retrofitServices : MovieApiServices? = null
