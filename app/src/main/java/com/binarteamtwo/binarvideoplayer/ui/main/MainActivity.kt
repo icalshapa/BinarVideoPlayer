@@ -15,6 +15,7 @@ import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
 import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
 import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
+import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToIntro(){
-        val intent = Intent(this, IntroActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

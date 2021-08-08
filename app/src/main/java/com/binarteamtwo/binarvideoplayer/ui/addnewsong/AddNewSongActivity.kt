@@ -44,7 +44,6 @@ class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initView()
     }
 
