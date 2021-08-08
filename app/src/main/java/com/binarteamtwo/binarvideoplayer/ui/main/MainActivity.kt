@@ -3,7 +3,6 @@ package com.binarteamtwo.binarvideoplayer.ui.main
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
 import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
@@ -18,17 +18,13 @@ import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.favourite.FavouriteFragment
 import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment
 import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
-import com.binarteamtwo.binarvideoplayer.ui.intro.IntroFragment.Companion.newInstance
-import com.binarteamtwo.binarvideoplayer.utils.Constants
-import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var homepageFragment = HomepageFragment()
     private var favouriteFragment = FavouriteFragment()
-    private var activeFragment = homepageFragment
+    private var activeFragment = ""
     /*private val TAG = MainActivity::class.java.simpleName*/
 
 
@@ -38,32 +34,34 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showGreetings()
-        initViewPager()
-        /*setupFragment()*/
+        /*initViewPager()*/
+        setupFragment()
     }
 
-    /*private fun setupFragment() {
+    private fun setupFragment() {
         for (fragment in supportFragmentManager.fragments) {
             supportFragmentManager.beginTransaction().remove(fragment).commit()
         }
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.fl_fragment_homepage, homepageFragment, Constants.TAG_FRAGMENT_HOME_PAGE)
-            add(R.id.fl_fragment_homepage, favouriteFragment, Constants.TAG_FRAGMENT_FAVOURITE)
+            add(R.id.fl_fragment_homepage, homepageFragment, Constant.TAG_FRAGMENT_HOME_PAGE)
+            /*add(R.id.fl_fragment_homepage,favouriteFragment, Constant.TAG_FRAGMENT_FAVOURITE).hide(
+                favouriteFragment
+            )*/
         }.commit()
         // set title for first fragment
-        supportActionBar?.title = "Top Movies"
+        supportActionBar?.title = "Popular Movies"
 
         // set click menu for changing fragment
         binding.bottomNavViewHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_top_movies -> {
-                    supportActionBar?.title = "Top Movies"
+                    supportActionBar?.title = "Popular Movies"
                     showFragment(HomepageFragment())
                     true
                 }
                 else -> {
                     supportActionBar?.title = "Favourite"
-                    *//*showFragment(FavouriteFragment())*//*
+                    /*showFragment(FavouriteFragment())*/
                     true
                 }
             }
@@ -75,8 +73,8 @@ class MainActivity : AppCompatActivity() {
             .hide(activeFragment)
             .show(fragment)
             .commit()
-        activeFragment = fragment as HomepageFragment
-    }*/
+        activeFragment = fragment
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main_activity, menu)
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun initViewPager() {
+    /*private fun initViewPager() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         fragmentAdapter.addFragment(HomepageFragment.newInstance(false),
             getString(R.string.main_playlist)
@@ -108,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->
             tab.text = fragmentAdapter.getPageTitle(position)
         }.attach()
-    }
+    }*/
 
 /*private fun navigateToAddSongForm() {
 
