@@ -15,4 +15,9 @@
         <item name="android:textColor">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/custom_color_background</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
 </resources>
