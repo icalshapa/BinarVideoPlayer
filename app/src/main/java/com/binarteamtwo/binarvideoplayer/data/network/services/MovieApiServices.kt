@@ -2,6 +2,7 @@ package com.binarteamtwo.binarvideoplayer.data.network.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,24 +13,19 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
-
-
-const val FIRST_PAGE = 1
-const val  POST_PER_PAGE = 20
-
 interface MovieApiServices {
 
     @GET("movie/popular")
     suspend fun getMovie(
-        @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
+        @Query("api_key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
         @Query("language")language : String = Constant.MOVIE_LANGUAGE,
         @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
-    ): MovieResponse
+    ): Movie
 
     @GET("movie/")
     suspend fun getMovieTrailer(
         @Query("id")movieId : String,
-        @Query("api-key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
+        @Query("api_key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
 
         ): MovieResponse
 

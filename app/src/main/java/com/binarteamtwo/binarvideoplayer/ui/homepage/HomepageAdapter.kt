@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binarteamtwo.binarvideoplayer.R
-import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import com.binarteamtwo.binarvideoplayer.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
 
 class HomepageAdapter(
-    private val itemClick: (MovieResponse) -> Unit
+    private val itemClick: (List<Movie>) -> Unit
 ) :
     RecyclerView.Adapter<HomepageAdapter.HomepageViewHolder>() {
 
-    var items: List<MovieResponse> = mutableListOf()
+    var items: List<Movie> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,21 +23,21 @@ class HomepageAdapter(
 
     class HomepageViewHolder(
         private val binding: ItemMovieBinding,
-        val itemClick: (MovieResponse) -> Unit,
+        val itemClick: (List<Movie>) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bindView(item: MovieResponse, position: Int) {
+        fun bindView(item: List<Movie>, position: Int)  {
             with(item) {
                 binding.apply {
                     Glide.with(itemView.context)
-                        .load(movieList?.posterPath)
+                        .load()
                         .centerCrop()
                         .placeholder(R.drawable.ic_placeholder)
                         .into(binding.ivMoviePoster)
-                    tvMovieTitle.text = movieList?.title
-                    rbMovie.rating = movieList?.voteAverage!!
+                    tvMovieTitle.text = lis
+
                 }
                 itemView.setOnClickListener { itemClick(this) }
                 itemView.setOnLongClickListener {

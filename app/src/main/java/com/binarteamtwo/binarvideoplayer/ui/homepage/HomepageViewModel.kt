@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 class HomepageViewModel(private val repository: HomepageRepository) : ViewModel(),
     HomepageContract.ViewModel {
 
-    val movieData = MutableLiveData<Resource<MovieResponse>?>()
+    val movieData = MutableLiveData<Resource<Movie>>()
 
     override fun getMovieData() {
         movieData.value = Resource.Loading()
