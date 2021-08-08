@@ -19,11 +19,11 @@ interface MovieApiServices {
         @Query("language")language : String = Constant.MOVIE_LANGUAGE
     ): MovieResponse
     @GET("movie/")
-    suspend fun getMovieDetails(
+    suspend fun getMovieTrailer(
         @Query("id")movieId : String,
         @Query("api-key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
-        @Query("append-to-response")appendToResponse : String = Constant.APPEND_TO_RESPONSE
-    )
+
+    ): MovieResponse
 
     companion object{
         private var retrofitServices : MovieApiServices? = null
