@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binarteamtwo.binarvideoplayer.R
+import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import com.binarteamtwo.binarvideoplayer.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
 
 class HomepageAdapter(
-    private val itemClick: (List<Movie>) -> Unit
+    private val itemClick: (Movie) -> Unit
 ) :
     RecyclerView.Adapter<HomepageAdapter.HomepageViewHolder>() {
 
@@ -23,20 +24,27 @@ class HomepageAdapter(
 
     class HomepageViewHolder(
         private val binding: ItemMovieBinding,
-        val itemClick: (List<Movie>) -> Unit,
+        val itemClick: (Movie) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bindView(item: List<Movie>, position: Int)  {
+        fun bindView(item: Movie, position: Int)  {
             with(item) {
                 binding.apply {
                     Glide.with(itemView.context)
-                        .load()
+                        .load(Constant.IMAGE_URL_PATH_POSTER +posterPath)
                         .centerCrop()
                         .placeholder(R.drawable.ic_placeholder)
                         .into(binding.ivMoviePoster)
-                    tvMovieTitle.text = lis
+                    tvMovieTitle.text = title
+                    rbMovie.apply {
+                        max = 10
+                        numStars = 5
+                        setIsIndicator(true)
+                        rating = (voteAverage?.toFloat() ?:0f)/2
+
+                    }
 
                 }
                 itemView.setOnClickListener { itemClick(this) }

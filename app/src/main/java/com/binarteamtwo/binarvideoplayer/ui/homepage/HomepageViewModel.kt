@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class HomepageViewModel(private val repository: HomepageRepository) : ViewModel(),
     HomepageContract.ViewModel {
 
-    val movieData = MutableLiveData<Resource<Movie>>()
+    val movieData = MutableLiveData<Resource<MovieResponse>>()
 
     override fun getMovieData() {
         movieData.value = Resource.Loading()

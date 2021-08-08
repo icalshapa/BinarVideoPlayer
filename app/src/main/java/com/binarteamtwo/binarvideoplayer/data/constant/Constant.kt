@@ -20,4 +20,5 @@ object Constant {
 
     const val MOVIE_LANGUAGE = "en-US"
     const val PAGE_SIZE = 20
+    const val IMAGE_URL_PATH_POSTER = "https://image.tmdb.org/t/p/w500/"
 }

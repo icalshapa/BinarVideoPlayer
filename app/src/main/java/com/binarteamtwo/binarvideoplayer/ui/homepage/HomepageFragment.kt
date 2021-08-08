@@ -125,7 +125,7 @@ class HomepageFragment : Fragment(), HomepageContract.View {
                     showLoading(false)
                     showError(false, null)
                     showMoviePlaylistContent(true)
-                    it.data?.let { data ->
+                    it.data?.movies?.let { data ->
                         setListData(data)
                     }
                 }
