@@ -16,11 +16,19 @@ import java.util.concurrent.TimeUnit
 interface MovieApiServices {
 
     @GET("movie/popular")
-    suspend fun getMovie(
+    suspend fun getMoviePopular(
         @Query("api_key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
         @Query("language")language : String = Constant.MOVIE_LANGUAGE,
         @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
     ): MovieResponse
+
+    @GET("/3/discover/movie")
+    suspend fun getMovie(
+        @Query("api_key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
+        @Query("language")language: String = Constant.MOVIE_LANGUAGE,
+        @Query("primary_release_year") sortBy : String = "2021"
+    ) : MovieResponse
+
 
     @GET("movie/")
     suspend fun getMovieTrailer(

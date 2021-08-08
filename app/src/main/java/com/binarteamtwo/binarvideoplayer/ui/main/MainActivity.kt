@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var homepageFragment = HomepageFragment()
     private var favouriteFragment = FavouriteFragment()
-    private var activeFragment = ""
+    private var activeFragment : Fragment = homepageFragment
     /*private val TAG = MainActivity::class.java.simpleName*/
 
 
@@ -39,29 +39,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-        for (fragment in supportFragmentManager.fragments) {
+              for (fragment in supportFragmentManager.fragments) {
             supportFragmentManager.beginTransaction().remove(fragment).commit()
         }
         supportFragmentManager.beginTransaction().apply {
             add(R.id.fl_fragment_homepage, homepageFragment, Constant.TAG_FRAGMENT_HOME_PAGE)
-            /*add(R.id.fl_fragment_homepage,favouriteFragment, Constant.TAG_FRAGMENT_FAVOURITE).hide(
-                favouriteFragment
-            )*/
+            add(R.id.fl_fragment_homepage,favouriteFragment, Constant.TAG_FRAGMENT_FAVOURITE).hide(
+                favouriteFragment)
         }.commit()
         // set title for first fragment
-        supportActionBar?.title = "Popular Movies"
+        supportActionBar?.title = "Latest Movie"
 
         // set click menu for changing fragment
         binding.bottomNavViewHome.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.menu_top_movies -> {
-                    supportActionBar?.title = "Popular Movies"
+                R.id.menu_latest_movies -> {
+
                     showFragment(HomepageFragment())
                     true
                 }
                 else -> {
-                    supportActionBar?.title = "Favourite"
-                    /*showFragment(FavouriteFragment())*/
+
+                    showFragment(FavouriteFragment())
                     true
                 }
             }
@@ -69,11 +68,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFragment(fragment: Fragment) {
+
         supportFragmentManager.beginTransaction()
             .hide(activeFragment)
             .show(fragment)
             .commit()
         activeFragment = fragment
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

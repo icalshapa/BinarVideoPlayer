@@ -2,26 +2,19 @@ package com.binarteamtwo.binarvideoplayer.ui.favourite
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
 import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 
-interface FavouriteContract {/*
-    interface View : BaseContract.BaseView {
-        fun getData(isFavorite: Boolean)
-
-        //Callback get Data
-        fun onDataSuccess(playlist: List<MoviePlaylist>)
-        fun onDataFailed(msg: String?)
-        fun onDataEmpty()
-
-        //callback when delete favourite
-        fun unFavouriteDataSuccess()
-        fun unFavouriteDataFailed()
-
-        //initialize list
-        fun initList()
+interface FavouriteContract {
+    interface View : BaseContract.View {
+        fun showMoviePlaylistContent(isContentVisible: Boolean)
+        fun showLoading(isLoading: Boolean)
+        fun showError(isErrorEnabled : Boolean, msg : String?)
+        fun setupSwipeRefresh()
+        fun setupList()
+        fun setListData(data: List<Movie>)
     }
 
-    interface ViewModel{
-        fun getFavoriteMovie(isFavorite:Boolean)
-        fun deleteMoviePlaylist(moviePlaylist : MoviePlaylist)
-    }*/
+    interface ViewModel : BaseContract.ViewModel{
+        fun getMovieDataPopular()
+    }
 }

@@ -19,6 +19,7 @@ object Constant {
     const val URL_PHOTO_PROFILE_RENGGA = "https://avatars.githubusercontent.com/u/79265332?v=4"
 
     const val MOVIE_LANGUAGE = "en-US"
+    const val MOVIE_RELEASE_DATE = "release_date.desc"
     const val PAGE_SIZE = 20
     const val IMAGE_URL_PATH_POSTER = "https://image.tmdb.org/t/p/w500/"
 
