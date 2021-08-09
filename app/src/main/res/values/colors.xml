@@ -9,13 +9,17 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="green">#71D443</color>
+
+
     <color name="grey"> #4a4a4a </color>
 
     <!--Custom colors-->
-    <color name="custom_color_background">#252522</color>
+    <color name="custom_color_background">#FF000000</color>
+    <color name="custom_color_background2">#252522</color>
     <color name="custom_color_red">#FF0101</color>
     <color name="custom_color_text_primary">#FFFFFF</color>
     <color name="custom_color_text_secondary">#000000</color>
-    <color name="custom_color_gold">#f0e866</color>
+    <color name="custom_color_gold">#FFFFFF</color>
+    <color name="custom_color_gold2">#f0e866</color>
 
 </resources>
