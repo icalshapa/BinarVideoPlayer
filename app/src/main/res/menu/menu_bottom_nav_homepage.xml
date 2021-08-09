@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_latest_movies"
+        android:title="Latest Movies"
+        android:icon="@drawable/ic_menu_movie"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/menu_popular_movies"
+        android:title="Popular Movies"
+        android:icon="@drawable/ic_menu_favourite"
+        app:showAsAction="ifRoom" />
+</menu>

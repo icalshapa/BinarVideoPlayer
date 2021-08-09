@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BinarVideoPlayer">
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.addnewsong.AddNewSongActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.splash.SplashScreenActivity">
             <intent-filter>
@@ -26,6 +25,10 @@
             android:name=".ui.player.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

@@ -1,7 +1,10 @@
 package com.binarteamtwo.binarvideoplayer.base
 
 interface BaseContract {
-    interface BaseView{
+    interface ViewModel{
+    }
+
+    interface View{
         fun initView()
         fun initViewModel()
     }

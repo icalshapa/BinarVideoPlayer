@@ -1,18 +1,17 @@
 package com.binarteamtwo.binarvideoplayer.ui.player
 
-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.LocalMovieDataSource
 
-class PlayerRepository(private val dataSource: MediaPlaylistDataSource) {
-    suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MediaPlaylist{
-        return dataSource.getMediaPlaylistById(mediaPlaylistId)
+class PlayerRepository(private val dataSourceLocal: LocalMovieDataSource)/* {
+    suspend fun getMediaPlaylistById(mediaPlaylistId : Int) : MoviePlaylist{
+        return dataSource.getMoviePlaylistById(mediaPlaylistId)
     }
-    suspend fun changeMediaPlaylistStatus(mediaPlaylist: MediaPlaylist):MediaPlaylist{
-        val updatedMediaPlaylist = mediaPlaylist.copy().apply {
+    suspend fun changeMediaPlaylistStatus(moviePlaylist: MoviePlaylist):MoviePlaylist{
+        val updatedMediaPlaylist = moviePlaylist.copy().apply {
             this.isFavorite = isFavorite.not()
         }
-        dataSource.updateMediaPlaylist(updatedMediaPlaylist)
-        return getMediaPlaylistById(mediaPlaylist.id)
+        dataSource.updateMoviePlaylist(updatedMediaPlaylist)
+        return getMediaPlaylistById(moviePlaylist.id)
     }
 
-}
+}*/

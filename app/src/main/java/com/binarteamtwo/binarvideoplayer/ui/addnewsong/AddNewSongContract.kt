@@ -1,12 +1,13 @@
 package com.binarteamtwo.binarvideoplayer.ui.addnewsong
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+/*
 
 interface AddNewSongContract {
     interface ViewModel{
-        fun insertMediaPlaylist(mediaplaylist : MediaPlaylist)
-        fun updatePlaylist(mediaplaylist : MediaPlaylist)
+        fun insertMediaPlaylist(mediaplaylist : MoviePlaylist)
+        fun updatePlaylist(mediaplaylist : MoviePlaylist)
     }
 
     interface View : BaseContract.BaseView{
@@ -15,4 +16,4 @@ interface AddNewSongContract {
         fun getIntentData()
         fun initializePlaylist()
     }
-}
+}*/

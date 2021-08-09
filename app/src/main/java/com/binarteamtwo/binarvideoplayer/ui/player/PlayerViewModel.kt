@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayerViewModel(private val repository: PlayerRepository):ViewModel(),PlayerContract.ViewModel {
-    val playerData = MutableLiveData<Resource<MediaPlaylist>>()
-    val changeStatusResult = MutableLiveData<Pair<Boolean, MediaPlaylist?>>()
+class PlayerViewModel(private val repository: PlayerRepository):ViewModel()/*,PlayerContract.ViewModel {
+    val playerData = MutableLiveData<Resource<MoviePlaylist>>()
+    val changeStatusResult = MutableLiveData<Pair<Boolean, MoviePlaylist?>>()
     override fun getVideo(videoId: Int) {
         playerData.value = Resource.Loading()
         viewModelScope.launch {
@@ -28,10 +28,10 @@ class PlayerViewModel(private val repository: PlayerRepository):ViewModel(),Play
         }
     }
 
-    override fun changeStatusFavorite(mediaPlaylist: MediaPlaylist) {
+    override fun changeStatusFavorite(moviePlaylist: MoviePlaylist) {
         viewModelScope.launch {
             try {
-                val video = repository.changeMediaPlaylistStatus(mediaPlaylist)
+                val video = repository.changeMediaPlaylistStatus(moviePlaylist)
                 viewModelScope.launch(Dispatchers.Main) {
                     changeStatusResult.value = Pair(true,video)
                 }
@@ -43,4 +43,4 @@ class PlayerViewModel(private val repository: PlayerRepository):ViewModel(),Play
             }
         }
     }
-}
+}*/
