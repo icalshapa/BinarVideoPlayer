@@ -29,13 +29,13 @@ class IntroActivity : AppCompatActivity() {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "WELCOME TO \n MOVIE MANIA APP",
+                "Welcome to \n Movie Mania App",
                 R.drawable.ic_logo
             ), "Welcome"
         )
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "SIGN UP OR LOGIN \n TO PERSONALIZE AND ENJOY \n YOUR FAVORITE MOVIE INFO",
+                "Sign up or login \n to personalize and enjoy \n your favorite movie info",
                 R.drawable.ic_logo
             ), "submit"
         )
