@@ -1,7 +1,7 @@
 package com.binarteamtwo.binarvideoplayer.ui.register
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
 
 interface RegisterContract {
     interface ViewModel : BaseContract.ViewModel {

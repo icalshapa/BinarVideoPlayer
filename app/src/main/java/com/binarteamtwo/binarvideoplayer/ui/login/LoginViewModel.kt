@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

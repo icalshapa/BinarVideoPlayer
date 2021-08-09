@@ -1,12 +1,12 @@
-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.services
+package com.binarteamtwo.binarvideoplayer.data.network.entity.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.BaseAuthResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.LoginResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

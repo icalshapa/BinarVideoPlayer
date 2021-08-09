@@ -1,7 +1,7 @@
 package com.binarteamtwo.binarvideoplayer.ui.login
 
 import com.binarteamtwo.binarvideoplayer.base.BaseContract
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
 
 interface LoginContract {
     interface ViewModel : BaseContract.ViewModel{

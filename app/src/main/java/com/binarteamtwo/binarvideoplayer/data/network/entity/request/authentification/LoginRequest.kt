@@ -1,4 +1,4 @@
-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification
+package com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification
 
 import com.google.gson.annotations.SerializedName
 

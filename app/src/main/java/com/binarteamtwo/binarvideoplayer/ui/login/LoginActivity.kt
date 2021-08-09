@@ -10,8 +10,8 @@ import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices
+import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
+import com.binarteamtwo.binarvideoplayer.data.network.entity.services.BinarApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityLoginBinding
 import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 import com.binarteamtwo.binarvideoplayer.ui.register.RegisterActivity
