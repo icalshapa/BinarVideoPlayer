@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
 import com.binarteamtwo.binarvideoplayer.data.network.entity.services.BinarApiServices
@@ -20,7 +20,7 @@ import com.binarteamtwo.binarvideoplayer.utils.StringUtils
 class LoginActivity : AppCompatActivity(), LoginContract.BaseView {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-    private lateinit var sessionPreference: SessionPreference
+    private lateinit var sessionPreferences: SessionPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,8 +102,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.BaseView {
     }
 
     override fun initViewModel() {
-        sessionPreference = SessionPreference(this)
-        val apiService = BinarApiServices.getInstance(sessionPreference)
+        sessionPreferences = SessionPreferences(this)
+        val apiService = BinarApiServices.getInstance(sessionPreferences)
         apiService?.let {
             val dataSource = BinarDataSource(it)
             val repository = LoginRepository(dataSource)
@@ -132,6 +132,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.BaseView {
     }
 
     override fun saveSessionLogin(authToken : String) {
-        sessionPreference.authToken = authToken
+        sessionPreferences.authToken = authToken
     }
 }

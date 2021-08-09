@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
 import com.binarteamtwo.binarvideoplayer.data.network.entity.services.BinarApiServices
@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.BaseView {
     private val TAG = RegisterActivity::class.java.simpleName
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: RegisterViewModel
-    private lateinit var sessionPreference: SessionPreference
+    private lateinit var sessionPreferences: SessionPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,8 +100,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.BaseView {
     }
 
     override fun initViewModel() {
-        sessionPreference = SessionPreference(this)
-        val apiService = BinarApiServices.getInstance(sessionPreference)
+        sessionPreferences = SessionPreferences(this)
+        val apiService = BinarApiServices.getInstance(sessionPreferences)
         apiService?.let {
             val dataSource = BinarDataSource(it)
             val repository = RegisterRepository(dataSource)

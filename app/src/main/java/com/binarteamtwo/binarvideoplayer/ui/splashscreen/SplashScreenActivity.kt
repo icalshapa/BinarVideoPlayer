@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
-import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.services.BinarApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
@@ -22,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
     private val TAG = SplashScreenActivity::class.java.simpleName
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var viewModel: SplashScreenViewModel
-    private lateinit var sessionPreference: SessionPreference
+    private lateinit var sessionPreferences: SessionPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
     }
 
     override fun checkLogin() {
-        if (sessionPreference.authToken != null) {
+        if (sessionPreferences.authToken != null) {
             viewModel.getSyncData()
         } else {
             //navigate to login, if no token
@@ -61,7 +61,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
     }
 
     override fun deleteSessionLogin() {
-        sessionPreference.deleteSession()
+        sessionPreferences.deleteSession()
     }
 
     override fun initView() {
@@ -70,8 +70,8 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
     }
 
     override fun initViewModel() {
-        sessionPreference = SessionPreference(this)
-        val apiService = BinarApiServices.getInstance(sessionPreference)
+        sessionPreferences = SessionPreferences(this)
+        val apiService = BinarApiServices.getInstance(sessionPreferences)
         apiService?.let {
             val dataSource = BinarDataSource(it)
             val repository = SplashScreenRepository(dataSource)
