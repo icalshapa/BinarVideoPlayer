@@ -3,7 +3,7 @@ package com.binarteamtwo.binarvideoplayer.data.local.sharedpreference
 import android.content.Context
 import android.content.SharedPreferences
 
-class SessionPreference(context: Context) {
+class SessionPreferences(context: Context) {
     private var preference: SharedPreferences = context.getSharedPreferences(NAME, MODE)
 
     companion object {
