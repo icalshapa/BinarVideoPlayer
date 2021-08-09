@@ -24,7 +24,8 @@ interface MovieApiServices {
     suspend fun getMovie(
         @Query("api_key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
         @Query("language")language: String = Constant.MOVIE_LANGUAGE,
-        @Query("primary_release_year") sortBy : String = "2021"
+        @Query("sort_by")sortBy : String = "release_date.desc",
+        @Query("year") year : String = "2021"
     ) : MovieResponse
 
 

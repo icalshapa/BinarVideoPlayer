@@ -2,10 +2,6 @@ package com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentifi
 
 import com.google.gson.annotations.SerializedName
 
-/**
-Written with love by Muhammad Hermas Yuda Pamungkas
-Github : https://github.com/hermasyp
- **/
 data class RegisterRequest(
     @SerializedName("email")
     private var email : String,

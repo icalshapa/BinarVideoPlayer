@@ -3,11 +3,11 @@ package com.binarteamtwo.binarvideoplayer.data.local.sharedpreference
 import android.content.Context
 import android.content.SharedPreferences
 
-class SessionPreferences (context: Context) {
+class SessionPreferences(context: Context) {
     private var preference: SharedPreferences = context.getSharedPreferences(NAME, MODE)
 
     companion object {
-        private const val NAME = "Movie Mania" //app name or else
+        private const val NAME = "Video Player" //app name or else
         private const val MODE = Context.MODE_PRIVATE
         private val PREF_AUTH_TOKEN = Pair("PREF_AUTH_TOKEN", null)
     }

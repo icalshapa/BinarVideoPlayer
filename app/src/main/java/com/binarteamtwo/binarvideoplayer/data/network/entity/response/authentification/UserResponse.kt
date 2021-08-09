@@ -1,6 +1,5 @@
 package com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification
 
-
 import com.google.gson.annotations.SerializedName
 
 data class UserResponse(

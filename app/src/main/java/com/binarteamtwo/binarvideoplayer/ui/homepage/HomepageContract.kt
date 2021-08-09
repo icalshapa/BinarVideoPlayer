@@ -9,7 +9,7 @@ interface HomepageContract {
         fun getMovieData()
     }
 
-    interface View : BaseContract.View {
+    interface View : BaseContract.BaseView {
         fun showMoviePlaylistContent(isContentVisible: Boolean)
         fun showLoading(isLoading: Boolean)
         fun showError(isErrorEnabled : Boolean, msg : String?)

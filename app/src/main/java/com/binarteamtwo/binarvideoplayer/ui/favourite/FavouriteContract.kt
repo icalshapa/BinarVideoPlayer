@@ -5,7 +5,7 @@ import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 
 interface FavouriteContract {
-    interface View : BaseContract.View {
+    interface View : BaseContract.BaseView {
         fun showMoviePlaylistContent(isContentVisible: Boolean)
         fun showLoading(isLoading: Boolean)
         fun showError(isErrorEnabled : Boolean, msg : String?)

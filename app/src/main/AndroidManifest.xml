@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BinarVideoPlayer">
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.splash.SplashScreenActivity">
+        <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

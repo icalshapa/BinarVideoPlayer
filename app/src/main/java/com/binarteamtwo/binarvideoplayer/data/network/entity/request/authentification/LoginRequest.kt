@@ -1,6 +1,5 @@
 package com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification
 
-
 import com.google.gson.annotations.SerializedName
 
 data class LoginRequest(
@@ -9,3 +8,4 @@ data class LoginRequest(
     @SerializedName("password")
     val password: String? = null
 )
+

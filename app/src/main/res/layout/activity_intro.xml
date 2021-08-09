@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/grey"
     tools:context=".ui.intro.IntroActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:padding="8dp"
-            android:textColor="@color/green"
+            android:textColor="#FF0101"
             android:fontFamily="@font/bebas_neue_bold"
             android:textAlignment="center"
             android:textStyle="bold"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textSize="24sp"
-            android:textColor="@color/green"
+            android:textColor="#FF0101"
             android:fontFamily="@font/bebas_neue_bold"
             android:textAlignment="center"
             android:textStyle="bold"
@@ -72,7 +72,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:progressMode="true"
-            app:selectedDotColor="@color/green" />
+            app:selectedDotColor="#FF0101" />
 
         <TextView
             android:id="@+id/tv_next"
@@ -82,7 +82,7 @@
             android:textSize="24sp"
             android:textAlignment="center"
             android:fontFamily="@font/bebas_neue_bold"
-            android:textColor="@color/green"
+            android:textColor="#FF0101"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"

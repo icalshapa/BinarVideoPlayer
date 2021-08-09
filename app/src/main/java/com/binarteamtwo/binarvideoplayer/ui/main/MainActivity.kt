@@ -1,11 +1,9 @@
 package com.binarteamtwo.binarvideoplayer.ui.main
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,23 +15,22 @@ import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
 import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
 import com.binarteamtwo.binarvideoplayer.ui.favourite.FavouriteFragment
 import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment
-import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
-import com.google.android.material.snackbar.Snackbar
+import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var homepageFragment = HomepageFragment()
     private var favouriteFragment = FavouriteFragment()
     private var activeFragment : Fragment = homepageFragment
-    /*private val TAG = MainActivity::class.java.simpleName*/
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /*Log.d(TAG, "onCreate: ")*/
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showGreetings()
+        //showGreetings()
         /*initViewPager()*/
         setupFragment()
     }
@@ -87,39 +84,24 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_action_logout -> {
                 showDialogLogout()
             }
+            R.id.menu_logout -> {
+                deleteLoginData()
+                navigateToIntro()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
         return super.onOptionsItemSelected(item)
     }
 
 
-    /*private fun initViewPager() {
-        val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
-        fragmentAdapter.addFragment(HomepageFragment.newInstance(false),
-            getString(R.string.main_playlist)
-        )
-        fragmentAdapter.addFragment(
-            HomepageFragment.newInstance(true),
-            getString(R.string.main_favorite)
-        )
-        binding.viewPager.apply {
-            adapter = fragmentAdapter
-        }
-        TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->
-            tab.text = fragmentAdapter.getPageTitle(position)
-        }.attach()
-    }*/
-
-/*private fun navigateToAddSongForm() {
-
-    AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_INSERT)
-}*/
 
     private fun openDialogAbout() {
 
         AboutDialogFragment().show(supportFragmentManager, null)
     }
 
-    private fun showGreetings() {
+    /*private fun showGreetings() {
 
         val snackBar = Snackbar.make(
             binding.root,
@@ -130,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                 )
             ),
             Snackbar.LENGTH_INDEFINITE
+
         )
         snackBar.setAction(getString(R.string.main_snackbar_dismiss)) {
             snackBar.dismiss()
@@ -139,10 +122,10 @@ class MainActivity : AppCompatActivity() {
         // change Snackbar text color
         textView.setTextColor(Color.parseColor("#FFFFFF"))
         snackBar.show()
-    }
+    }*/
 
-    private fun navigateToIntro() {
-        val intent = Intent(this, IntroActivity::class.java)
+    private fun navigateToIntro(){
+        val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
@@ -180,11 +163,4 @@ class MainActivity : AppCompatActivity() {
     private fun deleteSession() {
         SessionPreferences(this).deleteSession()
     }
-
-    /*private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        finish()
-    }*/
 }

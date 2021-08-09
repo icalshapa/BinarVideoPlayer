@@ -1,16 +1,16 @@
 package com.binarteamtwo.binarvideoplayer.ui.intro
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
-import com.binarteamtwo.binarvideoplayer.ui.intro.form.FormFragment
-import com.binarteamtwo.binarvideoplayer.ui.intro.form.FormFragmentListener
 import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityIntroBinding
+import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
 import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
 
-class IntroActivity : AppCompatActivity(), FormFragmentListener {
+class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,18 +29,15 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
         val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "Welcome TO YOUR \n OWN MUSIC VIDEO \n PARADISE",
+                "WELCOME TO \n MOVIE MANIA APP",
                 R.drawable.ic_logo
             ), "Welcome"
         )
         fragmentAdapter.addFragment(
             IntroFragment.newInstance(
-                "SUBMIT TO PERSONALISE \n AND ENJOY YOUR MUSIC EXPERIENCE",
+                "SIGN UP OR LOGIN \n TO PERSONALIZE AND ENJOY \n YOUR FAVORITE MOVIE INFO",
                 R.drawable.ic_logo
             ), "submit"
-        )
-        fragmentAdapter.addFragment(
-            FormFragment(), "form"
         )
         binding.vpIntro.apply {
             adapter = fragmentAdapter
@@ -55,7 +52,6 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
                         binding.tvSkip.isEnabled = true
                         binding.tvBack.visibility = View.INVISIBLE
                         binding.tvBack.isEnabled = false
-                        binding.dotsIndicator.visibility = View.VISIBLE
                     }
                     position < fragmentAdapter.itemCount - 1 -> {
                         binding.tvNext.visibility = View.VISIBLE
@@ -64,16 +60,14 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
                         binding.tvSkip.isEnabled = false
                         binding.tvBack.visibility = View.VISIBLE
                         binding.tvBack.isEnabled = true
-                        binding.dotsIndicator.visibility = View.VISIBLE
                     }
                     position == fragmentAdapter.itemCount - 1 -> {
-                        binding.tvNext.visibility = View.INVISIBLE
-                        binding.tvNext.isEnabled = false
+                        binding.tvNext.visibility = View.VISIBLE
+                        binding.tvNext.isEnabled = true
                         binding.tvSkip.visibility = View.INVISIBLE
                         binding.tvSkip.isEnabled = false
-                        binding.tvBack.visibility = View.INVISIBLE
-                        binding.tvBack.isEnabled = false
-                        binding.dotsIndicator.visibility = View.INVISIBLE
+                        binding.tvBack.visibility = View.VISIBLE
+                        binding.tvBack.isEnabled = true
                     }
                 }
                 super.onPageSelected(position)
@@ -84,6 +78,8 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
         binding.tvNext.setOnClickListener {
             if (getNextIndex() != -1) {
                 binding.vpIntro.setCurrentItem(getNextIndex(), true)
+            } else {
+                navigateToLogin()
             }
         }
         binding.tvBack.setOnClickListener {
@@ -92,7 +88,7 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
             }
         }
         binding.tvSkip.setOnClickListener {
-            binding.vpIntro.setCurrentItem(2, false)
+            navigateToLogin()
         }
     }
 
@@ -117,6 +113,8 @@ class IntroActivity : AppCompatActivity(), FormFragmentListener {
         return selectedIdx
     }
 
-    override fun onNameSubmitted(text: String) {
+    fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }

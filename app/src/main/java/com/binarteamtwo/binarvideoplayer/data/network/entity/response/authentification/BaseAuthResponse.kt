@@ -2,10 +2,6 @@ package com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentif
 
 import com.google.gson.annotations.SerializedName
 
-/**
-Written with love by Muhammad Hermas Yuda Pamungkas
-Github : https://github.com/hermasyp
- **/
 data class BaseAuthResponse<T, E>(
     @SerializedName("success")
     val success: Boolean,
@@ -13,4 +9,5 @@ data class BaseAuthResponse<T, E>(
     val data: T,
     @SerializedName("errors")
     val errors: E
+
 )
