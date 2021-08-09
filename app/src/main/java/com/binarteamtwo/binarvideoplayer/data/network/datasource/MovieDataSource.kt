@@ -10,4 +10,7 @@ class MovieDataSource(private val movieApiServices: MovieApiServices) {
     suspend fun getMoviePopular() : MovieResponse{
         return movieApiServices.getMoviePopular()
     }
+    suspend fun getMovieTrailer(id: Int): MovieResponse{
+        return movieApiServices.getMovieTrailer(id)
+    }
 }

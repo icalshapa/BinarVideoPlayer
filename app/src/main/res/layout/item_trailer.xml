@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
+    android:backgroundTint="@color/black"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_icon_movie"
+
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:layout_marginLeft="@dimen/_6sdp"
+            app:civ_circle_background_color="@color/white"
+            tools:src="@tools:sample/avatars"
+            android:src="@drawable/ic_placeholder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_title_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Trailer Title"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:textSize="@dimen/_26ssp"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@id/iv_icon_movie"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_title_movie"
+            android:layout_width="wrap_content"
+            android:text="Movie Title"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:textSize="@dimen/_18ssp"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:textColor="@color/white"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_trailer"
+            app:layout_constraintLeft_toRightOf="@id/iv_icon_movie"/>
+
+
+
+        <ImageView
+            android:id="@+id/ic_play_button"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_btn_play"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

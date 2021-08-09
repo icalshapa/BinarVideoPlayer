@@ -2,6 +2,7 @@ package com.binarteamtwo.binarvideoplayer.data.network.services
 
 import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,7 +31,7 @@ interface MovieApiServices {
 
     @GET("movie/")
     suspend fun getMovieTrailer(
-        @Query("id")movieId : String,
+        @Query("id")id: Int,
         @Query("api_key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
 
         ): MovieResponse
