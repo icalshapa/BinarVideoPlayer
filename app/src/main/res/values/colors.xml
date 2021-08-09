@@ -8,6 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#71D443</color>
-    <color name="grey"> #4a4a4a </color>
+    <color name="grey"> #333131</color>
     <color name="transparent">#0071D443</color>
 </resources>

@@ -12,7 +12,7 @@ import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPref
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.services.BinarApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
-import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
+import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
 import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,8 +32,8 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
         initView()
     }
 
-    override fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
+    override fun navigateToIntro() {
+        val intent = Intent(this, IntroActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
@@ -54,7 +54,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
             lifecycleScope.launch(Dispatchers.IO) {
                 delay(1000)
                 lifecycleScope.launch(Dispatchers.Main) {
-                    navigateToLogin()
+                    navigateToIntro()
                 }
             }
         }
@@ -89,7 +89,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView 
                 is Resource.Error -> {
                     Toast.makeText(this, "Session Expired", Toast.LENGTH_SHORT).show()
                     deleteSessionLogin()
-                    navigateToLogin()
+                    navigateToIntro()
                 }
             }
         })

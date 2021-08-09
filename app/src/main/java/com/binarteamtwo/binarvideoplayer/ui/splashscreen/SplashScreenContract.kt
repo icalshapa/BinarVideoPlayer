@@ -7,7 +7,7 @@ interface SplashScreenContract {
         fun getSyncData()
     }
     interface BaseView : BaseContract.BaseView{
-        fun navigateToLogin()
+        fun navigateToIntro()
         fun navigateToHome()
         fun checkLogin()
         fun deleteSessionLogin()
