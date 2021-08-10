@@ -15,5 +15,6 @@ interface TrailerListContract {
         fun setupSwipeRefresh()
         fun setupList()
         fun setListData(data: List<Movie>)
+        fun getIntentData()
     }
 }
