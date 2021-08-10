@@ -1,0 +1,34 @@
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.data.network.services\r\n\r\nimport com.binarteamtwo.binarvideoplayer.BuildConfig\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse\r\nimport okhttp3.OkHttpClient\r\nimport okhttp3.logging.HttpLoggingInterceptor\r\nimport retrofit2.Retrofit\r\nimport retrofit2.converter.gson.GsonConverterFactory\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Query\r\nimport java.util.concurrent.TimeUnit\r\n\r\ninterface MovieApiServices {\r\n\r\n    @GET(\"movie/popular\")\r\n    suspend fun getMovie(\r\n        @Query(\"api-key\")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,\r\n        @Query(\"language\")language : String = Constant.MOVIE_LANGUAGE,\r\n        @Query(\"page-size\")pageSize : Int = Constant.PAGE_SIZE\r\n    ): MovieResponse\r\n    @GET(\"movie/\")\r\n    suspend fun getMovieTrailer(\r\n        @Query(\"id\")movieId : String,\r\n        @Query(\"api-key\")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,\r\n\r\n    ): MovieResponse\r\n\r\n    companion object{\r\n        private var retrofitServices : MovieApiServices? = null\r\n        fun getInstance() : MovieApiServices?{\r\n            if(retrofitServices == null){\r\n                //initialize\r\n                val okHttpClient = OkHttpClient.Builder()\r\n                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))\r\n                    .connectTimeout(120, TimeUnit.SECONDS)\r\n                    .readTimeout(120, TimeUnit.SECONDS)\r\n                    .build()\r\n\r\n                val retrofit = Retrofit.Builder()\r\n                    .baseUrl(BuildConfig.BASE_URL_THEMOVIE_DB)\r\n                    .addConverterFactory(GsonConverterFactory.create())\r\n                    .client(okHttpClient)\r\n                    .build()\r\n                retrofitServices = retrofit.create(MovieApiServices::class.java)\r\n            }\r\n            return retrofitServices\r\n        }\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt	(revision ca99378ef1303f543cd4df687884026110b99c2b)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt	(date 1628390202137)
+@@ -18,6 +18,7 @@
+         @Query("api-key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
+         @Query("language")language : String = Constant.MOVIE_LANGUAGE,
+         @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
++
+     ): MovieResponse
+     @GET("movie/")
+     suspend fun getMovieTrailer(
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"false\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision ca99378ef1303f543cd4df687884026110b99c2b)
++++ .idea/misc.xml	(date 1628394447868)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">

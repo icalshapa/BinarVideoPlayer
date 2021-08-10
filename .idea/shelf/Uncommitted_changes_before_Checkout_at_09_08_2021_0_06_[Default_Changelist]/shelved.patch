@@ -1,0 +1,169 @@
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.main\r\n\r\nimport android.content.Intent\r\nimport android.graphics.Color\r\nimport android.os.Bundle\r\nimport android.view.Menu\r\nimport android.view.MenuItem\r\nimport android.widget.TextView\r\nimport androidx.appcompat.app.AlertDialog\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.fragment.app.Fragment\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences\r\nimport com.binarteamtwo.binarvideoplayer.data.preference.UserPreference\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.favourite.FavouriteFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity\r\nimport com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter\r\nimport com.google.android.material.snackbar.Snackbar\r\nimport com.google.android.material.tabs.TabLayoutMediator\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityMainBinding\r\n    private var homepageFragment = HomepageFragment()\r\n    private var favouriteFragment = FavouriteFragment()\r\n    private var activeFragment: Fragment = homepageFragment\r\n    /*private val TAG = MainActivity::class.java.simpleName*/\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        /*Log.d(TAG, \"onCreate: \")*/\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityMainBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        setSupportActionBar(binding.toolbarMain)\r\n        showGreetings()\r\n        /*initViewPager()*/\r\n        setupFragment()\r\n    }\r\n\r\n    private fun setupFragment() {\r\n        for (fragment in supportFragmentManager.fragments) {\r\n            supportFragmentManager.beginTransaction().remove(fragment).commit()\r\n        }\r\n        supportFragmentManager.beginTransaction().apply {\r\n            add(R.id.fl_fragment_homepage, homepageFragment, Constant.TAG_FRAGMENT_HOME_PAGE)\r\n            add(R.id.fl_fragment_homepage, favouriteFragment, Constant.TAG_FRAGMENT_FAVOURITE).hide(\r\n                favouriteFragment\r\n            )\r\n        }.commit()\r\n        // set title for first fragment\r\n        supportActionBar?.title = \"Latest Movie\"\r\n\r\n        // set click menu for changing fragment\r\n        binding.bottomNavViewHome.setOnItemSelectedListener {\r\n            when (it.itemId) {\r\n                R.id.menu_latest_movies -> {\r\n\r\n                    showFragment(HomepageFragment())\r\n                    true\r\n                }\r\n                else -> {\r\n\r\n                    showFragment(FavouriteFragment())\r\n                    true\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun showFragment(fragment: Fragment) {\r\n\r\n        supportFragmentManager.beginTransaction()\r\n            .hide(activeFragment)\r\n            .show(fragment)\r\n            .commit()\r\n        activeFragment = fragment\r\n\r\n    }\r\n\r\n    override fun onCreateOptionsMenu(menu: Menu?): Boolean {\r\n        menuInflater.inflate(R.menu.menu_main_activity, menu)\r\n        return super.onCreateOptionsMenu(menu)\r\n    }\r\n\r\n    override fun onOptionsItemSelected(item: MenuItem): Boolean {\r\n        return when (item.itemId) {\r\n            R.id.menu_add_song -> {\r\n                navigateToAddSongForm()\r\n                true\r\n            }\r\n            R.id.menu_about -> {\r\n                openDialogAbout()\r\n                true\r\n            }\r\n            R.id.menu_logout -> {\r\n                deleteLoginData()\r\n                navigateToIntro()\r\n                true\r\n            }\r\n            else -> super.onOptionsItemSelected(item)\r\n        }\r\n    }\r\n\r\n    private fun initViewPager() {\r\n        val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)\r\n        fragmentAdapter.addFragment(\r\n            MediaPlaylistFragment.newInstance(false),\r\n            getString(R.string.main_playlist)\r\n        )\r\n        fragmentAdapter.addFragment(\r\n            MediaPlaylistFragment.newInstance(true),\r\n            getString(R.string.main_favorite)\r\n        )\r\n        binding.viewPager.apply {\r\n            adapter = fragmentAdapter\r\n        }\r\n        TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->\r\n            tab.text = fragmentAdapter.getPageTitle(position)\r\n        }.attach()\r\n    }\r\n\r\n    private fun navigateToAddSongForm() {\r\n\r\n        AddNewSongActivity.startActivity(this, AddNewSongActivity.MODE_INSERT)\r\n    }\r\n\r\n    private fun openDialogAbout() {\r\n\r\n        AboutDialogFragment().show(supportFragmentManager, null)\r\n    }\r\n\r\n    private fun showGreetings() {\r\n\r\n        val snackBar = Snackbar.make(\r\n            binding.root,\r\n            String.format(\r\n                getString(\r\n                    R.string.main_snackbar_greeting,\r\n                    UserPreference(this).userName\r\n                )\r\n            ),\r\n            Snackbar.LENGTH_INDEFINITE\r\n\r\n        )\r\n        snackBar.setAction(getString(R.string.main_snackbar_dismiss)) {\r\n            snackBar.dismiss()\r\n        }\r\n        snackBar.view.setBackgroundColor(Color.parseColor(\"#000000\"))\r\n        val textView = snackBar.view.findViewById(R.id.snackbar_text) as TextView\r\n        // change Snackbar text color\r\n        textView.setTextColor(Color.parseColor(\"#FFFFFF\"))\r\n        snackBar.show()\r\n    }\r\n\r\n    private fun navigateToIntro() {\r\n        val intent = Intent(this, IntroActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    private fun deleteLoginData() {\r\n        UserPreference(this).isUserLoggedIn = false\r\n    }\r\n\r\n\r\n    override fun onBackPressed() {\r\n        super.onBackPressed()\r\n\r\n\r\n        private fun deleteSession() {\r\n            SessionPreferences(this).deleteSession()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(date 1628441038545)
+@@ -35,7 +35,7 @@
+         super.onCreate(savedInstanceState)
+         binding = ActivityMainBinding.inflate(layoutInflater)
+         setContentView(binding.root)
+-        setSupportActionBar(binding.toolbarMain)
++        //setSupportActionBar(binding.toolbarMain)
+         showGreetings()
+         /*initViewPager()*/
+         setupFragment()
+@@ -89,7 +89,7 @@
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         return when (item.itemId) {
+             R.id.menu_add_song -> {
+-                navigateToAddSongForm()
++
+                 true
+             }
+             R.id.menu_about -> {
+@@ -105,28 +105,9 @@
+         }
+     }
+ 
+-    private fun initViewPager() {
+-        val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+-        fragmentAdapter.addFragment(
+-            MediaPlaylistFragment.newInstance(false),
+-            getString(R.string.main_playlist)
+-        )
+-        fragmentAdapter.addFragment(
+-            MediaPlaylistFragment.newInstance(true),
+-            getString(R.string.main_favorite)
+-        )
+-        binding.viewPager.apply {
+-            adapter = fragmentAdapter
+-        }
+-        TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->
+-            tab.text = fragmentAdapter.getPageTitle(position)
+-        }.attach()
+-    }
+ 
+-    private fun navigateToAddSongForm() {
+ 
+-        AddNewSongActivity.startActivity(this, AddNewSongActivity.MODE_INSERT)
+-    }
++
+ 
+     private fun openDialogAbout() {
+ 
+@@ -172,7 +153,7 @@
+         super.onBackPressed()
+ 
+ 
+-        private fun deleteSession() {
++        fun deleteSession() {
+             SessionPreferences(this).deleteSession()
+         }
+     }
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.login\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest\r\n\r\ninterface LoginContract {\r\n    interface ViewModel : BaseContract.ViewModel{\r\n        fun loginUser(loginRequest: LoginRequest)\r\n    }\r\n    interface BaseView : BaseContract.BaseView{\r\n        fun setToolbar()\r\n        fun setOnClick()\r\n        fun navigateToHome()\r\n        fun navigateToRegister()\r\n        fun setLoadingState(isLoadingVisible: Boolean)\r\n        fun checkFormValidation() : Boolean\r\n        fun saveSessionLogin(authToken : String)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginContract.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginContract.kt	(date 1628441905509)
+@@ -1,7 +1,7 @@
+ package com.binarteamtwo.binarvideoplayer.ui.login
+ 
+ import com.binarteamtwo.binarvideoplayer.base.BaseContract
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
+ 
+ interface LoginContract {
+     interface ViewModel : BaseContract.ViewModel{
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.login\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\n\r\nclass LoginViewModel(private val repository: LoginRepository) : ViewModel(),\r\n    LoginContract.ViewModel {\r\n    val loginResponse = MutableLiveData<Resource<LoginResponse>>()\r\n\r\n    override fun loginUser(loginRequest: LoginRequest) {\r\n        //todo : set payload to loading\r\n        loginResponse.value = Resource.Loading()\r\n        viewModelScope.launch(Dispatchers.IO) {\r\n            try {\r\n                val response = repository.postLoginData(loginRequest)\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    //checking if response success\r\n                    if (response.success) {\r\n                        loginResponse.value = Resource.Success(response.data)\r\n                    } else {\r\n                        loginResponse.value = Resource.Error(response.errors)\r\n                    }\r\n                }\r\n            } catch (e: Exception) {\r\n                //set value to error message\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    loginResponse.value = Resource.Error(e.message.orEmpty())\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginViewModel.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginViewModel.kt	(date 1628441879981)
+@@ -4,8 +4,8 @@
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.LoginResponse
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.launch
+ 
+Index: app/src/main/res/layout/activity_register.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/bg_grey\"\r\n    android:padding=\"@dimen/_16sdp\"\r\n    tools:context=\".ui.register.RegisterActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_login\"\r\n        android:layout_width=\"@dimen/_150sdp\"\r\n        android:layout_height=\"@dimen/_150sdp\"\r\n        android:layout_marginTop=\"@dimen/_50sdp\"\r\n        android:src=\"@drawable/ic_logo\"\r\n        android:layout_marginStart=\"@dimen/_10sdp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_login_two\"\r\n        android:layout_width=\"@dimen/_200sdp\"\r\n        android:layout_height=\"@dimen/_150sdp\"\r\n        android:layout_marginTop=\"@dimen/_50sdp\"\r\n        android:layout_marginStart=\"@dimen/_120sdp\"\r\n        android:src=\"@drawable/ic_logo_typo\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/til_email\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n        android:layout_width=\"@dimen/_180sdp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"@dimen/_20sdp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_green\"\r\n        android:hint=\"@string/text_hint_email\"\r\n        android:textColorHint=\"@color/black\"\r\n        app:hintTextColor=\"@color/black\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@id/iv_logo_login\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n            android:id=\"@+id/et_email\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:background=\"@color/transparent\"\r\n            android:fontFamily=\"@font/bebas_neue_bold\"\r\n            android:inputType=\"textEmailAddress\"\r\n            android:maxLines=\"1\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"@dimen/_15ssp\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/til_username\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n        android:layout_width=\"@dimen/_180sdp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_green\"\r\n        android:hint=\"@string/text_hint_username\"\r\n        android:textColorHint=\"@color/black\"\r\n        app:hintTextColor=\"@color/black\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/til_email\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n            android:id=\"@+id/et_username\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@color/transparent\"\r\n            android:fontFamily=\"@font/bebas_neue_bold\"\r\n            android:maxLines=\"1\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"@dimen/_15ssp\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/til_password\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n        android:layout_width=\"@dimen/_180sdp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_green\"\r\n        android:hint=\"@string/text_hint_password\"\r\n        android:textColorHint=\"@color/black\"\r\n        app:hintTextColor=\"@color/black\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/til_username\"\r\n        app:passwordToggleEnabled=\"true\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n            android:id=\"@+id/et_password\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@color/transparent\"\r\n            android:fontFamily=\"@font/bebas_neue_bold\"\r\n            android:inputType=\"textPassword\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"@dimen/_15ssp\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/pb_loading\"\r\n        android:layout_width=\"@dimen/_20sdp\"\r\n        android:layout_height=\"@dimen/_20sdp\"\r\n        android:layout_marginTop=\"@dimen/_10sdp\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/btn_register\"\r\n        tools:visibility=\"visible\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/btn_register\"\r\n        android:layout_width=\"@dimen/_100sdp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"@dimen/_16sdp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_white\"\r\n        android:fontFamily=\"@font/bebas_neue_bold\"\r\n        android:text=\"@string/text_btn_signup\"\r\n        android:textColor=\"@color/black\"\r\n        android:textSize=\"@dimen/_25ssp\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/til_password\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_register.xml	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/res/layout/activity_register.xml	(date 1628441155105)
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/bg_grey"
++    android:background="@color/black"
+     android:padding="@dimen/_16sdp"
+     tools:context=".ui.register.RegisterActivity">
+ 
+@@ -48,7 +48,7 @@
+             android:id="@+id/et_email"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+-            android:background="@color/transparent"
++            android:background="@color/white"
+             android:fontFamily="@font/bebas_neue_bold"
+             android:inputType="textEmailAddress"
+             android:maxLines="1"
+@@ -75,7 +75,7 @@
+             android:id="@+id/et_username"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:background="@color/transparent"
++            android:background="@color/white"
+             android:fontFamily="@font/bebas_neue_bold"
+             android:maxLines="1"
+             android:textColor="@color/black"
+@@ -102,7 +102,7 @@
+             android:id="@+id/et_password"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:background="@color/transparent"
++            android:background="@color/white"
+             android:fontFamily="@font/bebas_neue_bold"
+             android:inputType="textPassword"
+             android:textColor="@color/black"
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.login\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.Toast\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityLoginBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.main.MainActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.register.RegisterActivity\r\nimport com.binarteamtwo.binarvideoplayer.utils.StringUtils\r\n\r\nclass LoginActivity : AppCompatActivity(), LoginContract.BaseView {\r\n    private lateinit var binding: ActivityLoginBinding\r\n    private lateinit var viewModel: LoginViewModel\r\n    private lateinit var sessionPreference: SessionPreference\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        supportActionBar?.hide()\r\n        binding = ActivityLoginBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        initView()\r\n    }\r\n\r\n    override fun setToolbar() {\r\n    }\r\n\r\n    override fun setOnClick() {\r\n        binding.btnLogin.setOnClickListener {\r\n            if (checkFormValidation()) {\r\n                viewModel.loginUser(\r\n                    LoginRequest(\r\n                        email = binding.etEmail.text.toString(),\r\n                        password = binding.etPassword.text.toString()\r\n                    )\r\n                )\r\n            }\r\n        }\r\n        binding.btnNavigateRegister.setOnClickListener {\r\n            navigateToRegister()\r\n        }\r\n    }\r\n\r\n    override fun navigateToHome() {\r\n        val intent = Intent(this, MainActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    override fun navigateToRegister() {\r\n        val intent = Intent(this, RegisterActivity::class.java)\r\n        startActivity(intent)\r\n    }\r\n\r\n    override fun setLoadingState(isLoadingVisible: Boolean) {\r\n        binding.pbLoading.visibility = if (isLoadingVisible) View.VISIBLE else View.GONE\r\n    }\r\n\r\n    override fun checkFormValidation(): Boolean {\r\n        val email = binding.etEmail.text.toString()\r\n        val password = binding.etPassword.text.toString()\r\n        var isFormValid = true\r\n        //for checking is email empty\r\n        when {\r\n            email.isEmpty() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_empty)\r\n            }\r\n            StringUtils.isEmailValid(email).not() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_invalid)\r\n            }\r\n            else -> {\r\n                binding.tilEmail.isErrorEnabled = false\r\n            }\r\n        }\r\n        //for checking is Password empty\r\n        if (password.isEmpty()) {\r\n            isFormValid = false\r\n            binding.tilPassword.isErrorEnabled = true\r\n            binding.tilPassword.error = getString(R.string.error_password_empty)\r\n        } else {\r\n            binding.tilPassword.isErrorEnabled = false\r\n        }\r\n        return isFormValid\r\n    }\r\n\r\n    override fun initView() {\r\n        initViewModel()\r\n        setOnClick()\r\n    }\r\n\r\n    override fun initViewModel() {\r\n        sessionPreference = SessionPreference(this)\r\n        val apiService = BinarApiServices.getInstance(sessionPreference)\r\n        apiService?.let {\r\n            val dataSource = BinarDataSource(it)\r\n            val repository = LoginRepository(dataSource)\r\n            viewModel = GenericViewModelFactory(LoginViewModel(repository))\r\n                .create(LoginViewModel::class.java)\r\n        }\r\n        viewModel.loginResponse.observe(this, { response ->\r\n            when (response) {\r\n                is Resource.Loading -> {\r\n                    setLoadingState(true)\r\n                }\r\n                is Resource.Success -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this, R.string.text_login_success, Toast.LENGTH_SHORT).show()\r\n                    response.data?.token?.let {\r\n                        saveSessionLogin(it)\r\n                    }\r\n                    navigateToHome()\r\n                }\r\n                is Resource.Error -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this,\"Login Failed, Please check email and password correctly\", Toast.LENGTH_SHORT).show()\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun saveSessionLogin(authToken : String) {\r\n        sessionPreference.authToken = authToken\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt	(date 1628441879967)
+@@ -10,8 +10,8 @@
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+ import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
++import com.binarteamtwo.binarvideoplayer.data.network.services.BinarApiServices
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivityLoginBinding
+ import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
+ import com.binarteamtwo.binarvideoplayer.ui.register.RegisterActivity

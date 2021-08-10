@@ -1,0 +1,495 @@
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/bg_grey\"\r\n    android:padding=\"@dimen/_16sdp\"\r\n    tools:context=\".ui.login.LoginActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_login\"\r\n        android:layout_width=\"@dimen/_150sdp\"\r\n        android:layout_height=\"@dimen/_150sdp\"\r\n        android:layout_marginTop=\"@dimen/_50sdp\"\r\n        android:src=\"@drawable/ic_logo\"\r\n        android:layout_marginStart=\"@dimen/_10sdp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_login_two\"\r\n        android:layout_width=\"@dimen/_200sdp\"\r\n        android:layout_height=\"@dimen/_150sdp\"\r\n        android:layout_marginTop=\"@dimen/_50sdp\"\r\n        android:layout_marginStart=\"@dimen/_120sdp\"\r\n        android:src=\"@drawable/ic_logo_typo\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/til_email\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n        android:layout_width=\"@dimen/_180sdp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@drawable/bg_edittext_rounded_green\"\r\n        android:hint=\"@string/text_hint_email\"\r\n        android:textColorHint=\"@color/black\"\r\n        android:layout_marginTop=\"@dimen/_20sdp\"\r\n        app:hintTextColor=\"@color/black\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@id/iv_logo_login\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n            android:background=\"@color/transparent\"\r\n            android:id=\"@+id/et_email\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:fontFamily=\"@font/bebas_neue_bold\"\r\n            android:inputType=\"textEmailAddress\"\r\n            android:cursorVisible=\"true\"\r\n            android:maxLines=\"1\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"@dimen/_15ssp\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/til_password\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n        android:layout_width=\"@dimen/_180sdp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_green\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:hint=\"@string/text_hint_password\"\r\n        android:textColorHint=\"@color/black\"\r\n        app:hintTextColor=\"@color/black\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/til_email\"\r\n        app:passwordToggleEnabled=\"true\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n            android:id=\"@+id/et_password\"\r\n            android:background=\"@color/transparent\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:fontFamily=\"@font/bebas_neue_bold\"\r\n            android:inputType=\"textPassword\"\r\n            android:textColor=\"@color/black\"\r\n            android:maxLines=\"1\"\r\n            android:textSize=\"@dimen/_15ssp\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/pb_loading\"\r\n        android:layout_width=\"@dimen/_20sdp\"\r\n        android:layout_height=\"@dimen/_20sdp\"\r\n        android:layout_marginTop=\"@dimen/_10sdp\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/btn_navigate_register\"\r\n        tools:visibility=\"visible\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/btn_login\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"@dimen/_16sdp\"\r\n        android:background=\"@drawable/bg_edittext_rounded_white\"\r\n        android:fontFamily=\"@font/bebas_neue_bold\"\r\n        android:text=\"@string/text_btn_login\"\r\n        android:textColor=\"@color/black\"\r\n        android:textSize=\"@dimen/_25ssp\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/til_password\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/btn_navigate_register\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"@dimen/_10sdp\"\r\n        android:fontFamily=\"@font/bebas_neue_bold\"\r\n        android:gravity=\"center\"\r\n        android:text=\"@string/text_create_account\"\r\n        android:textColor=\"@color/green\"\r\n        android:textSize=\"@dimen/_15ssp\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/btn_login\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/res/layout/activity_login.xml	(date 1628441155112)
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/bg_grey"
++    android:background="@color/black"
+     android:padding="@dimen/_16sdp"
+     tools:context=".ui.login.LoginActivity">
+ 
+@@ -45,7 +45,7 @@
+         app:layout_constraintTop_toBottomOf="@id/iv_logo_login">
+ 
+         <com.google.android.material.textfield.TextInputEditText
+-            android:background="@color/transparent"
++            android:background="@color/white"
+             android:id="@+id/et_email"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+@@ -75,7 +75,7 @@
+ 
+         <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/et_password"
+-            android:background="@color/transparent"
++            android:background="@color/white"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:fontFamily="@font/bebas_neue_bold"
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.register\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest\r\n\r\ninterface RegisterContract {\r\n    interface ViewModel : BaseContract.ViewModel {\r\n        fun registerUser(registerRequest: RegisterRequest)\r\n    }\r\n\r\n    interface BaseView : BaseContract.BaseView {\r\n        fun setToolbar()\r\n        fun setOnClick()\r\n        fun setLoadingState(isLoadingVisible: Boolean)\r\n        fun checkFormValidation() : Boolean\r\n        fun navigateToLogin()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterContract.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterContract.kt	(date 1628441990082)
+@@ -1,7 +1,7 @@
+ package com.binarteamtwo.binarvideoplayer.ui.register
+ 
+ import com.binarteamtwo.binarvideoplayer.base.BaseContract
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
+ 
+ interface RegisterContract {
+     interface ViewModel : BaseContract.ViewModel {
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.register\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.MenuItem\r\nimport android.view.View\r\nimport android.widget.Toast\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityRegisterBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity\r\nimport com.binarteamtwo.binarvideoplayer.utils.StringUtils\r\n\r\nclass RegisterActivity : AppCompatActivity(), RegisterContract.BaseView {\r\n    private val TAG = RegisterActivity::class.java.simpleName\r\n    private lateinit var binding: ActivityRegisterBinding\r\n    private lateinit var viewModel: RegisterViewModel\r\n    private lateinit var sessionPreference: SessionPreference\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityRegisterBinding.inflate(layoutInflater)\r\n        supportActionBar?.hide()\r\n        setContentView(binding.root)\r\n        initView()\r\n    }\r\n\r\n    override fun setToolbar() {\r\n    }\r\n\r\n    override fun onOptionsItemSelected(item: MenuItem): Boolean {\r\n        if (item.itemId == android.R.id.home) {\r\n            onBackPressed()\r\n        }\r\n        return super.onOptionsItemSelected(item)\r\n    }\r\n\r\n    override fun setLoadingState(isLoadingVisible: Boolean) {\r\n        binding.pbLoading.visibility = if (isLoadingVisible) View.VISIBLE else View.GONE\r\n    }\r\n\r\n    override fun checkFormValidation(): Boolean {\r\n        val email = binding.etEmail.text.toString()\r\n        val username = binding.etUsername.text.toString()\r\n        val password = binding.etPassword.text.toString()\r\n        var isFormValid = true\r\n\r\n        //for checking is email empty\r\n        when {\r\n            email.isEmpty() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_empty)\r\n            }\r\n            StringUtils.isEmailValid(email).not() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_invalid)\r\n            }\r\n            else -> {\r\n                binding.tilEmail.isErrorEnabled = false\r\n            }\r\n        }\r\n        //for checking is Password empty\r\n        if (password.isEmpty()) {\r\n            isFormValid = false\r\n            binding.tilPassword.isErrorEnabled = true\r\n            binding.tilPassword.error = getString(R.string.error_password_empty)\r\n        } else {\r\n            binding.tilPassword.isErrorEnabled = false\r\n        }\r\n        //for checking is Password empty\r\n        if (username.isEmpty()) {\r\n            isFormValid = false\r\n            binding.tilUsername.isErrorEnabled = true\r\n            binding.tilUsername.error = getString(R.string.error_username_empty)\r\n        } else {\r\n            binding.tilUsername.isErrorEnabled = false\r\n        }\r\n        return isFormValid\r\n    }\r\n\r\n    override fun navigateToLogin() {\r\n        val intent = Intent(this, LoginActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    override fun initView() {\r\n        initViewModel()\r\n        setToolbar()\r\n        setOnClick()\r\n    }\r\n\r\n    override fun initViewModel() {\r\n        sessionPreference = SessionPreference(this)\r\n        val apiService = BinarApiServices.getInstance(sessionPreference)\r\n        apiService?.let {\r\n            val dataSource = BinarDataSource(it)\r\n            val repository = RegisterRepository(dataSource)\r\n            viewModel = GenericViewModelFactory(RegisterViewModel(repository))\r\n                .create(RegisterViewModel::class.java)\r\n        }\r\n        viewModel.registerResponse.observe(this, { response ->\r\n            when (response) {\r\n                is Resource.Loading -> {\r\n                    setLoadingState(true)\r\n                }\r\n                is Resource.Success -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this, R.string.text_register_success, Toast.LENGTH_SHORT).show()\r\n                    navigateToLogin()\r\n                }\r\n                is Resource.Error -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()\r\n                    navigateToLogin()\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun setOnClick() {\r\n        binding.btnRegister.setOnClickListener {\r\n            if(checkFormValidation()){\r\n                viewModel.registerUser(\r\n                    RegisterRequest(\r\n                        email = binding.etEmail.text.toString(),\r\n                        password = binding.etPassword.text.toString(),\r\n                        username = binding.etUsername.text.toString()\r\n                    )\r\n                )\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterActivity.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterActivity.kt	(date 1628441972326)
+@@ -11,8 +11,8 @@
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+ import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
++import com.binarteamtwo.binarvideoplayer.data.network.services.BinarApiServices
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivityRegisterBinding
+ import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
+ import com.binarteamtwo.binarvideoplayer.utils.StringUtils
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.register\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\n\r\nclass RegisterViewModel(private val repository: RegisterRepository) : ViewModel(),\r\n    RegisterContract.ViewModel {\r\n    val registerResponse = MutableLiveData<Resource<UserResponse>>()\r\n\r\n    override fun registerUser(registerRequest: RegisterRequest) {\r\n        //todo : set payload to loading\r\n        registerResponse.value = Resource.Loading()\r\n        viewModelScope.launch(Dispatchers.IO) {\r\n            try {\r\n                val response = repository.postRegisterData(registerRequest)\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    //checking if response success\r\n                    if (response.success) {\r\n                        registerResponse.value = Resource.Success(response.data)\r\n                    } else {\r\n                        registerResponse.value = Resource.Error(response.errors)\r\n                    }\r\n                }\r\n            } catch (e: Exception) {\r\n                //set value to error message\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    registerResponse.value = Resource.Error(e.message.orEmpty())\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterViewModel.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterViewModel.kt	(date 1628442037244)
+@@ -4,8 +4,8 @@
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.launch
+ 
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.register\r\n\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse\r\n\r\nclass RegisterRepository(private val binarDataSource: BinarDataSource) {\r\n    suspend fun postRegisterData(registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse, String> {\r\n        return binarDataSource.postRegisterData(registerRequest)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterRepository.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/register/RegisterRepository.kt	(date 1628442016169)
+@@ -1,9 +1,9 @@
+ package com.binarteamtwo.binarvideoplayer.ui.register
+ 
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.BaseAuthResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse
+ 
+ class RegisterRepository(private val binarDataSource: BinarDataSource) {
+     suspend fun postRegisterData(registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse, String> {
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.splashscreen\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.lifecycle.lifecycleScope\r\nimport com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.main.MainActivity\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.delay\r\nimport kotlinx.coroutines.launch\r\n\r\nclass SplashScreenActivity : AppCompatActivity(), SplashScreenContract.BaseView {\r\n    private val TAG = SplashScreenActivity::class.java.simpleName\r\n    private lateinit var binding: ActivitySplashScreenBinding\r\n    private lateinit var viewModel: SplashScreenViewModel\r\n    private lateinit var sessionPreference: SessionPreference\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivitySplashScreenBinding.inflate(layoutInflater)\r\n        supportActionBar?.hide()\r\n        setContentView(binding.root)\r\n        initView()\r\n    }\r\n\r\n    override fun navigateToLogin() {\r\n        val intent = Intent(this, LoginActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    override fun navigateToHome() {\r\n        val intent = Intent(this, MainActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    override fun checkLogin() {\r\n        if (sessionPreference.authToken != null) {\r\n            viewModel.getSyncData()\r\n        } else {\r\n            //navigate to login, if no token\r\n            lifecycleScope.launch(Dispatchers.IO) {\r\n                delay(1000)\r\n                lifecycleScope.launch(Dispatchers.Main) {\r\n                    navigateToLogin()\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    override fun deleteSessionLogin() {\r\n        sessionPreference.deleteSession()\r\n    }\r\n\r\n    override fun initView() {\r\n        initViewModel()\r\n        checkLogin()\r\n    }\r\n\r\n    override fun initViewModel() {\r\n        sessionPreference = SessionPreference(this)\r\n        val apiService = BinarApiServices.getInstance(sessionPreference)\r\n        apiService?.let {\r\n            val dataSource = BinarDataSource(it)\r\n            val repository = SplashScreenRepository(dataSource)\r\n            viewModel = GenericViewModelFactory(SplashScreenViewModel(repository))\r\n                .create(SplashScreenViewModel::class.java)\r\n        }\r\n        viewModel.syncData.observe(this, { response ->\r\n            when (response) {\r\n                is Resource.Loading -> {\r\n                    Log.d(TAG, \"initViewModel:Splash Loading\")\r\n                }\r\n                is Resource.Success -> {\r\n                    navigateToHome()\r\n                }\r\n                is Resource.Error -> {\r\n                    Toast.makeText(this, \"Session Expired\", Toast.LENGTH_SHORT).show()\r\n                    deleteSessionLogin()\r\n                    navigateToLogin()\r\n                }\r\n            }\r\n        })\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenActivity.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenActivity.kt	(date 1628442088306)
+@@ -10,7 +10,7 @@
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+ import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices
++import com.binarteamtwo.binarvideoplayer.data.network.services.BinarApiServices
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
+ import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
+ import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.splashscreen\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\n\r\nclass SplashScreenViewModel(\r\n    private val repository: SplashScreenRepository\r\n) : ViewModel(),\r\n    SplashScreenContract.ViewModel {\r\n    val syncData = MutableLiveData<Resource<UserResponse>>()\r\n\r\n    override fun getSyncData() {\r\n        //todo : set payload to loading\r\n        syncData.value = Resource.Loading()\r\n        viewModelScope.launch(Dispatchers.IO) {\r\n            try {\r\n                val response = repository.getSyncData()\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    //checking if response success\r\n                    if (response.success) {\r\n                        syncData.value = Resource.Success(response.data)\r\n                    } else {\r\n                        syncData.value = Resource.Error(response.errors)\r\n                    }\r\n                }\r\n            } catch (e: Exception) {\r\n                //set value to error message\r\n                viewModelScope.launch(Dispatchers.Main) {\r\n                    syncData.value = Resource.Error(e.message.orEmpty())\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenViewModel.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenViewModel.kt	(date 1628442129650)
+@@ -4,7 +4,7 @@
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+ import com.binarteamtwo.binarvideoplayer.base.Resource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.launch
+ 
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.splashscreen\r\n\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse\r\n\r\nclass SplashScreenRepository(private val binarDataSource: BinarDataSource) {\r\n    suspend fun getSyncData() : BaseAuthResponse<UserResponse, String> {\r\n        return binarDataSource.getSyncData()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenRepository.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splashscreen/SplashScreenRepository.kt	(date 1628442105050)
+@@ -1,8 +1,8 @@
+ package com.binarteamtwo.binarvideoplayer.ui.splashscreen
+ 
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.BaseAuthResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse
+ 
+ class SplashScreenRepository(private val binarDataSource: BinarDataSource) {
+     suspend fun getSyncData() : BaseAuthResponse<UserResponse, String> {
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.login\r\n\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse\r\n\r\nclass LoginRepository(private val binarDataSource: BinarDataSource) {\r\n    suspend fun postLoginData(loginRequest: LoginRequest) : BaseAuthResponse<LoginResponse, String> {\r\n        return binarDataSource.postLoginData(loginRequest)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginRepository.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginRepository.kt	(date 1628441937721)
+@@ -1,9 +1,9 @@
+ package com.binarteamtwo.binarvideoplayer.ui.login
+ 
+ import com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.BaseAuthResponse
++import com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.LoginResponse
+ 
+ class LoginRepository(private val binarDataSource: BinarDataSource) {
+     suspend fun postLoginData(loginRequest: LoginRequest) : BaseAuthResponse<LoginResponse, String> {
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/services/BinarApiServices.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/services/BinarApiServices.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/services/BinarApiServices.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,64 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.services
+-
+-import com.binarteamtwo.binarvideoplayer.BuildConfig
+-import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.RegisterRequest
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.BaseAuthResponse
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.LoginResponse
+-import com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification.UserResponse
+-import okhttp3.Interceptor
+-import okhttp3.OkHttpClient
+-import okhttp3.logging.HttpLoggingInterceptor
+-import retrofit2.Retrofit
+-import retrofit2.converter.gson.GsonConverterFactory
+-import retrofit2.http.Body
+-import retrofit2.http.GET
+-import retrofit2.http.POST
+-import java.util.concurrent.TimeUnit
+-
+-interface BinarApiServices {
+-
+-    @POST("api/v1/auth/login")
+-    suspend fun postLoginData(@Body loginRequest: LoginRequest) : BaseAuthResponse<LoginResponse, String>
+-
+-    @POST("api/v1/auth/register")
+-    suspend fun postRegisterData(@Body registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse,String>
+-
+-    @GET("api/v1/auth/me")
+-    suspend fun getSyncData() : BaseAuthResponse<UserResponse,String>
+-
+-
+-    companion object{
+-        private var retrofitServices : BinarApiServices? = null
+-        fun getInstance(sessionPreference: SessionPreference) : BinarApiServices?{
+-            if(retrofitServices == null){
+-                //todo : add interceptor token
+-                val authInterceptor = Interceptor{
+-                    val requestBuilder = it.request().newBuilder()
+-                    sessionPreference.authToken?.let { token ->
+-                        requestBuilder.addHeader("Authorization", "Bearer $token")
+-                    }
+-                    it.proceed(requestBuilder.build())
+-                }
+-
+-                //initialize
+-                val okHttpClient = OkHttpClient.Builder()
+-                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+-                    .addInterceptor(authInterceptor)
+-                    .connectTimeout(120, TimeUnit.SECONDS)
+-                    .readTimeout(120, TimeUnit.SECONDS)
+-                    .build()
+-
+-                val retrofit = Retrofit.Builder()
+-                    .baseUrl(BuildConfig.BASE_URL_BINAR_AUTH)
+-                    .addConverterFactory(GsonConverterFactory.create())
+-                    .client(okHttpClient)
+-                    .build()
+-                retrofitServices = retrofit.create(BinarApiServices::class.java)
+-            }
+-            return retrofitServices
+-        }
+-    }
+-
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/BaseAuthResponse.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/BaseAuthResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/BaseAuthResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,12 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification
+-
+-import com.google.gson.annotations.SerializedName
+-
+-data class BaseAuthResponse<T, E>(
+-    @SerializedName("success")
+-    val success: Boolean,
+-    @SerializedName("data")
+-    val data: T,
+-    @SerializedName("errors")
+-    val errors: E
+-)
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/local/sharedpreference/SessionPreference.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/local/sharedpreference/SessionPreference.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/local/sharedpreference/SessionPreference.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,34 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.local.sharedpreference
+-
+-import android.content.Context
+-import android.content.SharedPreferences
+-
+-class SessionPreference(context: Context) {
+-    private var preference: SharedPreferences = context.getSharedPreferences(NAME, MODE)
+-
+-    companion object {
+-        private const val NAME = "Video Player" //app name or else
+-        private const val MODE = Context.MODE_PRIVATE
+-        private val PREF_AUTH_TOKEN = Pair("PREF_AUTH_TOKEN", null)
+-    }
+-
+-    var authToken: String?
+-        get() = preference.getString(PREF_AUTH_TOKEN.first, PREF_AUTH_TOKEN.second)
+-        set(value) = preference.edit {
+-            it.putString(PREF_AUTH_TOKEN.first, value)
+-        }
+-
+-    fun deleteSession() {
+-        preference.delete()
+-    }
+-}
+-
+-private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
+-    val editor = edit()
+-    operation(editor)
+-    editor.apply()
+-}
+-
+-private fun SharedPreferences.delete() {
+-    edit().clear().apply()
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/LoginRequest.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/LoginRequest.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/LoginRequest.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,10 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification
+-
+-import com.google.gson.annotations.SerializedName
+-
+-data class LoginRequest(
+-    @SerializedName("email")
+-    val email: String? = null,
+-    @SerializedName("password")
+-    val password: String? = null
+-)
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/UserResponse.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/UserResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/UserResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,12 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification
+-
+-import com.google.gson.annotations.SerializedName
+-
+-data class UserResponse(
+-    @SerializedName("email")
+-    val email: String? = null,
+-    @SerializedName("_id")
+-    val id: String? = null,
+-    @SerializedName("username")
+-    val username: String? = null
+-)
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/LoginResponse.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/LoginResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/response/authentification/LoginResponse.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,14 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.response.authentification
+-
+-import com.google.gson.annotations.SerializedName
+-
+-data class LoginResponse(
+-    @SerializedName("email")
+-    val email: String? = null,
+-    @SerializedName("_id")
+-    val id: String? = null,
+-    @SerializedName("token")
+-    val token: String? = null,
+-    @SerializedName("username")
+-    val username: String? = null
+-)
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/RegisterRequest.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/RegisterRequest.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/entitiy/request/authentification/RegisterRequest.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
+@@ -1,12 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification
+-
+-import com.google.gson.annotations.SerializedName
+-
+-data class RegisterRequest(
+-    @SerializedName("email")
+-    private var email : String,
+-    @SerializedName("username")
+-    private var username : String,
+-    @SerializedName("password")
+-    private var password : String
+-)
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.binarteamtwo.binarvideoplayer\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher_video_player\"\r\n        android:label=\"@string/app_name\"\r\n        android:networkSecurityConfig=\"@xml/network_security_config\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_video_player_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BinarVideoPlayer\"\r\n        tools:targetApi=\"n\">\r\n        <activity android:name=\".ui.register.RegisterActivity\"></activity>\r\n        <activity android:name=\".ui.main.MainActivity\" />\r\n        <activity android:name=\".ui.addnewsong.AddNewSongActivity\" />\r\n        <activity android:name=\".ui.login.LoginActivity\" />\r\n        <activity android:name=\".ui.splashscreen.SplashScreenActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".ui.intro.IntroActivity\" />\r\n        <activity\r\n            android:name=\".ui.player.PlayerActivity\"\r\n            android:configChanges=\"orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/AndroidManifest.xml	(date 1628441038514)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     package="com.binarteamtwo.binarvideoplayer">
+ 
+     <uses-permission android:name="android.permission.INTERNET" />
+@@ -15,7 +16,7 @@
+         tools:targetApi="n">
+         <activity android:name=".ui.register.RegisterActivity"></activity>
+         <activity android:name=".ui.main.MainActivity" />
+-        <activity android:name=".ui.addnewsong.AddNewSongActivity" />
++
+         <activity android:name=".ui.login.LoginActivity" />
+         <activity android:name=".ui.splashscreen.SplashScreenActivity">
+             <intent-filter>
+Index: app/src/main/res/layout/activity_splash_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/bg_grey\"\r\n    tools:context=\".ui.splashscreen.SplashScreenActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_splash\"\r\n        android:layout_width=\"@dimen/_150sdp\"\r\n        android:layout_height=\"@dimen/_150sdp\"\r\n        android:layout_marginTop=\"@dimen/_150sdp\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:src=\"@drawable/ic_logo\"/>\r\n\r\n    <ImageView\r\n        android:id=\"@+id/iv_logo_splash_two\"\r\n        android:layout_width=\"@dimen/_250sdp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        android:layout_marginTop=\"@dimen/_250sdp\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:src=\"@drawable/ic_logo_typo\"/>\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_splash_screen.xml	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/res/layout/activity_splash_screen.xml	(date 1628441204475)
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/bg_grey"
++    android:background="@color/black"
+     tools:context=".ui.splashscreen.SplashScreenActivity">
+ 
+     <ImageView
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/BinarApiServices.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.data.network.services\r\n\r\nimport com.binarteamtwo.binarvideoplayer.BuildConfig\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest\r\n\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.BaseAuthResponse\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.LoginResponse\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.authentification.UserResponse\r\n\r\nimport okhttp3.Interceptor\r\nimport okhttp3.OkHttpClient\r\nimport okhttp3.logging.HttpLoggingInterceptor\r\nimport retrofit2.Retrofit\r\nimport retrofit2.converter.gson.GsonConverterFactory\r\nimport retrofit2.http.Body\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.POST\r\nimport java.util.concurrent.TimeUnit\r\n\r\n\r\ninterface BinarApiServices {\r\n\r\n    @POST(\"api/v1/auth/login\")\r\n    suspend fun postLoginData(@Body loginRequest: LoginRequest) : BaseAuthResponse<LoginResponse, String>\r\n\r\n    @POST(\"api/v1/auth/register\")\r\n    suspend fun postRegisterData(@Body registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse, String>\r\n\r\n    @GET(\"api/v1/auth/me\")\r\n    suspend fun getSyncData() : BaseAuthResponse<UserResponse, String>\r\n\r\n\r\n    companion object{\r\n        private var retrofitServices : BinarApiServices? = null\r\n        fun getInstance(sessionPreferences: SessionPreferences) : BinarApiServices?{\r\n            if(retrofitServices == null){\r\n                //todo : add interceptor token\r\n                val authInterceptor = Interceptor{\r\n                    val requestBuilder = it.request().newBuilder()\r\n                    sessionPreferences.authToken?.let { token ->\r\n                        requestBuilder.addHeader(\"Authorization\", \"Bearer $token\")\r\n                    }\r\n                    it.proceed(requestBuilder.build())\r\n                }\r\n\r\n                //initialize\r\n                val okHttpClient = OkHttpClient.Builder()\r\n                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))\r\n                    .addInterceptor(authInterceptor)\r\n                    .connectTimeout(120, TimeUnit.SECONDS)\r\n                    .readTimeout(120, TimeUnit.SECONDS)\r\n                    .build()\r\n\r\n                val retrofit = Retrofit.Builder()\r\n                    .baseUrl(BuildConfig.BASE_URL_BINAR_AUTH)\r\n                    .addConverterFactory(GsonConverterFactory.create())\r\n                    .client(okHttpClient)\r\n                    .build()\r\n                retrofitServices = retrofit.create(BinarApiServices::class.java)\r\n            }\r\n            return retrofitServices\r\n        }\r\n    }\r\n\r\n}
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/BinarApiServices.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/BinarApiServices.kt	(date 1628441879975)
+@@ -1,6 +1,7 @@
+ package com.binarteamtwo.binarvideoplayer.data.network.services
+ 
+ import com.binarteamtwo.binarvideoplayer.BuildConfig
++import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference
+ import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
+ import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.LoginRequest
+ import com.binarteamtwo.binarvideoplayer.data.network.entity.request.authentification.RegisterRequest
+@@ -34,12 +35,12 @@
+ 
+     companion object{
+         private var retrofitServices : BinarApiServices? = null
+-        fun getInstance(sessionPreferences: SessionPreferences) : BinarApiServices?{
++        fun getInstance(sessionPreference: SessionPreference) : BinarApiServices?{
+             if(retrofitServices == null){
+                 //todo : add interceptor token
+                 val authInterceptor = Interceptor{
+                     val requestBuilder = it.request().newBuilder()
+-                    sessionPreferences.authToken?.let { token ->
++                    sessionPreference.authToken?.let { token ->
+                         requestBuilder.addHeader("Authorization", "Bearer $token")
+                     }
+                     it.proceed(requestBuilder.build())
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/favourite/FavouriteContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.favourite\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie\r\n\r\ninterface FavouriteContract {\r\n    interface View : BaseContract.View {\r\n        fun showMoviePlaylistContent(isContentVisible: Boolean)\r\n        fun showLoading(isLoading: Boolean)\r\n        fun showError(isErrorEnabled : Boolean, msg : String?)\r\n        fun setupSwipeRefresh()\r\n        fun setupList()\r\n        fun setListData(data: List<Movie>)\r\n    }\r\n\r\n    interface ViewModel : BaseContract.ViewModel{\r\n        fun getMovieDataPopular()\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/favourite/FavouriteContract.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/favourite/FavouriteContract.kt	(date 1628441226944)
+@@ -5,7 +5,7 @@
+ import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
+ 
+ interface FavouriteContract {
+-    interface View : BaseContract.View {
++    interface View : BaseContract.BaseView {
+         fun showMoviePlaylistContent(isContentVisible: Boolean)
+         fun showLoading(isLoading: Boolean)
+         fun showError(isErrorEnabled : Boolean, msg : String?)
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.homepage\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse\r\n\r\ninterface HomepageContract {\r\n    interface ViewModel : BaseContract.ViewModel {\r\n        fun getMovieData()\r\n    }\r\n\r\n    interface View : BaseContract.View {\r\n        fun showMoviePlaylistContent(isContentVisible: Boolean)\r\n        fun showLoading(isLoading: Boolean)\r\n        fun showError(isErrorEnabled : Boolean, msg : String?)\r\n        fun setupSwipeRefresh()\r\n        fun setupList()\r\n        fun setListData(data: List<Movie>)\r\n    }\r\n}\r\n
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt	(revision 1f93e20e3a23d6cde347b4b88cc0903031769b9f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt	(date 1628441249770)
+@@ -9,7 +9,7 @@
+         fun getMovieData()
+     }
+ 
+-    interface View : BaseContract.View {
++    interface View : BaseContract.BaseView {
+         fun showMoviePlaylistContent(isContentVisible: Boolean)
+         fun showLoading(isLoading: Boolean)
+         fun showError(isErrorEnabled : Boolean, msg : String?)

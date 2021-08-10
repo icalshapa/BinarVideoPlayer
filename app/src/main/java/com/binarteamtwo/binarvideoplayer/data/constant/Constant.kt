@@ -2,6 +2,7 @@ package com.binarteamtwo.binarvideoplayer.data.constant
 
 object Constant {
     const val EXTRAS_DATA_VIDEO = "extras_data_video"
+    const val EXTRAS_DATA_MOVIE = "extras_data_movie"
 
     const val URL_GITHUB_FAISAL = "https://github.com/icalshapa"
     const val URL_PHOTO_PROFILE_FAISAL = "https://avatars.githubusercontent.com/u/82198032?v=4"
@@ -26,4 +27,6 @@ object Constant {
 
     const val TAG_FRAGMENT_HOME_PAGE = "TAG_FRAGMENT_HOME_PAGE"
     const val TAG_FRAGMENT_FAVOURITE = "TAG_FRAGMENT_FAVOURITE"
+
+    const val TAG_FRAGMENT_TRAILER = "TAG_FRAGMENT_TRAILER"
 }

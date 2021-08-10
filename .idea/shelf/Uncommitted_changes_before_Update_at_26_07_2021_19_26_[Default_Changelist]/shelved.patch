@@ -1,0 +1,47 @@
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splash/SplashScreenActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.splash\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.os.CountDownTimer\r\nimport android.view.animation.AccelerateDecelerateInterpolator\r\nimport android.view.animation.AnimationUtils\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity\r\n\r\nclass SplashScreenActivity : AppCompatActivity() {\r\n    private var timer: CountDownTimer? = null\r\n    private lateinit var binding: ActivitySplashScreenBinding\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivitySplashScreenBinding.inflate(layoutInflater)\r\n        setContentView(R.layout.activity_splash_screen)\r\n        supportActionBar?.hide()\r\n        setEventSplash()\r\n\r\n        val animation = AnimationUtils.loadAnimation(this, R.anim.logo_anim).apply {\r\n            interpolator = AccelerateDecelerateInterpolator()\r\n        }\r\n        binding.ivLogoSplash.startAnimation(animation) {}\r\n\r\n\r\n    }\r\n\r\n\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n        if (timer != null) {\r\n            timer?.cancel()\r\n            timer = null\r\n\r\n        }\r\n\r\n\r\n    }\r\n\r\n\r\n    private fun setEventSplash() {\r\n        timer = object : CountDownTimer(3000, 1000) {\r\n            override fun onTick(millisUntilFinished: Long) {}\r\n\r\n            override fun onFinish() {\r\n                val intent = Intent(this@SplashScreenActivity, IntroActivity::class.java)\r\n                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n                startActivity(intent)\r\n                finish()\r\n            }\r\n        }\r\n        timer?.start()\r\n\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splash/SplashScreenActivity.kt	(revision 3360f9b5234fbf4e7ac16733ffb70b48f7767a7f)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/splash/SplashScreenActivity.kt	(date 1626710638074)
+@@ -1,5 +1,6 @@
+ package com.binarteamtwo.binarvideoplayer.ui.splash
+ 
++import android.content.Context
+ import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+@@ -7,9 +8,11 @@
+ import android.view.animation.AccelerateDecelerateInterpolator
+ import android.view.animation.AnimationUtils
+ import com.binarteamtwo.binarvideoplayer.R
++import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivitySplashScreenBinding
+ import com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity
+ import com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity
++import com.binarteamtwo.binarvideoplayer.ui.main.MainActivity
+ 
+ class SplashScreenActivity : AppCompatActivity() {
+     private var timer: CountDownTimer? = null
+@@ -49,10 +52,18 @@
+             override fun onTick(millisUntilFinished: Long) {}
+ 
+             override fun onFinish() {
++                val userName = UserPreference(this@SplashScreenActivity).userName
++                if(userName == null){
+                 val intent = Intent(this@SplashScreenActivity, IntroActivity::class.java)
+                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                 startActivity(intent)
+                 finish()
++                }else{
++                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
++                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
++                    startActivity(intent)
++                    finish()
++                }
+             }
+         }
+         timer?.start()
