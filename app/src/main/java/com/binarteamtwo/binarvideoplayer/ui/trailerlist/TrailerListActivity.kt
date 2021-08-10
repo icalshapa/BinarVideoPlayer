@@ -19,7 +19,7 @@ class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
     private lateinit var binding: ActivityTrailerListBinding
     private lateinit var viewModel: TrailerListViewModel
     private lateinit var adapter: TrailerListAdapter
-    private var movieId: Int = 497698
+    private var movieId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,14 +64,14 @@ class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
         adapter.items = data
     }
 
-    /*override fun getIntentData() {
+    override fun getIntentData() {
         movieId = intent.getIntExtra(Constant.EXTRAS_DATA_MOVIE, 0)
-    }*/
+    }
 
     override fun initView() {
         binding = ActivityTrailerListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //getIntentData()
+        getIntentData()
         initViewModel()
         setupSwipeRefresh()
         setupList()

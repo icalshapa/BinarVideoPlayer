@@ -8,13 +8,13 @@ interface TrailerListContract {
         fun getTrailerData(id: Int)
     }
 
-    interface View : BaseContract.View {
+    interface View : BaseContract.BaseView {
         fun showContent(isContentVisible: Boolean)
         fun showLoading(isLoading: Boolean)
         fun showError(isErrorEnabled : Boolean, msg : String?)
         fun setupSwipeRefresh()
         fun setupList()
         fun setListData(data: List<TrailerResult>)
-        //fun getIntentData()
+        fun getIntentData()
     }
 }

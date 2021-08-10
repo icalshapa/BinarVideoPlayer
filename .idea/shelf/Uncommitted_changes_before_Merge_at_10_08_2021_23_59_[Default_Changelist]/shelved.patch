@@ -1,0 +1,33 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.binarteamtwo.binarvideoplayer\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher_video_player\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_video_player_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BinarVideoPlayer\">\r\n        <activity android:name=\".ui.main.MainActivity\" />\r\n        <activity android:name=\".ui.login.LoginActivity\" />\r\n        <activity android:name=\".ui.splashscreen.SplashScreenActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".ui.intro.IntroActivity\" />\r\n        <activity\r\n            android:name=\".ui.player.PlayerActivity\"\r\n            android:configChanges=\"orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout\"\r\n            />\r\n\r\n        <meta-data\r\n            android:name=\"preloaded_fonts\"\r\n            android:resource=\"@array/preloaded_fonts\" />\r\n\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 41e27574a8715e280e85a045acee2fbdcc5d60d6)
++++ app/src/main/AndroidManifest.xml	(date 1628614746707)
+@@ -13,6 +13,7 @@
+         android:theme="@style/Theme.BinarVideoPlayer">
+         <activity android:name=".ui.main.MainActivity" />
+         <activity android:name=".ui.login.LoginActivity" />
++        <activity android:name=".ui.register.RegisterActivity"/>
+         <activity android:name=".ui.splashscreen.SplashScreenActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Binar Video Player</string>\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"get_started\">GET STARTED</string>\r\n    <string name=\"submit\">Submit</string>\r\n    <string name=\"main_snackbar_greeting\">Welcome, %s</string>\r\n    <string name=\"main_snackbar_dismiss\">Close</string>\r\n    <string name=\"addnewsong_error_title\">Title must be filled</string>\r\n    <string name=\"addnewsong_error_singer\">Singer Name must be filled</string>\r\n    <string name=\"addnewsong_error_icon\">Icon URL must be filled</string>\r\n    <string name=\"addnewsong_error_video\">Video URL must be filled</string>\r\n    <string name=\"addnewsong_toast_success\">Save song to playlist Success!</string>\r\n    <string name=\"addnewsong_toast_failed\">Saving Playlist Failed!, Please Try Again</string>\r\n    <string name=\"addnewsong_header_edit\">Edit Playlist</string>\r\n    <string name=\"addnewsong_header_add\">Add Playlist</string>\r\n    <string name=\"addnewsong_toast_cancel\">Adding new song cancelled</string>\r\n    <string name=\"main_message_empty\">No Data</string>\r\n    <string name=\"main_toast_failed_fetch\">Get Data Failed</string>\r\n    <string name=\"main_toast_failed_delete\">Delete Data Failed</string>\r\n    <string name=\"intro_snackbar_name\">Please fill your name</string>\r\n    <string name=\"main_playlist\">Playlist</string>\r\n    <string name=\"main_favorite\">Favorite</string>\r\n    <string name=\"player_snackbar_favorite_true\">Video Favorited</string>\r\n    <string name=\"player_snackbar_favorite_false\">Video Unfavorited</string>\r\n    <string name=\"player_toast_favorite_failed\">Failed to change favorite status</string>\r\n    <string name=\"addnewsong_hint_title\">Song Title</string>\r\n    <string name=\"addnewsong_hint_singer\">Singer Name</string>\r\n    <string name=\"addnewsong_hint_icon\">Icon URL</string>\r\n    <string name=\"addnewsong_hint_video\">Youtube URL</string>\r\n    <string name=\"addnewsong_btn_add\">ADD</string>\r\n    <string name=\"intro_skip\">SKIP</string>\r\n    <string name=\"intro_back\">BACK</string>\r\n    <string name=\"intro_next\">NEXT</string>\r\n    <string name=\"addnewsong_btn_edit\">edit</string>\r\n    <string name=\"addnewsong_dialog_edit\">Are You Sure you Want To Edit This Song?</string>\r\n    <string name=\"text_hint_email\">Email</string>\r\n    <string name=\"text_hint_password\">Password</string>\r\n    <string name=\"text_btn_login\">Login</string>\r\n    <string name=\"text_create_account\">Dont have account? Sign Up here</string>\r\n    <string name=\"error_email_empty\">Email Should be Filled</string>\r\n    <string name=\"error_email_invalid\">Email is Invalid</string>\r\n    <string name=\"error_password_empty\">Password Should be Filled</string>\r\n    <string name=\"text_login_success\">Login Success!</string>\r\n    <string name=\"text_btn_signup\">Signup</string>\r\n    <string name=\"text_hint_username\">Username</string>\r\n    <string name=\"text_title_toolbar_register\">Register Account</string>\r\n    <string name=\"text_title_toolbar_login\">Login</string>\r\n    <string name=\"error_username_empty\">Username Should be Filled</string>\r\n    <string name=\"text_register_success\">Register Success!</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 41e27574a8715e280e85a045acee2fbdcc5d60d6)
++++ app/src/main/res/values/strings.xml	(date 1628614746713)
+@@ -1,5 +1,5 @@
+ <resources>
+-    <string name="app_name">Binar Video Player</string>
++    <string name="app_name">Movie Manie</string>
+     <string name="hello_blank_fragment">Hello blank fragment</string>
+     <string name="get_started">GET STARTED</string>
+     <string name="submit">Submit</string>
