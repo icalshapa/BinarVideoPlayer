@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/black"
     tools:context=".ui.player.PlayerActivity">
 
@@ -11,50 +12,12 @@
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_player_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:fontFamily="@font/bebas_neue_bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_36ssp"
-        app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
-        tools:text="VIDEO TITLE" />
-
-    <TextView
-        android:id="@+id/tv_player_artist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:fontFamily="@font/bebas_neue_bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_24ssp"
-        app:layout_constraintTop_toBottomOf="@id/tv_player_title"
-        tools:text="ARTIST" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_btn_edit"
-        app:layout_constraintBottom_toBottomOf="@id/fab_favorite"
-        app:layout_constraintRight_toLeftOf="@id/fab_favorite"
-        app:layout_constraintTop_toTopOf="@id/fab_favorite"
-        app:tint="@color/black"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_btn_favorited_false"
-        app:layout_constraintTop_toBottomOf="@id/tv_player_artist"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:tint="@color/black"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

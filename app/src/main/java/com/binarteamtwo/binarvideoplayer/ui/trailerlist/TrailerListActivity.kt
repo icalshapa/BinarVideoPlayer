@@ -1,27 +1,25 @@
 package com.binarteamtwo.binarvideoplayer.ui.trailerlist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.binarteamtwo.binarvideoplayer.R
 import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.network.datasource.MovieDataSource
-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.TrailerResult
 import com.binarteamtwo.binarvideoplayer.data.network.services.MovieApiServices
 import com.binarteamtwo.binarvideoplayer.databinding.ActivityTrailerListBinding
-import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageAdapter
+import com.binarteamtwo.binarvideoplayer.ui.player.PlayerActivity
 
 class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
 
     private lateinit var binding: ActivityTrailerListBinding
     private lateinit var viewModel: TrailerListViewModel
     private lateinit var adapter: TrailerListAdapter
-    private var movieId: Int = 0
+    private var movieId: Int = 497698
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +48,10 @@ class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
     }
 
     override fun setupList() {
-        adapter = TrailerListAdapter {
+        adapter = TrailerListAdapter {trailer ->
+            val intent = Intent(this, PlayerActivity::class.java)
+            intent.putExtra(Constant.EXTRAS_DATA_VIDEO,trailer.key)
+            startActivity(intent)
 
         }
         binding.rvTrailerList.apply {
@@ -59,18 +60,18 @@ class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
         }
     }
 
-    override fun setListData(data: List<Movie>) {
+    override fun setListData(data: List<TrailerResult>) {
         adapter.items = data
     }
 
-    override fun getIntentData() {
+    /*override fun getIntentData() {
         movieId = intent.getIntExtra(Constant.EXTRAS_DATA_MOVIE, 0)
-    }
+    }*/
 
     override fun initView() {
         binding = ActivityTrailerListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        getIntentData()
+        //getIntentData()
         initViewModel()
         setupSwipeRefresh()
         setupList()
@@ -94,7 +95,7 @@ class TrailerListActivity : AppCompatActivity(), TrailerListContract.View{
                     showLoading(false)
                     showError(false, null)
                     showContent(true)
-                    it.data?.movies?.let { data ->
+                    it.data?.trailerResults?.let { data ->
                         setListData(data)
                     }
                 }

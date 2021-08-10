@@ -4,11 +4,13 @@ import com.binarteamtwo.binarvideoplayer.BuildConfig
 import com.binarteamtwo.binarvideoplayer.data.constant.Constant
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieTrailer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -29,12 +31,12 @@ interface MovieApiServices {
     ) : MovieResponse
 
 
-    @GET("movie/")
+    @GET("movie/{id}/videos")
     suspend fun getMovieTrailer(
-        @Query("id")id: Int,
+        @Path("id")id: Int,
         @Query("api_key")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,
 
-        ): MovieResponse
+        ): MovieTrailer
 
     companion object{
         private var retrofitServices : MovieApiServices? = null

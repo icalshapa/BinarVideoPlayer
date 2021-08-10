@@ -7,6 +7,8 @@
     android:background="@color/custom_color_background"
     tools:context=".ui.trailerlist.TrailerListActivity">
 
+
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_trailer"
         android:layout_width="match_parent"

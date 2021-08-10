@@ -55,12 +55,12 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu_latest_movies -> {
 
-                    showFragment(HomepageFragment())
+                    showFragment(homepageFragment)
                     true
                 }
                 else -> {
 
-                    showFragment(FavouriteFragment())
+                    showFragment(favouriteFragment)
                     true
                 }
             }

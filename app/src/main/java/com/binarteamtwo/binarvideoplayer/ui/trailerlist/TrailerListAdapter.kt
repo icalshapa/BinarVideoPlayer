@@ -3,28 +3,26 @@ package com.binarteamtwo.binarvideoplayer.ui.trailerlist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
-import com.binarteamtwo.binarvideoplayer.databinding.ItemMovieBinding
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.TrailerResult
 import com.binarteamtwo.binarvideoplayer.databinding.ItemTrailerBinding
-import com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageAdapter
 
 class TrailerListAdapter (
-    private val itemClick: (Movie) -> Unit
+    private val itemClick: (TrailerResult) -> Unit
 ): RecyclerView.Adapter<TrailerListAdapter.TrailerListViewHolder>(){
 
-    var items: List<Movie> = mutableListOf()
+    var items: List<TrailerResult> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
     class TrailerListViewHolder (
         private val binding: ItemTrailerBinding,
-        val itemClick: (Movie) -> Unit,
+        val itemClick: (TrailerResult) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bindView(item: Movie){
+        fun bindView(item: TrailerResult){
             with(item){
                 binding.tvTitleTrailer.text = title
-                binding.tvTitleMovie.text = title
+                binding.tvTitleMovie.text = type
                 itemView.setOnClickListener { itemClick(this) }
             }
         }

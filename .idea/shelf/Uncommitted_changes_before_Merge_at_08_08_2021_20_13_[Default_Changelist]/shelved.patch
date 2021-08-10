@@ -1,0 +1,641 @@
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/player/PlayerActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.player\r\n\r\nimport android.os.Bundle\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding\r\nimport java.util.regex.Matcher\r\nimport java.util.regex.Pattern\r\n\r\nclass PlayerActivity : AppCompatActivity()/*, PlayerContract.View*/ {\r\n    private lateinit var binding: ActivityPlayerBinding\r\n    private lateinit var viewModel: PlayerViewModel\r\n    private var videoId: Int? = -1\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        initView()\r\n\r\n    }\r\n\r\n    private fun getIntentData() {\r\n        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_VIDEO, -1)\r\n    }\r\n\r\n    private fun parseYoutubeUrl(url: String): String? {\r\n        val pattern =\r\n            \"(?<=watch\\\\?v=|/videos/|embed\\\\/|youtu.be\\\\/|\\\\/v\\\\/|\\\\/e\\\\/|watch\\\\?v%3D|watch\\\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\\u200C\\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\\\&\\\\?\\\\n]*\"\r\n        val compiledPattern: Pattern = Pattern.compile(pattern)\r\n        val matcher: Matcher = compiledPattern.matcher(url)\r\n        return if (matcher.find()) {\r\n            matcher.group()\r\n        } else {\r\n            null\r\n        }\r\n    }\r\n\r\n    private fun bindData(moviePlaylist: MoviePlaylist?) {\r\n        supportActionBar?.hide()\r\n       /* val youtubeId = moviePlaylist?.videoUrl?.let { parseYoutubeUrl(it) }\r\n        binding.tvPlayerTitle.text = moviePlaylist?.title\r\n        binding.tvPlayerArtist.text = moviePlaylist?.singer\r\n        binding.youtubePlayerView.addYouTubePlayerListener(object :\r\n            AbstractYouTubePlayerListener() {\r\n            override fun onReady(youTubePlayer: YouTubePlayer) {\r\n                youtubeId?.let { youTubePlayer.loadVideo(it, 0f) }\r\n            }\r\n        })\r\n        setFabFavoriteIcon(moviePlaylist)\r\n        binding.fabFavorite.setOnClickListener {\r\n            moviePlaylist?.let {\r\n                viewModel.changeStatusFavorite(it)\r\n            }\r\n        }\r\n        binding.fabEdit.setOnClickListener {\r\n            AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_EDIT,moviePlaylist)\r\n        }*/\r\n\r\n    }\r\n\r\n    private fun setFabFavoriteIcon(moviePlaylist: MoviePlaylist?) {\r\n        binding.fabFavorite.setImageResource(if (moviePlaylist?.isFavorite == true) R.drawable.ic_btn_favorited_true else R.drawable.ic_btn_favorited_false)\r\n    }\r\n\r\n    /*override fun onFetchVideoSuccess(moviePlaylist: MoviePlaylist) {\r\n        bindVideoData(moviePlaylist)\r\n    }\r\n\r\n    override fun onFetchVideoFailed() {\r\n        Toast.makeText(this, \"Failed fetching video $videoId\", Toast.LENGTH_SHORT).show()\r\n    }\r\n\r\n    override fun onChangeFavoriteStatusSuccess(moviePlaylist: MoviePlaylist) {\r\n        getData()\r\n        if (moviePlaylist.isFavorite) {\r\n            Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_true), Snackbar.LENGTH_SHORT)\r\n                .show()\r\n        }else{\r\n            Snackbar.make(binding.root, getString(R.string.player_snackbar_favorite_false), Snackbar.LENGTH_SHORT)\r\n                .show()\r\n        }\r\n    }\r\n\r\n    override fun onChangeFavoriteStatusFailed() {\r\n        Toast.makeText(this, getString(R.string.player_toast_favorite_failed), Toast.LENGTH_SHORT).show()\r\n    }\r\n\r\n    override fun bindVideoData(moviePlaylist: MoviePlaylist?) {\r\n        bindData(moviePlaylist)\r\n    }\r\n\r\n    override fun getData() {\r\n        videoId?.let { viewModel.getVideo(it) }\r\n    }*/\r\n\r\n    fun initView() {\r\n        binding = ActivityPlayerBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        supportActionBar?.hide()\r\n        getIntentData()\r\n    /*    initViewModel()*/\r\n    }\r\n\r\n    /*override fun initViewModel() {\r\n        val dataSource = MovieDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())\r\n        val repository = PlayerRepository(dataSource)\r\n        viewModel = GenericViewModelFactory(PlayerViewModel(repository)).create(\r\n            PlayerViewModel::class.java\r\n        )\r\n        viewModel.playerData.observe(this,{\r\n            when (it){\r\n                is Resource.Loading ->{\r\n\r\n                }\r\n                is Resource.Success -> {\r\n                    it.data?.let { data ->\r\n                        onFetchVideoSuccess(data)\r\n                    }\r\n                }\r\n                is Resource.Error ->{\r\n                    onFetchVideoFailed()\r\n                }\r\n            }\r\n        })\r\n        viewModel.changeStatusResult.observe(this,{\r\n            if(it.first){\r\n                it.second?.let { video ->\r\n                    onChangeFavoriteStatusSuccess(video)\r\n                }\r\n            }else{\r\n                onChangeFavoriteStatusFailed()\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        getData()\r\n    }\r\n\r\n\r\n    override fun onConfigurationChanged(newConfig: Configuration) {\r\n        super.onConfigurationChanged(newConfig)\r\n        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){\r\n            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)\r\n        } else {\r\n            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)\r\n        }\r\n    }*/\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/player/PlayerActivity.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/player/PlayerActivity.kt	(date 1628421600956)
+@@ -3,9 +3,10 @@
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
+ import com.binarteamtwo.binarvideoplayer.R
+-import com.binarteamtwo.binarvideoplayer.data.constant.Constant
++
+ import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivityPlayerBinding
++import com.binarteamtwo.binarvideoplayer.utils.Constants
+ import java.util.regex.Matcher
+ import java.util.regex.Pattern
+ 
+@@ -21,7 +22,7 @@
+     }
+ 
+     private fun getIntentData() {
+-        videoId = intent?.getIntExtra(Constant.EXTRAS_DATA_VIDEO, -1)
++        videoId = intent?.getIntExtra(Constants.EXTRAS_DATA_VIDEO, -1)
+     }
+ 
+     private fun parseYoutubeUrl(url: String): String? {
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.data.network.services\r\n\r\nimport com.binarteamtwo.binarvideoplayer.BuildConfig\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse\r\nimport okhttp3.OkHttpClient\r\nimport okhttp3.logging.HttpLoggingInterceptor\r\nimport retrofit2.Retrofit\r\nimport retrofit2.converter.gson.GsonConverterFactory\r\nimport retrofit2.create\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Query\r\nimport java.util.concurrent.TimeUnit\r\n\r\ninterface MovieApiServices {\r\n\r\n    @GET(\"movie/popular\")\r\n    suspend fun getMovie(\r\n        @Query(\"api_key\")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,\r\n        @Query(\"language\")language : String = Constant.MOVIE_LANGUAGE,\r\n        @Query(\"page-size\")pageSize : Int = Constant.PAGE_SIZE\r\n    ): MovieResponse\r\n\r\n    @GET(\"movie/\")\r\n    suspend fun getMovieTrailer(\r\n        @Query(\"id\")movieId : String,\r\n        @Query(\"api_key\")apiKeys: String = BuildConfig.API_KEY_THEMOVIE_DB,\r\n\r\n        ): MovieResponse\r\n\r\n    companion object{\r\n        private var retrofitServices : MovieApiServices? = null\r\n        fun getInstance() : MovieApiServices?{\r\n            if(retrofitServices == null){\r\n                //initialize\r\n                val okHttpClient = OkHttpClient.Builder()\r\n                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))\r\n                    .connectTimeout(120, TimeUnit.SECONDS)\r\n                    .readTimeout(120, TimeUnit.SECONDS)\r\n                    .build()\r\n\r\n                val retrofit = Retrofit.Builder()\r\n                    .baseUrl(BuildConfig.BASE_URL_THEMOVIE_DB)\r\n                    .addConverterFactory(GsonConverterFactory.create())\r\n                    .client(okHttpClient)\r\n                    .build()\r\n                retrofitServices = retrofit.create(MovieApiServices::class.java)\r\n            }\r\n            return retrofitServices\r\n        }\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/network/services/MovieApiServices.kt	(date 1628421511305)
+@@ -1,9 +1,9 @@
+ package com.binarteamtwo.binarvideoplayer.data.network.services
+ 
+ import com.binarteamtwo.binarvideoplayer.BuildConfig
+-import com.binarteamtwo.binarvideoplayer.data.constant.Constant
+-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
++
+ import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
++import com.binarteamtwo.binarvideoplayer.utils.Constants
+ import okhttp3.OkHttpClient
+ import okhttp3.logging.HttpLoggingInterceptor
+ import retrofit2.Retrofit
+@@ -18,8 +18,8 @@
+     @GET("movie/popular")
+     suspend fun getMovie(
+         @Query("api_key")apiKeys : String = BuildConfig.API_KEY_THEMOVIE_DB,
+-        @Query("language")language : String = Constant.MOVIE_LANGUAGE,
+-        @Query("page-size")pageSize : Int = Constant.PAGE_SIZE
++        @Query("language")language : String = Constants.MOVIE_LANGUAGE,
++        @Query("page-size")pageSize : Int = Constants.PAGE_SIZE
+     ): MovieResponse
+ 
+     @GET("movie/")
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/utils/Constants.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.utils\r\n\r\nobject Constants {\r\n    const val TAG_FRAGMENT_HOME_PAGE = \"TAG_FRAGMENT_HOME_PAGE\"\r\n    const val TAG_FRAGMENT_FAVOURITE = \"TAG_FRAGMENT_FAVOURITE\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/utils/Constants.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/utils/Constants.kt	(date 1628421436009)
+@@ -1,6 +1,27 @@
+ package com.binarteamtwo.binarvideoplayer.utils
+ 
+ object Constants {
++
+     const val TAG_FRAGMENT_HOME_PAGE = "TAG_FRAGMENT_HOME_PAGE"
+     const val TAG_FRAGMENT_FAVOURITE = "TAG_FRAGMENT_FAVOURITE"
++    const val EXTRAS_DATA_VIDEO = "EXTRAS_DATA_VIDEO"
++
++    const val URL_GITHUB_FAISAL = "https://github.com/icalshapa"
++    const val URL_PHOTO_PROFILE_FAISAL = "https://avatars.githubusercontent.com/u/82198032?v=4"
++
++    const val URL_GITHUB_IRFAN = "https://github.com/irfanbagir"
++    const val URL_PHOTO_PROFILE_IRFAN = "https://avatars.githubusercontent.com/u/83221918?v=4"
++
++    const val URL_GITHUB_FACHRUL = "https://github.com/fachrulRazi24"
++    const val URL_PHOTO_PROFILE_FACHRUL = "https://avatars.githubusercontent.com/u/82070914?v=4"
++
++    const val URL_GITHUB_RIZQI = "https://github.com/rizqulloh07"
++    const val URL_PHOTO_PROFILE_RIZQI = "https://avatars.githubusercontent.com/u/78399183?v=4"
++
++    const val URL_GITHUB_RENGGA = "https://github.com/renggakd"
++    const val URL_PHOTO_PROFILE_RENGGA = "https://avatars.githubusercontent.com/u/79265332?v=4"
++
++    const val MOVIE_LANGUAGE = "en-US"
++    const val PAGE_SIZE = 20
++    const val IMAGE_URL_PATH_POSTER = "https://image.tmdb.org/t/p/w500/"
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/about/AboutDialogFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.about\r\n\r\nimport android.content.Intent\r\nimport android.graphics.Color\r\nimport android.graphics.drawable.ColorDrawable\r\nimport android.net.Uri\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.DialogFragment\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.databinding.FragmentAboutDialogBinding\r\nimport com.bumptech.glide.Glide\r\n\r\nclass AboutDialogFragment : DialogFragment() {\r\n    private lateinit var binding: FragmentAboutDialogBinding\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        // Inflate the layout for this fragment\r\n        binding = FragmentAboutDialogBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))\r\n        context?.let {\r\n            Glide.with(it)\r\n                .load(Constant.URL_PHOTO_PROFILE_FAISAL)\r\n                .circleCrop()\r\n                .into(binding.ivImageProfile1)\r\n            Glide.with(it)\r\n                .load(Constant.URL_PHOTO_PROFILE_IRFAN)\r\n                .circleCrop()\r\n                .into(binding.ivImageProfile2)\r\n            Glide.with(it)\r\n                .load(Constant.URL_PHOTO_PROFILE_FACHRUL)\r\n                .circleCrop()\r\n                .into(binding.ivImageProfile3)\r\n            Glide.with(it)\r\n                .load(Constant.URL_PHOTO_PROFILE_RIZQI)\r\n                .circleCrop()\r\n                .into(binding.ivImageProfile4)\r\n            Glide.with(it)\r\n                .load(Constant.URL_PHOTO_PROFILE_RENGGA)\r\n                .circleCrop()\r\n                .into(binding.ivImageProfile5)\r\n        }\r\n        binding.btnRedirectGithub1.setOnClickListener {\r\n            val intent = Intent(Intent.ACTION_VIEW)\r\n            intent.data = Uri.parse(Constant.URL_GITHUB_FAISAL)\r\n            startActivity(intent)\r\n        }\r\n        binding.btnRedirectGithub2.setOnClickListener {\r\n            val intent = Intent(Intent.ACTION_VIEW)\r\n            intent.data = Uri.parse(Constant.URL_GITHUB_IRFAN)\r\n            startActivity(intent)\r\n        }\r\n        binding.btnRedirectGithub3.setOnClickListener {\r\n            val intent = Intent(Intent.ACTION_VIEW)\r\n            intent.data = Uri.parse(Constant.URL_GITHUB_FACHRUL)\r\n            startActivity(intent)\r\n        }\r\n        binding.btnRedirectGithub4.setOnClickListener {\r\n            val intent = Intent(Intent.ACTION_VIEW)\r\n            intent.data = Uri.parse(Constant.URL_GITHUB_RIZQI)\r\n            startActivity(intent)\r\n        }\r\n        binding.btnRedirectGithub5.setOnClickListener {\r\n            val intent = Intent(Intent.ACTION_VIEW)\r\n            intent.data = Uri.parse(Constant.URL_GITHUB_RENGGA)\r\n            startActivity(intent)\r\n        }\r\n\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/about/AboutDialogFragment.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/about/AboutDialogFragment.kt	(date 1628421563963)
+@@ -9,8 +9,9 @@
+ import android.view.View
+ import android.view.ViewGroup
+ import androidx.fragment.app.DialogFragment
+-import com.binarteamtwo.binarvideoplayer.data.constant.Constant
++
+ import com.binarteamtwo.binarvideoplayer.databinding.FragmentAboutDialogBinding
++import com.binarteamtwo.binarvideoplayer.utils.Constants
+ import com.bumptech.glide.Glide
+ 
+ class AboutDialogFragment : DialogFragment() {
+@@ -30,49 +31,49 @@
+         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+         context?.let {
+             Glide.with(it)
+-                .load(Constant.URL_PHOTO_PROFILE_FAISAL)
++                .load(Constants.URL_PHOTO_PROFILE_FAISAL)
+                 .circleCrop()
+                 .into(binding.ivImageProfile1)
+             Glide.with(it)
+-                .load(Constant.URL_PHOTO_PROFILE_IRFAN)
++                .load(Constants.URL_PHOTO_PROFILE_IRFAN)
+                 .circleCrop()
+                 .into(binding.ivImageProfile2)
+             Glide.with(it)
+-                .load(Constant.URL_PHOTO_PROFILE_FACHRUL)
++                .load(Constants.URL_PHOTO_PROFILE_FACHRUL)
+                 .circleCrop()
+                 .into(binding.ivImageProfile3)
+             Glide.with(it)
+-                .load(Constant.URL_PHOTO_PROFILE_RIZQI)
++                .load(Constants.URL_PHOTO_PROFILE_RIZQI)
+                 .circleCrop()
+                 .into(binding.ivImageProfile4)
+             Glide.with(it)
+-                .load(Constant.URL_PHOTO_PROFILE_RENGGA)
++                .load(Constants.URL_PHOTO_PROFILE_RENGGA)
+                 .circleCrop()
+                 .into(binding.ivImageProfile5)
+         }
+         binding.btnRedirectGithub1.setOnClickListener {
+             val intent = Intent(Intent.ACTION_VIEW)
+-            intent.data = Uri.parse(Constant.URL_GITHUB_FAISAL)
++            intent.data = Uri.parse(Constants.URL_GITHUB_FAISAL)
+             startActivity(intent)
+         }
+         binding.btnRedirectGithub2.setOnClickListener {
+             val intent = Intent(Intent.ACTION_VIEW)
+-            intent.data = Uri.parse(Constant.URL_GITHUB_IRFAN)
++            intent.data = Uri.parse(Constants.URL_GITHUB_IRFAN)
+             startActivity(intent)
+         }
+         binding.btnRedirectGithub3.setOnClickListener {
+             val intent = Intent(Intent.ACTION_VIEW)
+-            intent.data = Uri.parse(Constant.URL_GITHUB_FACHRUL)
++            intent.data = Uri.parse(Constants.URL_GITHUB_FACHRUL)
+             startActivity(intent)
+         }
+         binding.btnRedirectGithub4.setOnClickListener {
+             val intent = Intent(Intent.ACTION_VIEW)
+-            intent.data = Uri.parse(Constant.URL_GITHUB_RIZQI)
++            intent.data = Uri.parse(Constants.URL_GITHUB_RIZQI)
+             startActivity(intent)
+         }
+         binding.btnRedirectGithub5.setOnClickListener {
+             val intent = Intent(Intent.ACTION_VIEW)
+-            intent.data = Uri.parse(Constant.URL_GITHUB_RENGGA)
++            intent.data = Uri.parse(Constants.URL_GITHUB_RENGGA)
+             startActivity(intent)
+         }
+ 
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.homepage\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.data.constant.Constant\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ItemMovieBinding\r\nimport com.bumptech.glide.Glide\r\n\r\nclass HomepageAdapter(\r\n    private val itemClick: (Movie) -> Unit\r\n) :\r\n    RecyclerView.Adapter<HomepageAdapter.HomepageViewHolder>() {\r\n\r\n    var items: List<Movie> = mutableListOf()\r\n        set(value) {\r\n            field = value\r\n            notifyDataSetChanged()\r\n        }\r\n\r\n\r\n    class HomepageViewHolder(\r\n        private val binding: ItemMovieBinding,\r\n        val itemClick: (Movie) -> Unit,\r\n    ) :\r\n        RecyclerView.ViewHolder(binding.root) {\r\n\r\n\r\n        fun bindView(item: Movie, position: Int)  {\r\n            with(item) {\r\n                binding.apply {\r\n                    Glide.with(itemView.context)\r\n                        .load(Constant.IMAGE_URL_PATH_POSTER +posterPath)\r\n                        .centerCrop()\r\n                        .placeholder(R.drawable.ic_placeholder)\r\n                        .into(binding.ivMoviePoster)\r\n                    tvMovieTitle.text = title\r\n                    rbMovie.apply {\r\n                        max = 10\r\n                        numStars = 5\r\n                        setIsIndicator(true)\r\n                        rating = (voteAverage?.toFloat() ?:0f)/2\r\n\r\n                    }\r\n\r\n                }\r\n                itemView.setOnClickListener { itemClick(this) }\r\n                itemView.setOnLongClickListener {\r\n                    true\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomepageViewHolder {\r\n        val binding =\r\n            ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return HomepageViewHolder(binding, itemClick)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: HomepageViewHolder, position: Int) {\r\n        holder.bindView(items[position], position)\r\n    }\r\n\r\n    override fun getItemCount(): Int = items.size\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageAdapter.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageAdapter.kt	(date 1628422137139)
+@@ -4,10 +4,10 @@
+ import android.view.ViewGroup
+ import androidx.recyclerview.widget.RecyclerView
+ import com.binarteamtwo.binarvideoplayer.R
+-import com.binarteamtwo.binarvideoplayer.data.constant.Constant
++
+ import com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie
+-import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
+ import com.binarteamtwo.binarvideoplayer.databinding.ItemMovieBinding
++import com.binarteamtwo.binarvideoplayer.utils.Constants
+ import com.bumptech.glide.Glide
+ 
+ class HomepageAdapter(
+@@ -33,8 +33,7 @@
+             with(item) {
+                 binding.apply {
+                     Glide.with(itemView.context)
+-                        .load(Constant.IMAGE_URL_PATH_POSTER +posterPath)
+-                        .centerCrop()
++                        .load(Constants.IMAGE_URL_PATH_POSTER +posterPath)
+                         .placeholder(R.drawable.ic_placeholder)
+                         .into(binding.ivMoviePoster)
+                     tvMovieTitle.text = title
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.main\r\n\r\nimport android.content.Intent\r\nimport android.graphics.Color\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.Menu\r\nimport android.view.MenuItem\r\nimport android.widget.TextView\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.data.preference.UserPreference\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.favourite.FavouriteFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.homepage.HomepageFragment\r\nimport com.binarteamtwo.binarvideoplayer.ui.intro.IntroActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.intro.IntroFragment.Companion.newInstance\r\nimport com.binarteamtwo.binarvideoplayer.utils.Constants\r\nimport com.binarteamtwo.binarvideoplayer.ui.login.LoginActivity\r\nimport com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter\r\nimport com.google.android.material.snackbar.Snackbar\r\nimport com.google.android.material.tabs.TabLayoutMediator\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityMainBinding\r\n    private var homepageFragment = HomepageFragment()\r\n    private var favouriteFragment = FavouriteFragment()\r\n    private var activeFragment = homepageFragment\r\n    /*private val TAG = MainActivity::class.java.simpleName*/\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        /*Log.d(TAG, \"onCreate: \")*/\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityMainBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        showGreetings()\r\n        initViewPager()\r\n        /*setupFragment()*/\r\n    }\r\n\r\n    /*private fun setupFragment() {\r\n        for (fragment in supportFragmentManager.fragments) {\r\n            supportFragmentManager.beginTransaction().remove(fragment).commit()\r\n        }\r\n        supportFragmentManager.beginTransaction().apply {\r\n            add(R.id.fl_fragment_homepage, homepageFragment, Constants.TAG_FRAGMENT_HOME_PAGE)\r\n            add(R.id.fl_fragment_homepage, favouriteFragment, Constants.TAG_FRAGMENT_FAVOURITE)\r\n        }.commit()\r\n        // set title for first fragment\r\n        supportActionBar?.title = \"Top Movies\"\r\n\r\n        // set click menu for changing fragment\r\n        binding.bottomNavViewHome.setOnItemSelectedListener {\r\n            when (it.itemId) {\r\n                R.id.menu_top_movies -> {\r\n                    supportActionBar?.title = \"Top Movies\"\r\n                    showFragment(HomepageFragment())\r\n                    true\r\n                }\r\n                else -> {\r\n                    supportActionBar?.title = \"Favourite\"\r\n                    *//*showFragment(FavouriteFragment())*//*\r\n                    true\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun showFragment(fragment: Fragment) {\r\n        supportFragmentManager.beginTransaction()\r\n            .hide(activeFragment)\r\n            .show(fragment)\r\n            .commit()\r\n        activeFragment = fragment as HomepageFragment\r\n    }*/\r\n\r\n    override fun onCreateOptionsMenu(menu: Menu?): Boolean {\r\n        menuInflater.inflate(R.menu.menu_main_activity, menu)\r\n        return true\r\n    }\r\n\r\n    override fun onOptionsItemSelected(item: MenuItem): Boolean {\r\n        when (item.itemId) {\r\n            R.id.menu_action_logout -> {\r\n                showDialogLogout()\r\n            }\r\n            R.id.menu_logout -> {\r\n                deleteLoginData()\r\n                navigateToIntro()\r\n                true\r\n            }\r\n            else -> super.onOptionsItemSelected(item)\r\n        }\r\n        return super.onOptionsItemSelected(item)\r\n    }\r\n\r\n\r\n    private fun initViewPager() {\r\n        val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)\r\n        fragmentAdapter.addFragment(HomepageFragment.newInstance(false),\r\n            getString(R.string.main_playlist)\r\n        )\r\n        fragmentAdapter.addFragment(\r\n            HomepageFragment.newInstance(true),\r\n            getString(R.string.main_favorite)\r\n        )\r\n        binding.viewPager.apply {\r\n            adapter = fragmentAdapter\r\n        }\r\n        TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->\r\n            tab.text = fragmentAdapter.getPageTitle(position)\r\n        }.attach()\r\n    }\r\n\r\n/*private fun navigateToAddSongForm() {\r\n\r\n    AddNewSongActivity.startActivity(this,AddNewSongActivity.MODE_INSERT)\r\n}*/\r\n\r\n    private fun openDialogAbout() {\r\n\r\n        AboutDialogFragment().show(supportFragmentManager, null)\r\n    }\r\n\r\n    private fun showGreetings() {\r\n\r\n        val snackBar = Snackbar.make(\r\n            binding.root,\r\n            String.format(\r\n                getString(\r\n                    R.string.main_snackbar_greeting,\r\n                    UserPreference(this).userName\r\n                )\r\n            ),\r\n            Snackbar.LENGTH_INDEFINITE\r\n\r\n        )\r\n        snackBar.setAction(getString(R.string.main_snackbar_dismiss)) {\r\n            snackBar.dismiss()\r\n        }\r\n        snackBar.view.setBackgroundColor(Color.parseColor(\"#000000\"))\r\n        val textView = snackBar.view.findViewById(R.id.snackbar_text) as TextView\r\n        // change Snackbar text color\r\n        textView.setTextColor(Color.parseColor(\"#FFFFFF\"))\r\n        snackBar.show()\r\n    }\r\n\r\n    private fun navigateToIntro(){\r\n        val intent = Intent(this, LoginActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n    private fun deleteLoginData(){\r\n        UserPreference(this).isUserLoggedIn = false\r\n    }\r\n\r\n\r\n    override fun onBackPressed() {\r\n        super.onBackPressed()\r\n    }\r\n\r\n    private fun showDialogLogout() {\r\n        val alertDialog = AlertDialog.Builder(this)\r\n            .apply {\r\n                setTitle(\"Do you want to Logout\")\r\n                setPositiveButton(\"Yes\") { dialog, id ->\r\n                    logout()\r\n                    dialog.dismiss()\r\n                }\r\n                setNegativeButton(\"No\") { dialog, id ->\r\n                    dialog.dismiss()\r\n                }\r\n            }.create().show()\r\n\r\n    }\r\n\r\n    private fun logout() {\r\n        deleteSession()\r\n        /*navigateToLogin()*/\r\n    }\r\n\r\n    private fun deleteSession() {\r\n        SessionPreferences(this).deleteSession()\r\n    }\r\n\r\n    /*private fun navigateToLogin() {\r\n        val intent = Intent(this, LoginActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }*/\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(date 1628420669353)
+@@ -9,6 +9,7 @@
+ import android.widget.TextView
+ import androidx.appcompat.app.AppCompatActivity
+ import com.binarteamtwo.binarvideoplayer.R
++import com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreferences
+ import com.binarteamtwo.binarvideoplayer.data.preference.UserPreference
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
+ import com.binarteamtwo.binarvideoplayer.ui.about.AboutDialogFragment
+@@ -84,7 +85,7 @@
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         when (item.itemId) {
+             R.id.menu_action_logout -> {
+-                showDialogLogout()
++                //showDialogLogout()
+             }
+             R.id.menu_logout -> {
+                 deleteLoginData()
+@@ -162,7 +163,7 @@
+         super.onBackPressed()
+     }
+ 
+-    private fun showDialogLogout() {
++ /*   private fun showDialogLogout() {
+         val alertDialog = AlertDialog.Builder(this)
+             .apply {
+                 setTitle("Do you want to Logout")
+@@ -175,7 +176,7 @@
+                 }
+             }.create().show()
+ 
+-    }
++    }*/
+ 
+     private fun logout() {
+         deleteSession()
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/data/constant/Constant.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/data/constant/Constant.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/data/constant/Constant.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
+@@ -1,24 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.data.constant
+-
+-object Constant {
+-    const val EXTRAS_DATA_VIDEO = "extras_data_video"
+-
+-    const val URL_GITHUB_FAISAL = "https://github.com/icalshapa"
+-    const val URL_PHOTO_PROFILE_FAISAL = "https://avatars.githubusercontent.com/u/82198032?v=4"
+-
+-    const val URL_GITHUB_IRFAN = "https://github.com/irfanbagir"
+-    const val URL_PHOTO_PROFILE_IRFAN = "https://avatars.githubusercontent.com/u/83221918?v=4"
+-
+-    const val URL_GITHUB_FACHRUL = "https://github.com/fachrulRazi24"
+-    const val URL_PHOTO_PROFILE_FACHRUL = "https://avatars.githubusercontent.com/u/82070914?v=4"
+-
+-    const val URL_GITHUB_RIZQI = "https://github.com/rizqulloh07"
+-    const val URL_PHOTO_PROFILE_RIZQI = "https://avatars.githubusercontent.com/u/78399183?v=4"
+-
+-    const val URL_GITHUB_RENGGA = "https://github.com/renggakd"
+-    const val URL_PHOTO_PROFILE_RENGGA = "https://avatars.githubusercontent.com/u/79265332?v=4"
+-
+-    const val MOVIE_LANGUAGE = "en-US"
+-    const val PAGE_SIZE = 20
+-    const val IMAGE_URL_PATH_POSTER = "https://image.tmdb.org/t/p/w500/"
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongRepository.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongRepository.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongRepository.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
+@@ -1,11 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.ui.addnewsong
+-
+-/*
+-class AddNewSongRepository(private val dataSource: MovieDataSource) {
+-    suspend fun insertMediaPlaylist(moviePlaylist : MoviePlaylist) : Long{
+-        return dataSource.insertMoviePlaylist(moviePlaylist)
+-    }
+-    suspend fun updateMediaPlaylist(moviePlaylist : MoviePlaylist) : Int{
+-        return dataSource.updateMoviePlaylist(moviePlaylist)
+-    }
+-}*/
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongActivity.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongActivity.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongActivity.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
+@@ -1,207 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.ui.addnewsong
+-
+-import android.content.Context
+-import android.content.Intent
+-import android.graphics.Color
+-import android.graphics.drawable.ColorDrawable
+-import androidx.appcompat.app.AppCompatActivity
+-import android.os.Bundle
+-import android.widget.Toast
+-import androidx.appcompat.app.AlertDialog
+-import com.binarteamtwo.binarvideoplayer.R
+-import com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory
+-import com.binarteamtwo.binarvideoplayer.data.local.room.MediaPlaylistRoomDatabase
+-import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
+-import com.binarteamtwo.binarvideoplayer.databinding.ActivityAddNewSongBinding
+-import com.binarteamtwo.binarvideoplayer.databinding.FragmentAddDialogBinding
+-import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+-
+-class AddNewSongActivity : AppCompatActivity(), AddNewSongContract.View {
+-    private lateinit var binding: ActivityAddNewSongBinding
+-    private lateinit var viewModel: AddNewSongViewModel
+-    private var appMode: Int = MODE_INSERT
+-    private var playlist: MediaPlaylist? = null
+-
+-    companion object {
+-        const val MODE_INSERT = 0
+-        const val MODE_EDIT = 1
+-        const val ARG_MODE = "ARG_MODE"
+-        const val ARG_PLAYLIST_DATA = "ARG_PLAYLIST_DATA"
+-
+-        fun startActivity(context: Context, appMode: Int, playlist: MediaPlaylist?) {
+-            val intent = Intent(context, AddNewSongActivity::class.java)
+-            intent.putExtra(ARG_MODE, appMode)
+-            playlist.let {
+-                intent.putExtra(ARG_PLAYLIST_DATA, playlist)
+-            }
+-            context.startActivity(intent)
+-        }
+-
+-        fun startActivity(context: Context, appMode: Int) {
+-            startActivity(context, appMode, null)
+-        }
+-    }
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        initView()
+-    }
+-
+-    private fun addPlaylist() {
+-        binding.btnAddSong.setOnClickListener {
+-            if (isPlaylistFilled()){
+-                addDialog()
+-            }
+-        }
+-    }
+-
+-    private fun savePlaylist() {
+-
+-        if (isPlaylistFilled()) {
+-            if (appMode == MODE_EDIT) {
+-                //editing playlist
+-                playlist = playlist?.copy()?.apply {
+-                    title = binding.etTitleSong.text.toString()
+-                    singer = binding.etSingerName.text.toString()
+-                    imgIconUrl = binding.etIconUrl.text.toString()
+-                    videoUrl = binding.etVideoUrl.text.toString()
+-
+-                }
+-                playlist?.let { viewModel.updatePlaylist(it) }
+-            } else {
+-                //insert playlist
+-                playlist = MediaPlaylist(
+-                    title = binding.etTitleSong.text.toString(),
+-                    singer = binding.etSingerName.text.toString(),
+-                    imgIconUrl = binding.etIconUrl.text.toString(),
+-                    videoUrl = binding.etVideoUrl.text.toString()
+-
+-                )
+-                playlist?.let { viewModel.insertMediaPlaylist(it) }
+-
+-            }
+-        }
+-    }
+-
+-    private fun isPlaylistFilled(): Boolean {
+-        val title = binding.etTitleSong.text.toString()
+-        val singer = binding.etSingerName.text.toString()
+-        val imgIconUrl = binding.etIconUrl.text.toString()
+-        val videoUrl = binding.etVideoUrl.text.toString()
+-        var isFormValid = true
+-
+-        if (title.isEmpty()) {
+-            isFormValid = false
+-            binding.tilTitleSong.isErrorEnabled = true
+-            binding.tilTitleSong.error = getString(R.string.addnewsong_error_title)
+-        } else {
+-            binding.tilTitleSong.isErrorEnabled = false
+-        }
+-
+-        if (singer.isEmpty()) {
+-            isFormValid = false
+-            binding.tilSingerName.isErrorEnabled = true
+-            binding.tilSingerName.error = getString(R.string.addnewsong_error_singer)
+-        } else {
+-            binding.tilSingerName.isErrorEnabled = false
+-        }
+-
+-        if (imgIconUrl.isEmpty()) {
+-            isFormValid = false
+-            binding.tilIconUrl.isErrorEnabled = true
+-            binding.tilIconUrl.error = getString(R.string.addnewsong_error_icon)
+-        } else {
+-            binding.tilIconUrl.isErrorEnabled = false
+-        }
+-
+-        if (videoUrl.isEmpty()) {
+-            isFormValid = false
+-            binding.tilVideoUrl.isErrorEnabled = true
+-            binding.tilVideoUrl.error = getString(R.string.addnewsong_error_video)
+-        } else {
+-            binding.tilVideoUrl.isErrorEnabled = false
+-        }
+-        return isFormValid
+-    }
+-
+-    override fun onSuccess() {
+-        Toast.makeText(this, getString(R.string.addnewsong_toast_success), Toast.LENGTH_SHORT).show()
+-        finish()
+-    }
+-
+-    override fun onFailed() {
+-        // save playlist failed
+-        Toast.makeText(this, getString(R.string.addnewsong_toast_failed), Toast.LENGTH_SHORT).show()
+-        finish()
+-    }
+-
+-    override fun getIntentData() {
+-        appMode = intent.getIntExtra(ARG_MODE, 0)
+-        playlist = intent.getParcelableExtra(ARG_PLAYLIST_DATA)
+-    }
+-
+-    override fun initializePlaylist() {
+-        initViewModel()
+-        //preset data when form mode is edit mode
+-        if (appMode == MODE_EDIT) {
+-            playlist?.let {
+-                binding.etTitleSong.setText(it.title)
+-                binding.etSingerName.setText(it.singer)
+-                binding.etIconUrl.setText(it.imgIconUrl)
+-                binding.etVideoUrl.setText(it.videoUrl)
+-            }
+-            //"Edit Data"
+-            supportActionBar?.title = getString(R.string.addnewsong_header_edit)
+-            binding.btnAddSong.text = getString(R.string.addnewsong_btn_edit)
+-        } else {
+-            supportActionBar?.title = getString(R.string.addnewsong_header_add)
+-        }
+-    }
+-
+-    override fun initView() {
+-        binding = ActivityAddNewSongBinding.inflate(layoutInflater)
+-        setSupportActionBar(binding.toolbarAddSong)
+-        setContentView(binding.root)
+-        addPlaylist()
+-        getIntentData()
+-        initializePlaylist()
+-    }
+-
+-    override fun initViewModel() {
+-        val dataSource =
+-            MediaPlaylistDataSource(MediaPlaylistRoomDatabase.getInstance(this).mediaPlaylistDao())
+-        val repository = AddNewSongRepository(dataSource)
+-        viewModel = GenericViewModelFactory(AddNewSongViewModel(repository)).create(AddNewSongViewModel::class.java)
+-
+-        viewModel.transactionResult.observe(this, { isTransactionSuccess ->
+-            if (isTransactionSuccess) {
+-                onSuccess()
+-            } else {
+-                onFailed()
+-            }
+-        })
+-    }
+-
+-    private fun addDialog() {
+-        val alertDialog = FragmentAddDialogBinding.inflate(layoutInflater)
+-        val builder = AlertDialog.Builder(this)
+-        builder.setView(alertDialog.root)
+-        builder.show()
+-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+-        if (appMode == MODE_EDIT){
+-            alertDialog.tvDialogConfirmation.text = getString(R.string.addnewsong_dialog_edit)
+-        }
+-
+-        alertDialog.tvDialogYes.setOnClickListener {
+-            //add song to playlist
+-                savePlaylist()
+-
+-        }
+-        alertDialog.tvDialogNo.setOnClickListener {
+-            //back to Homepage
+-            onBackPressed()
+-            Toast.makeText(this, getString(R.string.addnewsong_toast_cancel), Toast.LENGTH_SHORT).show()
+-
+-        }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongContract.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongContract.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongContract.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
+@@ -1,19 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.ui.addnewsong
+-
+-import com.binarteamtwo.binarvideoplayer.base.BaseContract
+-import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+-/*
+-
+-interface AddNewSongContract {
+-    interface ViewModel{
+-        fun insertMediaPlaylist(mediaplaylist : MoviePlaylist)
+-        fun updatePlaylist(mediaplaylist : MoviePlaylist)
+-    }
+-
+-    interface View : BaseContract.BaseView{
+-        fun onSuccess()
+-        fun onFailed()
+-        fun getIntentData()
+-        fun initializePlaylist()
+-    }
+-}*/
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongViewModel.kt
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongViewModel.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/addnewsong/AddNewSongViewModel.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
+@@ -1,45 +0,0 @@
+-package com.binarteamtwo.binarvideoplayer.ui.addnewsong
+-
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.ViewModel
+-import androidx.lifecycle.viewModelScope
+-import com.binarteamtwo.binarvideoplayer.data.model.MoviePlaylist
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.launch
+-
+-/*
+-class AddNewSongViewModel (private val repository: AddNewSongRepository): ViewModel(),
+-    AddNewSongContract.ViewModel{
+-
+-    val transactionResult = MutableLiveData<Boolean>()
+-
+-    override fun insertMediaPlaylist(mediaplaylist: MoviePlaylist) {
+-        viewModelScope.launch {
+-            try {
+-                val mediaPlaylistId = repository.insertMediaPlaylist(mediaplaylist)
+-                viewModelScope.launch (Dispatchers.Main){
+-                    transactionResult.value = mediaPlaylistId > 0
+-                }
+-            } catch (e: Exception){
+-                viewModelScope.launch (Dispatchers.Main){
+-                    transactionResult.value = false
+-                }
+-            }
+-        }
+-    }
+-
+-    override fun updatePlaylist(mediaplaylist: MoviePlaylist) {
+-        viewModelScope.launch {
+-            try {
+-                val mediaPlaylistId = repository.updateMediaPlaylist(mediaplaylist)
+-                viewModelScope.launch (Dispatchers.Main){
+-                    transactionResult.value = mediaPlaylistId > 0
+-                }
+-            } catch (e: Exception){
+-                viewModelScope.launch (Dispatchers.Main){
+-                    transactionResult.value = false
+-                }
+-            }
+-        }
+-    }
+-}*/
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Binar Video Player</string>\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"get_started\">GET STARTED</string>\r\n    <string name=\"submit\">Submit</string>\r\n    <string name=\"main_snackbar_greeting\">Welcome, %s</string>\r\n    <string name=\"main_snackbar_dismiss\">Close</string>\r\n    <string name=\"addnewsong_error_title\">Title must be filled</string>\r\n    <string name=\"addnewsong_error_singer\">Singer Name must be filled</string>\r\n    <string name=\"addnewsong_error_icon\">Icon URL must be filled</string>\r\n    <string name=\"addnewsong_error_video\">Video URL must be filled</string>\r\n    <string name=\"addnewsong_toast_success\">Save song to playlist Success!</string>\r\n    <string name=\"addnewsong_toast_failed\">Saving Playlist Failed!, Please Try Again</string>\r\n    <string name=\"addnewsong_header_edit\">Edit Playlist</string>\r\n    <string name=\"addnewsong_header_add\">Add Playlist</string>\r\n    <string name=\"addnewsong_toast_cancel\">Adding new song cancelled</string>\r\n    <string name=\"main_message_empty\">No Data</string>\r\n    <string name=\"main_toast_failed_fetch\">Get Data Failed</string>\r\n    <string name=\"main_toast_failed_delete\">Delete Data Failed</string>\r\n    <string name=\"intro_snackbar_name\">Please fill your name</string>\r\n    <string name=\"main_playlist\">Playlist</string>\r\n    <string name=\"main_favorite\">Favorite</string>\r\n    <string name=\"player_snackbar_favorite_true\">Video Favorited</string>\r\n    <string name=\"player_snackbar_favorite_false\">Video Unfavorited</string>\r\n    <string name=\"player_toast_favorite_failed\">Failed to change favorite status</string>\r\n    <string name=\"addnewsong_hint_title\">Song Title</string>\r\n    <string name=\"addnewsong_hint_singer\">Singer Name</string>\r\n    <string name=\"addnewsong_hint_icon\">Icon URL</string>\r\n    <string name=\"addnewsong_hint_video\">Youtube URL</string>\r\n    <string name=\"addnewsong_btn_add\">ADD</string>\r\n    <string name=\"intro_skip\">SKIP</string>\r\n    <string name=\"intro_back\">BACK</string>\r\n    <string name=\"intro_next\">NEXT</string>\r\n    <string name=\"addnewsong_btn_edit\">edit</string>\r\n    <string name=\"addnewsong_dialog_edit\">Are You Sure you Want To Edit This Song?</string>\r\n    <string name=\"text_hint_email\">Email</string>\r\n    <string name=\"text_hint_password\">Password</string>\r\n    <string name=\"text_btn_login\">Login</string>\r\n    <string name=\"text_create_account\">Dont have account? Sign Up here</string>\r\n    <string name=\"error_email_empty\">Email Should be Filled</string>\r\n    <string name=\"error_email_invalid\">Email is Invalid</string>\r\n    <string name=\"error_password_empty\">Password Should be Filled</string>\r\n    <string name=\"text_login_success\">Login Success!</string>\r\n    <string name=\"text_btn_signup\">Signup</string>\r\n    <string name=\"text_hint_username\">Username</string>\r\n    <string name=\"text_title_toolbar_register\">Register Account</string>\r\n    <string name=\"text_title_toolbar_login\">Login</string>\r\n    <string name=\"error_username_empty\">Username Should be Filled</string>\r\n    <string name=\"text_register_success\">Register Success!</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/res/values/strings.xml	(date 1628421435985)
+@@ -47,4 +47,5 @@
+     <string name="text_title_toolbar_login">Login</string>
+     <string name="error_username_empty">Username Should be Filled</string>
+     <string name="text_register_success">Register Success!</string>
++    <string name="text_login_error">Login Failed, Please check if email and password is correct</string>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.homepage\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.Movie\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse\r\n\r\ninterface HomepageContract {\r\n    interface ViewModel : BaseContract.ViewModel {\r\n        fun getMovieData()\r\n    }\r\n\r\n    interface View : BaseContract.View {\r\n        fun showMoviePlaylistContent(isContentVisible: Boolean)\r\n        fun showLoading(isLoading: Boolean)\r\n        fun showError(isErrorEnabled : Boolean, msg : String?)\r\n        fun setupSwipeRefresh()\r\n        fun setupList()\r\n        fun setListData(data: List<Movie>)\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/homepage/HomepageContract.kt	(date 1628420947290)
+@@ -9,7 +9,7 @@
+         fun getMovieData()
+     }
+ 
+-    interface View : BaseContract.View {
++    interface View : BaseContract.BaseView {
+         fun showMoviePlaylistContent(isContentVisible: Boolean)
+         fun showLoading(isLoading: Boolean)
+         fun showError(isErrorEnabled : Boolean, msg : String?)
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.login\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.Toast\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.base.GenericViewModelFactory\r\nimport com.binarteamtwo.binarvideoplayer.base.Resource\r\nimport com.binarteamtwo.binarvideoplayer.data.local.sharedpreference.SessionPreference\r\nimport com.binarteamtwo.binarvideoplayer.data.network.datasource.BinarDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.request.authentification.LoginRequest\r\nimport com.binarteamtwo.binarvideoplayer.data.network.entitiy.services.BinarApiServices\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityLoginBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.main.MainActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.register.RegisterActivity\r\nimport com.binarteamtwo.binarvideoplayer.utils.StringUtils\r\n\r\nclass LoginActivity : AppCompatActivity(), LoginContract.BaseView {\r\n    private lateinit var binding: ActivityLoginBinding\r\n    private lateinit var viewModel: LoginViewModel\r\n    private lateinit var sessionPreference: SessionPreference\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        supportActionBar?.hide()\r\n        binding = ActivityLoginBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        initView()\r\n    }\r\n\r\n    override fun setToolbar() {\r\n    }\r\n\r\n    override fun setOnClick() {\r\n        binding.btnLogin.setOnClickListener {\r\n            if (checkFormValidation()) {\r\n                viewModel.loginUser(\r\n                    LoginRequest(\r\n                        email = binding.etEmail.text.toString(),\r\n                        password = binding.etPassword.text.toString()\r\n                    )\r\n                )\r\n            }\r\n        }\r\n        binding.btnNavigateRegister.setOnClickListener {\r\n            navigateToRegister()\r\n        }\r\n    }\r\n\r\n    override fun navigateToHome() {\r\n        val intent = Intent(this, MainActivity::class.java)\r\n        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK\r\n        startActivity(intent)\r\n        finish()\r\n    }\r\n\r\n    override fun navigateToRegister() {\r\n        val intent = Intent(this, RegisterActivity::class.java)\r\n        startActivity(intent)\r\n    }\r\n\r\n    override fun setLoadingState(isLoadingVisible: Boolean) {\r\n        binding.pbLoading.visibility = if (isLoadingVisible) View.VISIBLE else View.GONE\r\n    }\r\n\r\n    override fun checkFormValidation(): Boolean {\r\n        val email = binding.etEmail.text.toString()\r\n        val password = binding.etPassword.text.toString()\r\n        var isFormValid = true\r\n        //for checking is email empty\r\n        when {\r\n            email.isEmpty() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_empty)\r\n            }\r\n            StringUtils.isEmailValid(email).not() -> {\r\n                isFormValid = false\r\n                binding.tilEmail.isErrorEnabled = true\r\n                binding.tilEmail.error = getString(R.string.error_email_invalid)\r\n            }\r\n            else -> {\r\n                binding.tilEmail.isErrorEnabled = false\r\n            }\r\n        }\r\n        //for checking is Password empty\r\n        if (password.isEmpty()) {\r\n            isFormValid = false\r\n            binding.tilPassword.isErrorEnabled = true\r\n            binding.tilPassword.error = getString(R.string.error_password_empty)\r\n        } else {\r\n            binding.tilPassword.isErrorEnabled = false\r\n        }\r\n        return isFormValid\r\n    }\r\n\r\n    override fun initView() {\r\n        initViewModel()\r\n        setOnClick()\r\n    }\r\n\r\n    override fun initViewModel() {\r\n        sessionPreference = SessionPreference(this)\r\n        val apiService = BinarApiServices.getInstance(sessionPreference)\r\n        apiService?.let {\r\n            val dataSource = BinarDataSource(it)\r\n            val repository = LoginRepository(dataSource)\r\n            viewModel = GenericViewModelFactory(LoginViewModel(repository))\r\n                .create(LoginViewModel::class.java)\r\n        }\r\n        viewModel.loginResponse.observe(this, { response ->\r\n            when (response) {\r\n                is Resource.Loading -> {\r\n                    setLoadingState(true)\r\n                }\r\n                is Resource.Success -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this, R.string.text_login_success, Toast.LENGTH_SHORT).show()\r\n                    response.data?.token?.let {\r\n                        saveSessionLogin(it)\r\n                    }\r\n                    navigateToHome()\r\n                }\r\n                is Resource.Error -> {\r\n                    setLoadingState(false)\r\n                    Toast.makeText(this,\"Login Failed, Please check email and password correctly\", Toast.LENGTH_SHORT).show()\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun saveSessionLogin(authToken : String) {\r\n        sessionPreference.authToken = authToken\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt	(revision 9e168d7f22b3827b09bea31b323587da8b76ae4e)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/login/LoginActivity.kt	(date 1628421436000)
+@@ -125,7 +125,7 @@
+                 }
+                 is Resource.Error -> {
+                     setLoadingState(false)
+-                    Toast.makeText(this,"Login Failed, Please check email and password correctly", Toast.LENGTH_SHORT).show()
++                    Toast.makeText(this,getString(R.string.text_login_error), Toast.LENGTH_SHORT).show()
+                 }
+             }
+         })

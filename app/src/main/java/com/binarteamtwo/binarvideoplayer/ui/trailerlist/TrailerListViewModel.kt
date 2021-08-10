@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binarteamtwo.binarvideoplayer.base.Resource
 import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieResponse
+import com.binarteamtwo.binarvideoplayer.data.network.entity.response.MovieTrailer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TrailerListViewModel(private val repository: TrailerListRepository):ViewModel(),
 TrailerListContract.ViewModel{
-    val trailerData = MutableLiveData<Resource<MovieResponse>>()
+    val trailerData = MutableLiveData<Resource<MovieTrailer>>()
 
     override fun getTrailerData(id: Int) {
         trailerData.value = Resource.Loading()

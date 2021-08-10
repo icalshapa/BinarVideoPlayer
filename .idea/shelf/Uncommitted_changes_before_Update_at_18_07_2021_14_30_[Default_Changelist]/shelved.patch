@@ -1,0 +1,86 @@
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/adapter/MediaPlaylistAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.fragments.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding\r\nimport com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ItemPlaylistBinding\r\n\r\nclass MediaPlaylistAdapter(\r\n    val itemClick: (MediaPlaylist, Int) -> Unit,\r\n    val longClick: (MediaPlaylist, Int) -> Unit\r\n) :\r\n    RecyclerView.Adapter<MediaPlaylistAdapter.FragmentsViewHolder>() {\r\n\r\n    var items: List<MediaPlaylist> = mutableListOf()\r\n        set(value) {\r\n            field = value\r\n            notifyDataSetChanged()\r\n        }\r\n\r\n\r\n    class FragmentsViewHolder(\r\n        private val binding: ItemPlaylistBinding,\r\n        val itemClick: (MediaPlaylist, Int) -> Unit,\r\n        val longClick: (MediaPlaylist, Int) -> Unit\r\n    ) :\r\n        RecyclerView.ViewHolder(binding.root) {\r\n\r\n        fun bindView(item: MediaPlaylist, position: Int) {\r\n            with(item) {\r\n                binding.tvTitleItemPlaylist.text = item.title\r\n                itemView.setOnClickListener { itemClick(this, position) }\r\n                itemView.setOnLongClickListener {\r\n                    longClick(this, position)\r\n                    true\r\n                }\r\n            }\r\n\r\n        }\r\n    }\r\n\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FragmentsViewHolder {\r\n        val binding = ItemPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return FragmentsViewHolder(binding, itemClick, longClick)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: FragmentsViewHolder, position: Int) {\r\n        holder.bindView(items[position], position)\r\n    }\r\n\r\n    override fun getItemCount(): Int = items.size\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/adapter/MediaPlaylistAdapter.kt	(revision daf36acc2b2931cc90246ca3047985308ba34ba8)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/fragments/adapter/MediaPlaylistAdapter.kt	(date 1626589475256)
+@@ -1,9 +1,8 @@
+-package com.binarteamtwo.binarvideoplayer.ui.fragments.adapter
++package com.binarteamtwo.binarvideoplayer.ui.main.fragments.adapter
+ 
+ import android.view.LayoutInflater
+ import android.view.ViewGroup
+ import androidx.recyclerview.widget.RecyclerView
+-import com.binarteamtwo.binarvideoplayer.databinding.FragmentMediaPlaylistBinding
+ import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+ import com.binarteamtwo.binarvideoplayer.databinding.ItemPlaylistBinding
+ 
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.main\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.Menu\r\nimport android.view.MenuItem\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.binarteamtwo.binarvideoplayer.R\r\nimport com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding\r\nimport com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity\r\nimport com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment\r\nimport com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter\r\nimport com.google.android.material.tabs.TabLayoutMediator\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityMainBinding\r\n    private val TAG = MainActivity::class.java.simpleName\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        Log.d(TAG, \"onCreate: \")\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityMainBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        setSupportActionBar(binding.toolbarMain)\r\n        initViewPager()\r\n    }\r\n\r\n    override fun onCreateOptionsMenu(menu: Menu?): Boolean {\r\n        menuInflater.inflate(R.menu.menu_main_activity, menu)\r\n        return true\r\n    }\r\n\r\n    override fun onOptionsItemSelected(item: MenuItem): Boolean {\r\n        return when (item.itemId) {\r\n            R.id.menu_add_song -> {\r\n                navigateToAddSongForm()\r\n                true\r\n            }\r\n            R.id.menu_about -> {\r\n                openDialogAbout()\r\n                true\r\n            }\r\n            else -> super.onOptionsItemSelected(item)\r\n        }\r\n    }\r\n\r\n    private fun initViewPager() {\r\n        val fragmentAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)\r\n        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(false), \"Playlist\")\r\n        fragmentAdapter.addFragment(MediaPlaylistFragment.newInstance(true), \"Favorite\")\r\n        binding.viewPager.apply {\r\n            adapter = fragmentAdapter\r\n        }\r\n        TabLayoutMediator(binding.tabLayout, binding.viewPager, true) { tab, position ->\r\n            tab.text = fragmentAdapter.getPageTitle(position)\r\n        }.attach()\r\n    }\r\n\r\n    private fun navigateToAddSongForm() {\r\n\r\n        startActivity(Intent(this, AddNewSongActivity::class.java))\r\n    }\r\n\r\n    private fun openDialogAbout() {\r\n        //todo : waiting for AboutDialogFragment\r\n        //AboutDialogFragment().show(supportFragmentManager, null)\r\n    }\r\n\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n    }\r\n\r\n    override fun onBackPressed() {\r\n        super.onBackPressed()\r\n        onDestroy()\r\n        finish()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(revision daf36acc2b2931cc90246ca3047985308ba34ba8)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/MainActivity.kt	(date 1626589475238)
+@@ -9,7 +9,7 @@
+ import com.binarteamtwo.binarvideoplayer.R
+ import com.binarteamtwo.binarvideoplayer.databinding.ActivityMainBinding
+ import com.binarteamtwo.binarvideoplayer.ui.addnewsong.AddNewSongActivity
+-import com.binarteamtwo.binarvideoplayer.ui.fragments.MediaPlaylistFragment
++import com.binarteamtwo.binarvideoplayer.ui.main.fragments.MediaPlaylistFragment
+ import com.binarteamtwo.binarvideoplayer.utils.views.ViewPagerAdapter
+ import com.google.android.material.tabs.TabLayoutMediator
+ 
+Index: app/src/main/res/layout/fragment_media_playlist.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/black\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    tools:context=\".ui.fragments.MediaPlaylistFragment\">\r\n\r\n    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout\r\n        android:id=\"@+id/srl_task\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n        <androidx.recyclerview.widget.RecyclerView\r\n            android:id=\"@+id/rv_task\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"/>\r\n    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>\r\n\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/tv_message\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:gravity=\"center\"\r\n        android:textColor=\"@color/white\"\r\n        android:textAlignment=\"center\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:text=\"No Data\" />\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/progress_bar\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_media_playlist.xml	(revision daf36acc2b2931cc90246ca3047985308ba34ba8)
++++ app/src/main/res/layout/fragment_media_playlist.xml	(date 1626589475326)
+@@ -5,7 +5,7 @@
+     android:layout_height="match_parent"
+     android:background="@color/black"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+-    tools:context=".ui.fragments.MediaPlaylistFragment">
++    tools:context=".ui.main.fragments.MediaPlaylistFragment">
+ 
+     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+         android:id="@+id/srl_task"
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/MediaPlaylistContract.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.fragments\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BaseContract\r\nimport com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist\r\n\r\ninterface MediaPlaylistContract {\r\n    interface View : BaseContract.BaseView{\r\n        fun getData(isFavorite: Boolean)\r\n\r\n        //Callback get Data\r\n        fun onDataSuccess(playlist : List<MediaPlaylist>)\r\n        fun onDataFailed(msg : String?)\r\n        fun onDataEmpty()\r\n\r\n        //callback when delete data\r\n        fun onDeleteDataSuccess()\r\n        fun onDeleteDataFailed()\r\n\r\n        //set loading state and message visibility\r\n        fun setLoadingStatus(isLoading : Boolean)\r\n        fun setEmptyStateVisibility(isDataEmpty : Boolean)\r\n\r\n        //initialize list\r\n        fun initList()\r\n\r\n    }\r\n    interface Presenter : BaseContract.BasePresenter{\r\n        fun getFavoriteMediaPlaylist(isFavorite:Boolean)\r\n        fun deleteMediaPlaylist(mediaPlaylist : MediaPlaylist)\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/MediaPlaylistContract.kt	(revision daf36acc2b2931cc90246ca3047985308ba34ba8)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/fragments/MediaPlaylistContract.kt	(date 1626589475300)
+@@ -1,4 +1,4 @@
+-package com.binarteamtwo.binarvideoplayer.ui.fragments
++package com.binarteamtwo.binarvideoplayer.ui.main.fragments
+ 
+ import com.binarteamtwo.binarvideoplayer.base.BaseContract
+ import com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist
+Index: app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/MediaPlaylistPresenter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.binarteamtwo.binarvideoplayer.ui.fragments\r\n\r\nimport com.binarteamtwo.binarvideoplayer.base.BasePresenterImpl\r\nimport com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource\r\nimport com.binarteamtwo.binarvideoplayer.data.model.MediaPlaylist\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\nimport java.lang.Exception\r\n\r\nclass MediaPlaylistPresenter(\r\n    private val dataSource: MediaPlaylistDataSource,\r\n    private val view: MediaPlaylistContract.View,\r\n) : BasePresenterImpl(), MediaPlaylistContract.Presenter {\r\n\r\n\r\n    override fun getFavoriteMediaPlaylist(isFavorite: Boolean) {\r\n        view.setLoadingStatus(true)\r\n\r\n        scope.launch {\r\n            try {\r\n                val mediaPlaylists = if(isFavorite){\r\n                    dataSource.getFavoriteMediaPlaylist()\r\n                }else{\r\n                    dataSource.getMediaPlaylist()\r\n                }\r\n                scope.launch(Dispatchers.Main) {\r\n                    if (!mediaPlaylists.isNullOrEmpty()) {\r\n                        //data is not empty\r\n                        view.onDataSuccess(mediaPlaylists)\r\n                        view.setEmptyStateVisibility(false)\r\n                    } else {\r\n                        view.onDataEmpty()\r\n                        view.setEmptyStateVisibility(true)\r\n                    }\r\n                    view.setLoadingStatus(false)\r\n                }\r\n            } catch (e: Exception) {\r\n                scope.launch(Dispatchers.Main) {\r\n                    //when getting data is error\r\n                    view.onDataFailed(e.message)\r\n                    view.setLoadingStatus(false)\r\n                    view.setEmptyStateVisibility(false)\r\n                }\r\n\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    override fun deleteMediaPlaylist(mediaPlaylist: MediaPlaylist) {\r\n        view.setLoadingStatus(true)\r\n        scope.launch {\r\n            try {\r\n                val result = dataSource.deleteMediaPlaylist(mediaPlaylist)\r\n                scope.launch(Dispatchers.Main) {\r\n                    if (result.equals(1)) {\r\n                        view.onDeleteDataSuccess()\r\n\r\n                    } else {\r\n                        view.onDeleteDataFailed()\r\n\r\n\r\n                    }\r\n                    view.setLoadingStatus(false)\r\n                }\r\n            } catch (e: Exception) {\r\n                scope.launch(Dispatchers.Main) {\r\n                    //when getting data is error\r\n                    view.onDeleteDataFailed()\r\n                    view.setLoadingStatus(false)\r\n\r\n                }\r\n\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/fragments/MediaPlaylistPresenter.kt	(revision daf36acc2b2931cc90246ca3047985308ba34ba8)
++++ app/src/main/java/com/binarteamtwo/binarvideoplayer/ui/main/fragments/MediaPlaylistPresenter.kt	(date 1626589475215)
+@@ -1,4 +1,4 @@
+-package com.binarteamtwo.binarvideoplayer.ui.fragments
++package com.binarteamtwo.binarvideoplayer.ui.main.fragments
+ 
+ import com.binarteamtwo.binarvideoplayer.base.BasePresenterImpl
+ import com.binarteamtwo.binarvideoplayer.data.local.room.datasource.MediaPlaylistDataSource
